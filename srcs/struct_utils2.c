@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_lem_in.c                                      .::    .:/ .      .::   */
+/*   struct_utils2.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/16 10:44:36 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/05 11:42:59 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/03/04 18:42:12 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		main(void)
+char	**get_rooms_name(t_room *room)
 {
-	t_room	*room;
-	int		ant;
+	char	**tab;
+	int		index;
 
-	if ((ant = ft_pars(&room)) == -1)
-		return (0);
-	return (0);
+	if (!(tab = ft_memalloc(sizeof(char*) * (get_room_count(room) + 1))))
+		return (NULL);
+	index = 0;
+	while (room)
+	{
+		tab[index] = ft_strdup(room->name);
+		index++;
+		room = room->next;
+	}
+	tab[index] = NULL;
+	return (tab);
+}
+
+t_room	*get_room_by_name(char *name, t_room *list)
+{
+	while (list)
+	{
+		if (ft_strcmp(name, list->name) == 0)
+			return (list);
+		list = list->next;
+	}
+	return (NULL);
 }

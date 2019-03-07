@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 15:26:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/16 11:12:08 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/05 14:03:28 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,7 @@ int					ft_sqrt(int nb);
 int					ft_pow(int n, int pow);
 int					ft_nbrlen(long long nbr, int base);
 int					ft_unbrlen(unsigned long long nbr, int base);
+int					ft_2dcontains(char **tab, char *elem);
 int					*ft_newint_tab(int size, int value);
 int					**ft_newint_2dtab(int y, int x, int value);
 unsigned long long	ft_atoull(char *str);
@@ -84,6 +85,7 @@ size_t				ft_strlen(char const *str);
 size_t				ft_strlcat(char *dest, char const *src, size_t size);
 size_t				ft_lstlen(t_list *lst);
 size_t				ft_tablen(void **tab);
+size_t				ft_tablenstr(char **tab);
 char				*ft_fillnewstr(size_t len, char c);
 char				*ft_strdup(char const *src);
 char				*ft_strcpy(char *dst, char const *src);

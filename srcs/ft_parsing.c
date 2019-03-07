@@ -6,12 +6,21 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/16 11:21:33 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/06 09:05:58 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/ft_lem_in.h"
+#include "../includes/lem_in.h"
+
+static int		read_comment(char *line)
+{
+	if (ft_strcmp(line, "##start"))
+		return (1);
+	else if (ft_strcmp(line, "##end"))
+		return (2);
+	return (0);
+}
 
 static int		get_ant_nb()
 {
@@ -29,14 +38,27 @@ static t_room	*get_room_list()
 {
 	t_room	*room;
 	char	*line;
+	int		comment;
+	int		spec;
 
+	spec = 0;
 	while (get_next_line(0, &line) > 0 && ft_index(line, '-') == -1)
 	{
-		add_room(room, line);
+		printf("LINE[%s]\n", line);
+		if ((comment = add_room(&room, line, &spec)) == -1)
+			return (NULL);
+		else if (comment == 0)
+			read_comment(line, &spec);
 		ft_strdel(&line);
 	}
-	set_link(line);
+	while (room)
+	{
+		printf("|%s|{%d-%d}|\n", room->name, room->coord.x, room->coord.y);
+		room = room->next;
+	}
+	//set_link(line);
 	ft_strdel(&line);
+	return (room);
 }
 
 int				ft_pars(t_room **aroom)

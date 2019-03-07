@@ -6,7 +6,7 @@
 #    By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/02 15:44:31 by lubrun       #+#   ##    ##    #+#        #
-#    Updated: 2019/02/16 11:12:30 by lubrun      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/05 14:03:52 by lubrun      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -81,6 +81,7 @@ SRC = ft_putchar.c \
 	  ft_print_2dtab.c \
 	  ft_2dstrdel.c \
 	  ft_tablen.c \
+	  ft_tablenstr.c \
 	  ft_create_2dtab.c \
 	  ft_sqrt.c \
 	  ft_realloc_tab.c \
@@ -94,7 +95,8 @@ SRC = ft_putchar.c \
 	  ft_newint_tab.c \
 	  ft_newcoord.c \
 	  ft_newint_2dtab.c \
-	  ft_str_isdigit.c
+	  ft_str_isdigit.c \
+	  ft_2dcontains.c
 
 OBJS = $(SRC:.c=.o)
 

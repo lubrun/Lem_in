@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_lem_in.c                                      .::    .:/ .      .::   */
+/*   ft_2dcontains.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/16 10:44:36 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/05 11:42:59 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/03/04 17:00:25 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/03/05 13:47:47 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "libft.h"
 
-int		main(void)
+int		ft_2dcontains(char **tab, char *elem)
 {
-	t_room	*room;
-	int		ant;
+	int		index;
 
-	if ((ant = ft_pars(&room)) == -1)
-		return (0);
+	index = 0;
+	while (tab[index])
+	{
+		if (ft_strcmp(tab[index], elem) == 0)
+			return (1);
+		index++;
+	}
 	return (0);
 }
