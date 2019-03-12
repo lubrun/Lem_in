@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:44:36 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/05 11:42:59 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 12:01:48 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ int		main(void)
 	t_room	*room;
 	int		ant;
 
+	room = NULL;
 	if ((ant = ft_pars(&room)) == -1)
 		return (0);
 	return (0);
