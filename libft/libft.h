@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 15:26:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/05 14:03:28 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 13:45:29 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,7 @@ int					ft_pow(int n, int pow);
 int					ft_nbrlen(long long nbr, int base);
 int					ft_unbrlen(unsigned long long nbr, int base);
 int					ft_2dcontains(char **tab, char *elem);
+int					ft_is_empty_line(char *line);
 int					*ft_newint_tab(int size, int value);
 int					**ft_newint_2dtab(int y, int x, int value);
 unsigned long long	ft_atoull(char *str);

@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/05 14:48:09 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/12 14:08:57 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,18 +31,28 @@ int		get_room_count(t_room *room)
 int		check_error(char **info, t_room *room)
 {
 	char	**rooms;
+	int		tab_len;
 	
 	rooms = get_rooms_name(room);
 	if (ft_2dcontains(rooms, info[0]))
 	{
 		get_room_by_name(info[0], room)->coord = ft_newcoord(ft_atoi(info[1]), ft_atoi(info[2]));
 		ft_2dstrdel(&info);
+		ft_2dstrdel(&rooms);
 		return (0);
 	}
-	printf("|%zu|\n", ft_tablenstr(info));
-	if (ft_tablenstr(info) != 3)
+	ft_2dstrdel(&rooms);
+	if ((tab_len = ft_tablenstr(info)) != 3)
+	{
+		if (tab_len == 1 && ft_index(info[0], '-') != -1)
+		{
+			ft_2dstrdel(&info);
+			return (2);
+		}
+		ft_2dstrdel(&info);
 		return (-1);
-	printf("ERF\n");
+	}
+	ft_2dstrdel(&info);
 	return (1);
 }
 
@@ -87,6 +97,8 @@ int		add_room(t_room **aroom, char *line, int *spec)
 		return (-1);
 	else if (check == 0)
 		return (1);
+	else if (check == 2)
+		return (2);
 	if (!*aroom)
 		*aroom = new_room(ft_strsplit(line, ' '), spec);
 	else

@@ -6,7 +6,7 @@
 #    By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/02 15:44:31 by lubrun       #+#   ##    ##    #+#        #
-#    Updated: 2019/03/05 14:03:52 by lubrun      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/12 13:44:01 by lubrun      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -96,7 +96,8 @@ SRC = ft_putchar.c \
 	  ft_newcoord.c \
 	  ft_newint_2dtab.c \
 	  ft_str_isdigit.c \
-	  ft_2dcontains.c
+	  ft_2dcontains.c \
+	  ft_is_empty_line.c
 
 OBJS = $(SRC:.c=.o)
 
