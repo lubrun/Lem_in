@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_lem_in.c                                      .::    .:/ .      .::   */
+/*   heat_utils.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/16 10:44:36 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 03:54:13 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/03/29 11:53:58 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/12 03:47:46 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		main(void)
+int		set_heat(t_room *room, int heat)
 {
-	t_info	info;
-	int		j = 0;
-	int		i = 0;
+	int		index;
+	int		childs;
 
-	if (!(info = ft_pars()).rooms)
-		return (0);
-	if (!(info.path = ft_pathfind(&info)))
-		return (0);
-	printf("%d | %d\n", info.max_path_count, info.max_path_len);
-	while (j < info.max_path_count)
+	index = 0;
+	childs = 0;
+	while (index < room->link_count)
 	{
-		i = 0;
-		while (i < info.path[0].length)
+		if (room->link[index]->heat == -1)
 		{
-			printf("PATH{%d|%s[%d]}\n", i, info.path[0].rooms[i]->name, info.path[0].rooms[i]->heat);
-			i++;
+			room->link[index]->heat = heat;
+			childs++;
 		}
-		j++;
+		else if (room->link[index]->heat < heat &&
+				room->heat < room->link[index]->heat)
+			childs += set_heat(room->link[index], heat);
+		index++;
 	}
-	while (info.rooms)
-	{
-		printf("%s|%d\n", info.rooms->name, info.rooms->heat);
-		info.rooms = info.rooms->next;
-	}
-	return (0);
+	return (childs);
 }

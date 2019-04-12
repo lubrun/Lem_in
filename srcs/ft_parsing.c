@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 14:17:05 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/12 03:50:23 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,14 +28,16 @@ static int		get_ant_nb()
 	char	*line;
 	int		ant_nb;
 
-	if (get_next_line(0, &line) <= 0 || ft_str_isdigit(line) == 0 || ft_is_empty_line(line) == 1)
+	if (get_next_line(0, &line) <= 0 ||
+		ft_str_isdigit(line) == 0 ||
+		ft_is_empty_line(line) == 1)
 		return (-1);
 	ant_nb = ft_atoi(line);
 	ft_strdel(&line);
 	return (ant_nb);
 }
 
-static t_room	*get_room_list()
+static t_room	*get_room_list(char **last_line, t_info *info)
 {
 	t_room	*room;
 	char	*line;
@@ -43,9 +45,10 @@ static t_room	*get_room_list()
 	int		spec;
 
 	room = NULL;
+	spec = 0;
 	while (get_next_line(0, &line) > 0 && ft_is_empty_line(line) == 0)
 	{
-		if ((comment = add_room(&room, line, &spec)) == -1)
+		if ((comment = add_room(&room, line, &spec, info)) == -1)
 			return (NULL);
 		else if (comment == 0)
 			read_comment(line, &spec);
@@ -54,23 +57,32 @@ static t_room	*get_room_list()
 		ft_putendl(line);
 		ft_strdel(&line);
 	}
-	if (ft_is_empty_line(line) == 1)
-		return (NULL);
 	if (comment == 2)
-		printf("GO PARSE\n");
-		//parse_link(line);
-	ft_strdel(&line);
-	return (room);
+	{
+		*last_line = ft_strdup(line);
+		ft_strdel(&line);
+		return (room);
+	}
+	return (NULL);
 }
 
-int				ft_pars(t_room **aroom)
+t_info		ft_pars()
 {
-	int ant_nb;
+	t_room	*room;
+	t_info	info;
+	char	*last_line;
 
-	if ((ant_nb = get_ant_nb()) == -1 || !(*aroom = get_room_list()))
+	room = NULL;
+	if ((info.ant_count = get_ant_nb()) == -1 ||
+		!(room = get_room_list(&last_line, &info)) ||
+		(!info.start || !info.end) ||
+		add_link(last_line, room) == -1)
 	{
 		ft_putendl("ERROR");
-		return (-1);
+		free(room);
+		info.rooms = NULL;
+		return (info);
 	}
-	return (ant_nb);
+	info.rooms = room;
+	return (info);
 }

@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 14:08:57 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 09:45:28 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,8 @@ int		check_error(char **info, t_room *room)
 	rooms = get_rooms_name(room);
 	if (ft_2dcontains(rooms, info[0]))
 	{
-		get_room_by_name(info[0], room)->coord = ft_newcoord(ft_atoi(info[1]), ft_atoi(info[2]));
+		get_room_by_name(info[0], room)->coord =
+		ft_newcoord(ft_atoi(info[1]), ft_atoi(info[2]));
 		ft_2dstrdel(&info);
 		ft_2dstrdel(&rooms);
 		return (0);
@@ -56,20 +57,24 @@ int		check_error(char **info, t_room *room)
 	return (1);
 }
 
-t_room	*new_room(char **info, int *spec)
+t_room	*new_room(char **room_info, int *spec, t_info *info)
 {
 	t_room	*new;
 
-	if (!(new = ft_memalloc(sizeof(t_room))) || !info ||
-		!info[0] || !info[1] || !info[2])
+	if (!(new = ft_memalloc(sizeof(t_room))) || !room_info ||
+		!room_info[0] || !room_info[1] || !room_info[2])
 		return (NULL);
 	new->next = NULL;
 	new->link = NULL;
-	new->name = ft_strdup(info[0]);
-	new->coord = ft_newcoord(ft_atoi(info[1]), ft_atoi(info[2]));
+	new->link_count = 0;
+	new->name = ft_strdup(room_info[0]);
+	new->coord = ft_newcoord(ft_atoi(room_info[1]), ft_atoi(room_info[2]));
 	new->spec = *spec;
-	*spec = 0;
-	ft_2dstrdel(&info);
+	new->heat = -1;
+	new->lock = 0;
+	ft_2dstrdel(&room_info);
+	if (set_info(new, spec, info) == -1)
+		return (NULL);
 	return (new);
 }
 
@@ -77,6 +82,8 @@ int		add_room_back(t_room **first, t_room *elem)
 {
 	t_room *list;
 
+	if (ft_strcmp(elem->name, "A") == 0)
+		printf("ERFFF\n");
 	if (!*first || !elem)
 		return (-1);
 	list = *first;
@@ -86,13 +93,14 @@ int		add_room_back(t_room **first, t_room *elem)
 	return (1);
 }
 
-int		add_room(t_room **aroom, char *line, int *spec)
+int		add_room(t_room **aroom, char *line, int *spec, t_info *info)
 {
-	int check;
+	t_room	*room;
+	int		check;
 
 	check = 0;
 	if (line[0] == '#')
-		return (0);
+		return ((*spec != 0) ? -1 : 0);
 	if ((check = check_error(ft_strsplit(line, ' '), *aroom)) == -1)
 		return (-1);
 	else if (check == 0)
@@ -100,8 +108,16 @@ int		add_room(t_room **aroom, char *line, int *spec)
 	else if (check == 2)
 		return (2);
 	if (!*aroom)
-		*aroom = new_room(ft_strsplit(line, ' '), spec);
+	{
+		if (!(*aroom = new_room(ft_strsplit(line, ' '), spec, info)))
+			return (-1);
+	}
 	else
-		add_room_back(aroom, new_room(ft_strsplit(line, ' '), spec));
+	{
+		if (!(room = new_room(ft_strsplit(line, ' '), spec, info)))
+			return -1;
+		else
+			add_room_back(aroom, room);
+	}
 	return (1);
 }

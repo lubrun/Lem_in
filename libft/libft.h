@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 15:26:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/12 13:45:29 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/12 03:24:52 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,8 @@ int					ft_nbrlen(long long nbr, int base);
 int					ft_unbrlen(unsigned long long nbr, int base);
 int					ft_2dcontains(char **tab, char *elem);
 int					ft_is_empty_line(char *line);
+int					ft_get_max(int a, int b);
+int					ft_get_min(int a, int b);
 int					*ft_newint_tab(int size, int value);
 int					**ft_newint_2dtab(int y, int x, int value);
 unsigned long long	ft_atoull(char *str);
@@ -119,6 +121,7 @@ void				*ft_memccpy(void *s1, void const *s2, int c, size_t n);
 void				*ft_memmove(void *s1, void const *s2, size_t n);
 void				*ft_memchr(void const *str, int c, size_t n);
 void				*ft_memalloc(size_t size);
+void				**ft_2dinsert(void **tab, void *value, size_t size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f) (t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_coord				ft_newcoord(int x, int y);
