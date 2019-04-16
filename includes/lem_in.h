@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 03:56:25 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/15 10:29:54 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,7 @@ typedef struct			s_path
 {
 	struct s_room		**rooms;
 	int					length;
+	int					id;
 }						t_path;
 
 typedef struct			s_info
@@ -41,11 +42,12 @@ typedef struct			s_info
 	struct s_room		*rooms;
 	struct s_room		*start;
 	struct s_room		*end;
-	struct s_path		*path;
+	struct s_path		**paths;
 	int					ant_count;
 	int					path_count;
 	int					max_path_count;
 	int					max_path_len;
+	int					lock;
 }						t_info;
 
 void			insert_link(t_room *room1, t_room *room2);
@@ -56,11 +58,12 @@ int				set_info(t_room *room, int *spec, t_info *info);
 int				add_room(t_room **aroom, char *line, int *spec, t_info *info);
 int				get_room_count(t_room *room);
 int				set_heat(t_room *room, int heat);
-int				add_room_into_path(t_path *apath, t_room *room);
+int				add_room_into_path(t_path *apath, t_room **aroom);
 char			**get_rooms_name(t_room *room);
 t_room			*get_room_by_name(char *name, t_room *list);
 t_room			*get_room_link_by_name(char *name, t_room *room);
+t_path			*new_path(t_info info);
+t_path			**ft_pathfind(t_info *info);
 t_info			ft_pars();
-t_path			*ft_pathfind(t_info *info);
 
 #endif

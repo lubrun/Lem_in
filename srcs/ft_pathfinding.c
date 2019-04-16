@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 03:56:12 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/15 10:40:14 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,101 +22,115 @@ int		get_max_path_len(t_info info)
 	max = -1;
 	while (index < info.start->link_count)
 	{
-		printf("CHECK LEN{%s -> %d}\n", info.start->link[index]->name, info.start->link[index]->heat);
 		if (max == -1 || info.start->link[index]->heat > max)
 			max = info.start->link[index]->heat;
 		index++;
 	}
-	return ((int)(max * 1.5));
+	return (max + 1);
 }
 
-t_room	*next_room(t_room *room, int *lock)
+t_room	*next_room(t_room *room, t_info info)
 {
 	int		index;
-	int		min;
+	t_room	*saved;
+	int		save;
 
 	index = 0;
-	min = -1;
+	saved = NULL;
+	save = -1;
 	while (index < room->link_count)
 	{
-		if (min == -1 || min < room->link[index]->heat)
-			if (*lock == 1 && room->link[index]->lock == 0)
-				min = index;
+		printf("FOR {%s} ROOM : TEST {%s} | LOCK %d | HEAT %d\n", room->name, room->link[index]->name, room->link[index]->lock, room->link[index]->heat);
+		if (save == -1 || room->link[index]->heat < saved->heat)
+		{
+			if (info.lock == 1 && room->link[index]->lock == 1)
+				index++;
+			else if ((info.lock == 1 && room->link[index]->lock == 0) || info.lock == 0)
+			{
+				save = index;
+				saved = room->link[save];
+			}
+		}
 		index++;
 	}
-	return (room->link[min]);
+	printf("FOR {%s} ROOM : SAVED {%s}\n", room->name, saved->name);
+	return (saved);
 }
 
-int		edit_path(t_path *apath, t_room *room, t_info info)
+int		edit_path(t_path *apath, t_room **aroom, t_info info)
 {
 	if (apath->length == 0)
 	{
 		if (!(apath->rooms = ft_memalloc(sizeof(t_room*) * 2)))
 			return (-1);
-		apath->rooms[0] = room;
+		apath->rooms[0] = *aroom;
 	}
 	else
 	{
-		if (apath->length + 1 == info.max_path_len)
-			return (2);
-		if (add_room_into_path(apath, room) == -1)
+		if (apath->length + 1 > info.max_path_len)
+			return (-3);
+		if (add_room_into_path(apath, aroom) == -1)
 			return (-1);
+	}
+//	printf("--EDIT PATH [%d]--\n", apath->id);
+	int i = 0;
+	while (i < apath->length + 1)
+	{
+//		printf("--[%d][%s]--\n", i, apath->rooms[i]->name);
+		i++;
 	}
 	return (1);
 }
 
-int		get_path(int *lock, t_info *info, t_path *paths)
+t_path		*get_path(t_info *info)
 {
 	t_room	*room;
-	t_path	path;
+	t_path	*path;
 	int		edit;
 
+	if (!(path = new_path(*info)))
+		return (NULL);
 	if (info->path_count == info->max_path_count)
-		return (0);
+	{
+		path->id = -2;
+		return (path);
+	}
 	room = info->start;
-	path = (t_path){.rooms = NULL, .length = 0};
 	while (ft_strcmp(room->name, info->end->name) != 0)
 	{
-		printf("%s|%s\n", room->name, info->end->name);
 		edit = 0;
-		room = next_room(room, lock);
-		if ((edit = edit_path(&path, room, *info)) == -1)
-			return (-1);
-		else if (edit == 2)
+		if (ft_strcmp((room = next_room(room, *info))->name, info->end->name) == 0)
+			return (path);
+		if ((edit = edit_path(path, &room, *info)) != 1)
 		{
-			info->path_count--;
-			return (1);
+			path->id = edit;
+			return (path);
 		}
+		room->lock = 1;
+		path->length++;
 	}
-	paths[info->path_count] = path;
-	return (1);
+	return (path);
 }
 
-t_path	*ft_pathfind(t_info *info)
+t_path	**ft_pathfind(t_info *info)
 {
+	t_path	**paths;
 	t_path	*path;
-	t_room	*room;
-	int		lock;
 	int		count;
 
-	path = NULL;
-	lock = 1;
-	count = -1;
-	if (!(path = ft_memalloc(sizeof(t_path) * (info->max_path_count + 1))))
+	paths = NULL;
+	count = 0;
+	if (!(paths = ft_memalloc(sizeof(t_path*) * (info->max_path_count + 1))))
 		return (NULL);
 	info->end->heat = 0;
 	while (set_heat(info->end, ++count) != 0)
 		;
-	room = info->rooms;
-	while (room)
-	{
-		printf("{%s}{%d}\n", room->name, room->heat);
-		room = room->next;
-	}
-/*	info->max_path_len = get_max_path_len(*info);
-	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count) * 2;
-	//while (get_path(&lock, info) == 1)
-	if (get_path(&lock, info, path) == 1)
-		info->path_count++;*/
-	return (path);
+	info->max_path_len = get_max_path_len(*info);
+	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count);
+	while ((path = get_path(info)) && path->id >= 0)
+		paths[info->path_count++] = path;
+	printf("P_COUNT=%d\n", info->path_count);
+	if (path->id == -2)
+		return (paths);
+	return (NULL);
 }

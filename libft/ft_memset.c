@@ -5,22 +5,22 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/03 18:27:56 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/08 15:34:16 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/15 09:41:58 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/15 09:44:35 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *str, int c, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	unsigned char		*s;
-	int					i;
+	char	*ptr;
+	size_t	i;
 
+	ptr = s;
 	i = 0;
-	s = (unsigned char *)str;
-	while (i < (int)n)
-		s[i++] = (unsigned char)c;
-	return (str);
+	while (i < n)
+		ptr[i++] = c;
+	return (s);
 }
