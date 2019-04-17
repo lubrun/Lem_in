@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 09:45:28 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/16 17:39:39 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,6 +72,7 @@ t_room	*new_room(char **room_info, int *spec, t_info *info)
 	new->spec = *spec;
 	new->heat = -1;
 	new->lock = 0;
+	new->perfum = 0;
 	ft_2dstrdel(&room_info);
 	if (set_info(new, spec, info) == -1)
 		return (NULL);
@@ -82,8 +83,6 @@ int		add_room_back(t_room **first, t_room *elem)
 {
 	t_room *list;
 
-	if (ft_strcmp(elem->name, "A") == 0)
-		printf("ERFFF\n");
 	if (!*first || !elem)
 		return (-1);
 	list = *first;

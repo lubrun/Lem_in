@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:44:36 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/15 10:29:13 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/16 14:41:42 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,19 @@ int		main(void)
 		return (0);
 	if (!(info.paths = ft_pathfind(&info)))
 		return (0);
-	printf("%d|%d\n", info.paths[0]->length, info.paths[1]->length);
+	int x = 0;
+	int y = 0;
+
+	while (x < info.path_count)
+	{
+		y = 0;
+		printf("PATH %d\n", x);
+		while (y < info.paths[x]->length)
+		{
+			printf("ROOM{%d} = %s\n", y, info.paths[x]->rooms[y]->name);
+			y++;
+		}
+		x++;
+	}
 	return (1);
 }

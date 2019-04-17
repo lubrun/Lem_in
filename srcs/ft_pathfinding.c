@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/15 10:40:14 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 15:05:00 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,27 +33,27 @@ t_room	*next_room(t_room *room, t_info info)
 {
 	int		index;
 	t_room	*saved;
-	int		save;
 
 	index = 0;
 	saved = NULL;
-	save = -1;
+	printf("FOR ROOM [%s]\n", room->name);
 	while (index < room->link_count)
 	{
-		printf("FOR {%s} ROOM : TEST {%s} | LOCK %d | HEAT %d\n", room->name, room->link[index]->name, room->link[index]->lock, room->link[index]->heat);
-		if (save == -1 || room->link[index]->heat < saved->heat)
+		printf("TEST ROOM [%s] | HEAT %d | LOCK %d\n", room->link[index]->name, room->link[index]->heat, room->link[index]->lock);
+		if (info.lock == 0)
 		{
-			if (info.lock == 1 && room->link[index]->lock == 1)
-				index++;
-			else if ((info.lock == 1 && room->link[index]->lock == 0) || info.lock == 0)
-			{
-				save = index;
-				saved = room->link[save];
-			}
+			if (!saved || saved->heat > room->link[index]->heat)
+				saved = room->link[index];
+		}
+		else
+		{
+			if ((!saved || saved->heat > room->link[index]->heat) && room->link[index]->lock == 0)
+				saved = room->link[index];
 		}
 		index++;
 	}
-	printf("FOR {%s} ROOM : SAVED {%s}\n", room->name, saved->name);
+	if (saved)
+		printf("SAVED [%s]\n", saved->name);
 	return (saved);
 }
 
@@ -71,13 +71,6 @@ int		edit_path(t_path *apath, t_room **aroom, t_info info)
 			return (-3);
 		if (add_room_into_path(apath, aroom) == -1)
 			return (-1);
-	}
-//	printf("--EDIT PATH [%d]--\n", apath->id);
-	int i = 0;
-	while (i < apath->length + 1)
-	{
-//		printf("--[%d][%s]--\n", i, apath->rooms[i]->name);
-		i++;
 	}
 	return (1);
 }
@@ -123,13 +116,23 @@ t_path	**ft_pathfind(t_info *info)
 	if (!(paths = ft_memalloc(sizeof(t_path*) * (info->max_path_count + 1))))
 		return (NULL);
 	info->end->heat = 0;
+////	printf("BITE1\n");
 	while (set_heat(info->end, ++count) != 0)
 		;
+	////////// 
+////	printf("BITE2\n");
+
+	int index;
+
+	index = 0;
+	while (info->start->link[index])
+		ft_perfum(info->start->link[index++], info->start->name, info->end->name);
+	printf("BITE3\n");
+	//////////////
 	info->max_path_len = get_max_path_len(*info);
 	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count);
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;
-	printf("P_COUNT=%d\n", info->path_count);
 	if (path->id == -2)
 		return (paths);
 	return (NULL);
