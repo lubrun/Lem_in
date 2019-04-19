@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   struct_utils3.c                                  .::    .:/ .      .::   */
+/*   ft_pathfinding2.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 11:08:22 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/18 15:12:52 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/19 11:30:53 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-t_path	*new_path(t_info info)
+t_path	*get_shortest_path(t_room *start, char *end_str)
 {
 	t_path	*path;
-
+	t_room	*room;
+	
 	if (!(path = ft_memalloc(sizeof(t_path))))
 		return (NULL);
-	path->rooms = NULL;
-	path->id = info.path_count;
-	path->length = 0;
-	path->perfum = 0;
-	return (path);
-}
-
-int		add_room_into_path(t_path *apath, t_room **aroom)
-{
-	t_room	**rooms;
-	int		index;
-
-	if (!(rooms = ft_memalloc(sizeof(t_room*) * (apath->length + 2))))
-		return (-1);
-	index = 0;
-	while (index < apath->length)
+	ft_bzero(path, sizeof(t_path));
+	room = start;
+	while (ft_strcmp(room->name, end_str) != 0)
 	{
-		rooms[index] = apath->rooms[index];
-		index++;
+		if (!(room = next_room(room)))
+			return (NULL);
+		if (path->length == 0)
+		{
+			if (!(path->rooms = ft_memalloc(sizeof(t_room *) * room->heat + 2)))
+				return (NULL);
+		}
+		if (ft_strcmp(room->name, end_str) != 0)
+			path->perfum += room->perfum;
+		path->rooms[path->length++] = room;
 	}
-	rooms[index++] = *aroom;
-	rooms[index] = NULL;
-	free(apath->rooms);
-	apath->rooms = rooms;
-	return (1);
+	return (path);
 }

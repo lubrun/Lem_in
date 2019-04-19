@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 13:57:56 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 11:09:58 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ typedef struct			s_path
 {
 	struct s_room		**rooms;
 	int					length;
+	int					perfum;
 	int					id;
 }						t_path;
 
@@ -44,6 +45,7 @@ typedef struct			s_info
 	struct s_room		*start;
 	struct s_room		*end;
 	struct s_path		**paths;
+	struct s_path		*shortest_path;
 	int					ant_count;
 	int					path_count;
 	int					max_path_count;
@@ -64,7 +66,9 @@ int				add_room_into_path(t_path *apath, t_room **aroom);
 char			**get_rooms_name(t_room *room);
 t_room			*get_room_by_name(char *name, t_room *list);
 t_room			*get_room_link_by_name(char *name, t_room *room);
+t_room			*next_room(t_room *room);
 t_path			*new_path(t_info info);
+t_path			*get_shortest_path(t_room *start, char *end_str);
 t_path			**ft_pathfind(t_info *info);
 t_info			ft_pars();
 
