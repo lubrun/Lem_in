@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 11:08:22 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 16:25:21 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ t_path	*new_path(t_info info)
 	path->id = info.path_count;
 	path->length = 0;
 	path->perfum = 0;
+	path->ant_needed = -1;
 	return (path);
 }
 
