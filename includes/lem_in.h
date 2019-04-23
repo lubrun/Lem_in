@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 11:09:58 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 16:56:30 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ typedef struct			s_path
 	int					length;
 	int					perfum;
 	int					id;
+	int					ant_needed;
 }						t_path;
 
 typedef struct			s_info
@@ -53,6 +54,7 @@ typedef struct			s_info
 	int					lock;
 }						t_info;
 
+void			ft_ant_needed(int len_before, int nomber_path, t_path **list);
 int				ft_perfum(t_room *room, char *s_name, char *e_name);
 void			insert_link(t_room *room1, t_room *room2);
 int				add_link(char *last_line, t_room *room);

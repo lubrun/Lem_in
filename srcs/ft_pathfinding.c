@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 11:23:30 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 17:52:25 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,7 +138,9 @@ t_path	**ft_pathfind(t_info *info)
 		ft_perfum(info->start->link[count++], info->start->name, info->end->name);
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;
+
 	if (path->id == -2)
 		return (paths);
+
 	return (NULL);
 }
