@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 17:52:25 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 14:28:32 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,15 +46,19 @@ t_room	*next_room(t_room *room)
 	{
 		test = room->link[index];
 		printf("TEST ROOM [%s] | HEAT %d | PERFUME %d | LOCK %d\n", test->name, test->heat, test->perfum, test->lock);
-		if (!saved && test->lock == 0)
+		if (test->lock == 0 && !saved)
+		{
 			saved = test;
+		}
 		else if (test->lock == 0)
 		{
-			if (saved->perfum > test->perfum && test->perfum > 0)
+//			printf("TEST2\n");
+			if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum == 0 && test->perfum != 0))
 				saved = test;
-			else if (test->heat < saved->heat)
+			else if (saved->perfum == test->perfum && test->heat < saved->heat)
 				saved = test;
 		}
+//		printf("TEST3\n");
 		index++;
 	}
 	return (saved);
@@ -99,7 +103,10 @@ t_path		*get_path(t_info *info)
 	{
 		edit = 0;
 		if (!(room = next_room(room)))
+		{
+			printf("BITE\n");
 			return (NULL);
+		}
 		if ((edit = edit_path(path, &room, *info)) != 1)
 		{
 			path->id = edit;
@@ -135,10 +142,13 @@ t_path	**ft_pathfind(t_info *info)
 		return (NULL);
 	count = 0;
 	while (info->start->link[count])
+	{
 		ft_perfum(info->start->link[count++], info->start->name, info->end->name);
+	}
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;
-
+	if (!path)			//////////////
+		return (paths);
 	if (path->id == -2)
 		return (paths);
 
