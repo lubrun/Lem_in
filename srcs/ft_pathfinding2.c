@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 15:12:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 11:30:53 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 17:10:47 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,11 +24,11 @@ t_path	*get_shortest_path(t_room *start, char *end_str)
 	room = start;
 	while (ft_strcmp(room->name, end_str) != 0)
 	{
-		if (!(room = next_room(room)))
+		if (!(room = next_room(room, end_str)))
 			return (NULL);
 		if (path->length == 0)
 		{
-			if (!(path->rooms = ft_memalloc(sizeof(t_room *) * room->heat + 2)))
+			if (!(path->rooms = ft_memalloc(sizeof(t_room *) * room->heat_min + 2)))
 				return (NULL);
 		}
 		if (ft_strcmp(room->name, end_str) != 0)

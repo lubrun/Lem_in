@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/16 17:39:39 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 15:50:12 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,8 @@ t_room	*new_room(char **room_info, int *spec, t_info *info)
 	new->name = ft_strdup(room_info[0]);
 	new->coord = ft_newcoord(ft_atoi(room_info[1]), ft_atoi(room_info[2]));
 	new->spec = *spec;
-	new->heat = -1;
+	new->heat_min = -1;
+	new->heat_max = -1;
 	new->lock = 0;
 	new->perfum = 0;
 	ft_2dstrdel(&room_info);
