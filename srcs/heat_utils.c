@@ -6,19 +6,14 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:53:58 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 15:35:07 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 18:56:49 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-
-
-
-
-
-int		set_heat_max(t_room *room, int heat, char *s_name, char *e_name)
+int		set_heat_max(t_room *room, int heat, char *s_name)
 {
 	int index;
 	int count;
@@ -48,7 +43,7 @@ int		set_heat_max(t_room *room, int heat, char *s_name, char *e_name)
 		if ((room->link[index]->heat_min != -2 &&
 			room->link[index]->lock == 0) &&
 			ft_strcmp(room->link[index]->name, s_name) != 0)
-			set_heat_max(room->link[index], heat, s_name, e_name);
+			set_heat_max(room->link[index], heat, s_name);
 		index++;
 	}
 	room->lock = 0;

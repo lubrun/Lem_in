@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 15:34:55 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 18:56:58 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -181,7 +181,7 @@ t_path	**ft_pathfind(t_info *info)
 	index = 0;
 	info->end->lock = 1;
 	while(info->end->link[index])
-		set_heat_max(info->end->link[index++], 0, info->start->name, info->end->name);
+		set_heat_max(info->end->link[index++], 0, info->start->name);
 	info->end->lock = 0;
 /////////
 	info->max_path_len = get_max_path_len(*info) * 2;
