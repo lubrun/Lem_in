@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 14:10:20 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 15:46:07 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ typedef struct			s_room
 	struct s_room		*next;
 	char				*name;
 	t_coord				coord;
+	int					ant_id;
 	int					spec;
 	int					link_count;
 	int					heat_max;
@@ -49,16 +50,18 @@ typedef struct			s_info
 	struct s_path		**paths;
 	struct s_path		*shortest_path;
 	int					ant_count;
+	int					ant;
 	int					path_count;
 	int					max_path_count;
 	int					max_path_len;
 	int					lock;
 }						t_info;
 
-int				set_heat_max(t_room *room, int heat, char *s_name, char *e_name);
-void			ft_ant_needed(int len_before, int nomber_path, t_path **list);
-int				ft_perfum(t_room *room, char *s_name, char *e_name);
+void			sort_list(t_path **list);
 void			insert_link(t_room *room1, t_room *room2);
+void			ft_ant_needed(int len_before, int nomber_path, t_path **list);
+int				set_heat_max(t_room *room, int heat, char *s_name);
+int				ft_perfum(t_room *room, char *s_name, char *e_name);
 int				add_link(char *last_line, t_room *room);
 int				set_lastline_link(char *last_list, t_room *room);
 int				set_room(t_room **afrom, t_room **ato, t_room *room, char **info);

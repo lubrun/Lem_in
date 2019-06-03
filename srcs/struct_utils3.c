@@ -6,12 +6,39 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 16:25:21 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 14:54:03 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+
+void	sort_list(t_path **list)
+{
+	t_path	*tmp;
+	int		index;
+	int		sort;
+
+	sort = 0;
+	while (sort == 0)
+	{
+		index = 0;
+		sort = 1;
+		tmp = NULL;
+		while (list[index])
+		{
+			if (list[index + 1] &&
+					list[index + 1]->length < list[index]->length)
+			{
+				tmp = list[index];
+				list[index] = list[index + 1];
+				list[index + 1] = tmp;
+				sort = 0;
+			}
+			index++;
+		}
+	}
+}
 
 t_path	*new_path(t_info info)
 {
