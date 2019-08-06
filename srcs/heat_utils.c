@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:53:58 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 18:56:49 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/06 01:49:24 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,8 @@ int		set_heat_max(t_room *room, int heat, char *s_name)
 
 	count = 0;
 	index = 0;
-	printf ("roomNAME == %s heat == %d HMax == %d\n", room->name, heat, room->heat_max);
+	//printf ("roomNAME == %s heat == %d HMax == %d\n", room->name, heat, room->heat_max);
+//	ft_putendl("HEAT0");
 	if (room->heat_min == -2)
 		return (0);
 	room->lock = 1;
@@ -59,6 +60,7 @@ int		set_heat(t_room *room, int heat, char *s_name, char *e_name)
 	index = 0;
 
 	room->lock = 1;
+//	printf("link_count == %d\n",room->link_count);
 	if (room->link_count == 1 && heat != 1)
 	{
 		room->heat_min = -2;

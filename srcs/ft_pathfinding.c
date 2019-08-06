@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 18:56:58 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/06 01:49:10 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,11 +22,11 @@ int		get_max_path_len(t_info info)
 	max = -1;
 	while (index < info.start->link_count)
 	{
-		printf("MAX | TEST %s | HEAT_min %d | HEAT max %d\n", info.start->link[index]->name, info.start->link[index]->heat_min, info.start->link[index]->heat_max);
+		//printf("MAX | TEST %s | HEAT_min %d | HEAT max %d\n", info.start->link[index]->name, info.start->link[index]->heat_min, info.start->link[index]->heat_max);
 		if (max == -1 || info.start->link[index]->heat_min > max)
 		{
 			max = info.start->link[index]->heat_min;
-			printf("save {%d}\n", max);
+			//printf("save {%d}\n", max);
 		}
 		index++;
 	}
@@ -41,16 +41,16 @@ t_room	*next_room(t_room *room, char *s_name)
 	
 	index = 0;
 	saved = NULL;
-	printf("FOR ROOM [%s]\n", room->name);
+	//printf("FOR ROOM [%s]\n", room->name);
 
 	
 	while (index < room->link_count)
 	{
 		test = room->link[index];
-		printf("TEST ROOM [%s] | HEAT_MIN %d | HEAT_MAX %d | PERFUME %d | LOCK %d\n", test->name, test->heat_min, test->heat_max, test->perfum, test->lock);	
+		//printf("TEST ROOM [%s] | HEAT_MIN %d | HEAT_MAX %d | PERFUME %d | LOCK %d\n", test->name, test->heat_min, test->heat_max, test->perfum, test->lock);	
 		if (ft_strcmp(test->name, s_name) == 0)
 		{
-			printf("BUTE\n");
+			//printf("BUTE\n");
 			return (test);
 		}
 		if (test->lock == 0 && !saved)
@@ -101,7 +101,7 @@ t_path		*get_path(t_info *info)
 	path->perfum = 0;
 	if (info->path_count == info->max_path_count)
 	{
-		printf("Erf\n");
+		//printf("Erf\n");
 		path->id = -2;
 		return (path);
 	}
@@ -112,7 +112,7 @@ t_path		*get_path(t_info *info)
 		edit = 0;
 		if (!(room = next_room(room, info->end->name)))
 		{
-			printf("BITE\n");
+			//printf("BITE\n");
 			return (NULL);
 		}
 		if ((edit = edit_path(path, &room, *info)) != 1)
@@ -163,6 +163,8 @@ t_path		*get_path(t_info *info)
 
 t_path	**ft_pathfind(t_info *info)
 {
+//	ft_putendl("PATH0");
+//	printf("PATHFINDING enter");
 	t_path	**paths;
 	t_path	*path;
 	int		count;
@@ -180,21 +182,34 @@ t_path	**ft_pathfind(t_info *info)
 	int index;
 	index = 0;
 	info->end->lock = 1;
+//	ft_putendl("PATH1");
+//	printf("BITE0\n");
+
+
+//
 	while(info->end->link[index])
+	{
+//		ft_putendl("PATH1.5");
+//		printf("SET HEAT MAX\n");
 		set_heat_max(info->end->link[index++], 0, info->start->name);
+	}
+//	printf("BITE1\n");
+//	ft_putendl("PATH2");
 	info->end->lock = 0;
 /////////
 	info->max_path_len = get_max_path_len(*info) * 2;
 	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count);
 	info->shortest_path = get_shortest_path(info->start, info->end->name);
+	
+	
 	if (!(paths = ft_memalloc(sizeof(t_path*) * (info->max_path_count + 1))))
 		return (NULL);
 	count = 0;
 	while (info->start->link[count])
 	{
-		printf("count == %d\n", count);
+		//printf("count == %d\n", count);
 		ft_perfum(info->end->link[count++], info->start->name, info->end->name);
-		printf("ENDPARFUM\n");
+		//printf("ENDPARFUM\n");
 	}
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;

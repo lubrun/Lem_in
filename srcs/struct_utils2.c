@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/25 17:01:37 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/06 01:48:09 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ int			set_info(t_room *room, int *spec, t_info *info)
 
 int			link_valid(t_room *from, t_room *to)
 {
+//	ft_putendl("linkValid");
 	if (from->link_count > 0)
 	{
 		if (get_room_link_by_name(to->name, from) != NULL)
@@ -58,6 +59,7 @@ int			link_valid(t_room *from, t_room *to)
 
 int			set_room(t_room **afrom, t_room **ato, t_room *room, char **info)
 {
+//	ft_putendl("SetRoom Enter");
 	if (!(*afrom = get_room_by_name(info[0], room)))
 	{
 		ft_2dstrdel(&info);

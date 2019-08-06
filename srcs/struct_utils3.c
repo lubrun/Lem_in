@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 14:54:03 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 17:20:30 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ void	sort_list(t_path **list)
 		while (list[index])
 		{
 			if (list[index + 1] &&
-					list[index + 1]->length < list[index]->length)
+					list[index + 1]->length > list[index]->length)
 			{
 				tmp = list[index];
 				list[index] = list[index + 1];

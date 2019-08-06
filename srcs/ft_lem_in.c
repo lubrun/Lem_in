@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/06/05 15:45:28 by lubrun           ###   ########.fr       */
+/*   Updated: 2019/08/06 01:52:45 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		send_ant(t_info *info)
 			else if (info->ant_count - info->ant >= path->ant_needed &&
 			path->rooms[0]->ant_id == -1 && info->ant < info->ant_count)
 			{
+				//printf("tour ant qui reste = %d\n", path->ant_needed);
 				//printf(" Z OBEUR ");
 				path->rooms[0]->ant_id = ++info->ant;
 				printf("L%d-%s ", info->ant, path->rooms[0]->name);
@@ -129,11 +130,21 @@ int		main(void)
 
 	if (!(info = ft_pars()).rooms)
 		return (0);
-	//	printf("PARSE\n\n");
-	if (!(info.paths = ft_pathfind(&info)))
-		return (0);
+	if (!info.end)
+		printf("BUG\n");
 
-	//	printf("PATHFINDING\n\n");
+//		printf("PARSE OK\n\n");
+	if (!(info.paths = ft_pathfind(&info)))
+	{
+//		printf("BUG2\n");
+		return (0);
+	}
+
+
+
+
+
+//		printf("PATHFINDING OK\n\n");
 	info.shortest_path->ant_needed = 0;
 	ft_ant_needed(info.shortest_path->length, 1, info.paths);
 	sort_list(info.paths);

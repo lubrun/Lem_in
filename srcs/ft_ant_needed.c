@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/19 16:06:27 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 14:21:49 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/07 15:01:17 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,10 +36,11 @@ void	ft_ant_needed(int len_before, int nomber_path ,t_path **list)
 	if (swap_index != -1)
 	{
 		list[swap_index]->ant_needed =
-			(list[swap_index]->length * nomber_path) - (len_before);	
+			((list[swap_index]->length) * nomber_path) - (len_before);	
+		//printf("tour name == %s ant_needed == %d LEN == %d\n", list[swap_index]->rooms[0]->name ,list[swap_index]->ant_needed, list[swap_index]->length);
 		ft_ant_needed(len_before + list[swap_index]->length,
 				nomber_path + 1, list);
 	}
-	printf("ERF\n");
+	//printf("ERF\n");
 //	sort_list(list);
 }

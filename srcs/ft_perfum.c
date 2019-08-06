@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:48:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 14:53:20 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/07 11:15:50 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 	// on commence a Start
 	// toutes les salles sont a parfum == 0
 //	printf("BITE101\n");
-	printf("%s Perfum == %d, heat_min == %d, heat_max ==%d\n", room->name, room->perfum, room->heat_min, room->heat_max);
+	//printf("%s Perfum == %d, heat_min == %d, heat_max ==%d\n", room->name, room->perfum, room->heat_min, room->heat_max);
 /*	
 	while (room->link[index])
 	{
