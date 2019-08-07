@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/06 01:52:45 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/07 03:26:54 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,17 @@ int		main(void)
 		return (0);
 	}
 
-
+ft_putendl("AllPath");
 
 
 
 //		printf("PATHFINDING OK\n\n");
 	info.shortest_path->ant_needed = 0;
+	ft_putendl("Shortedpath");
+
 	ft_ant_needed(info.shortest_path->length, 1, info.paths);
+	ft_putendl("Antneeded end");
+
 	sort_list(info.paths);
 	send_ant(&info);
 	return (1);

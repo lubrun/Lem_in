@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/06 01:49:10 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/07 04:45:08 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ t_room	*next_room(t_room *room, char *s_name)
 //			printf("TEST2\n");
 			if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum == 0 && test->perfum != 0))
 				saved = test;
-			else if (saved->perfum == test->perfum && test->heat_min < saved->heat_min)
+			else if (saved->perfum == test->perfum && test->heat_min < saved->heat_min && test->heat_min > 0) // MODIF saved->heat_min && test->heat_min > 0 pour ne pas passer par les cul de sacs
 				saved = test;
 		}
 //		printf("TEST3\n");
@@ -182,7 +182,7 @@ t_path	**ft_pathfind(t_info *info)
 	int index;
 	index = 0;
 	info->end->lock = 1;
-//	ft_putendl("PATH1");
+	ft_putendl("PATH1");
 //	printf("BITE0\n");
 
 
@@ -191,28 +191,34 @@ t_path	**ft_pathfind(t_info *info)
 	{
 //		ft_putendl("PATH1.5");
 //		printf("SET HEAT MAX\n");
-		set_heat_max(info->end->link[index++], 0, info->start->name);
+		set_heat_max(info->end->link[index++], 0, info->start->name, info->end->name);
 	}
 //	printf("BITE1\n");
-//	ft_putendl("PATH2");
+	ft_putendl("PATH2");
 	info->end->lock = 0;
 /////////
 	info->max_path_len = get_max_path_len(*info) * 2;
 	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count);
 	info->shortest_path = get_shortest_path(info->start, info->end->name);
 	
-	
+	ft_putnbr(info->max_path_count);
 	if (!(paths = ft_memalloc(sizeof(t_path*) * (info->max_path_count + 1))))
 		return (NULL);
+	ft_putendl("PATH3");
+
 	count = 0;
-	while (info->start->link[count])
+	while (info->end->link[count])
 	{
 		//printf("count == %d\n", count);
 		ft_perfum(info->end->link[count++], info->start->name, info->end->name);
 		//printf("ENDPARFUM\n");
 	}
+ft_putendl("PATH4");
+
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;
+	ft_putendl("PATH5");
+
 	if (!path)			//////////////
 		return (paths);
 	if (path->id == -2)

@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:48:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/07 11:15:50 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/07 03:22:52 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 		index++;
 	}
 */
+	ft_putendl(room->name);
 	while (room->link[index])
 	{
 		if (ft_strcmp(room->link[index]->name, s_name) != 0 &&
@@ -51,6 +52,8 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 
 		index++;
 	}
+	ft_putendl("PERF end");
+
 //	printf("TEST3\n");
 
 	room->lock = 0;
