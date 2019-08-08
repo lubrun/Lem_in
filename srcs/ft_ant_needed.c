@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/19 16:06:27 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/07 03:26:22 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 13:46:55 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void	ft_ant_needed(int len_before, int nomber_path ,t_path **list)
 	index = 0;
 	swap_index = -1;
 	min_len = 2147483647;
-	ft_putendl("AntneededStart");
+//	ft_putendl("AntneededStart");
 	while (list[index])	// cherche + petit chemin
 	{
 		//		printf("BITE1\n");

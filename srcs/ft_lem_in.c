@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/07 03:26:54 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 17:59:44 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,15 @@ int		main(void)
 //		printf("PARSE OK\n\n");
 	if (!(info.paths = ft_pathfind(&info)))
 	{
-//		printf("BUG2\n");
+		printf("BUG2\n");
 		return (0);
 	}
 
-ft_putendl("AllPath");
+//ft_putendl("AllPath");
 
 
 
-//		printf("PATHFINDING OK\n\n");
+		printf("PATHFINDING OK\n\n");
 	info.shortest_path->ant_needed = 0;
 	ft_putendl("Shortedpath");
 

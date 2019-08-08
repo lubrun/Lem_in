@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 15:46:07 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 13:27:58 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ typedef struct			s_info
 void			sort_list(t_path **list);
 void			insert_link(t_room *room1, t_room *room2);
 void			ft_ant_needed(int len_before, int nomber_path, t_path **list);
-int				set_heat_max(t_room *room, int heat, char *s_name);
+int				set_heat_max(t_room *room, int heat, char *s_name, char *e_name, int h_min);
 int				ft_perfum(t_room *room, char *s_name, char *e_name);
 int				add_link(char *last_line, t_room *room);
 int				set_lastline_link(char *last_list, t_room *room);

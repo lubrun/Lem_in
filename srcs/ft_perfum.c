@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:48:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/07 03:22:52 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 17:40:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 	// on commence a Start
 	// toutes les salles sont a parfum == 0
 //	printf("BITE101\n");
-	//printf("%s Perfum == %d, heat_min == %d, heat_max ==%d\n", room->name, room->perfum, room->heat_min, room->heat_max);
+//	printf("%s Perfum == %d, heat_min == %d, heat_max ==%d\n", room->name, room->perfum, room->heat_min, room->heat_max);
 /*	
 	while (room->link[index])
 	{
@@ -37,13 +37,14 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 		index++;
 	}
 */
-	ft_putendl(room->name);
+//	ft_putendl(room->name);
 	while (room->link[index])
 	{
 		if (ft_strcmp(room->link[index]->name, s_name) != 0 &&
 				ft_strcmp(room->link[index]->name, e_name) != 0 &&
 				room->link[index]->lock == 0 &&
-				(room->link[index]->heat_max >= room->heat_max))
+				((room->link[index]->heat_max > room->heat_max) || 
+				 (room->link[index]->heat_max == room->heat_max && room->link_count == 2)))
 		{
 //			printf("TEST1\n");
 			ft_perfum(room->link[index], s_name, e_name);
@@ -52,7 +53,7 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 
 		index++;
 	}
-	ft_putendl("PERF end");
+//	ft_putendl("PERF end");
 
 //	printf("TEST3\n");
 

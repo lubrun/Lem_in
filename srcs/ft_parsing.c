@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/06 01:26:45 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 16:43:26 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ static t_room	*get_room_list(char **last_line, t_info *info)
 			read_comment(line, &spec);
 		else if (comment == 2)
 			break;
-		ft_putendl(line);
+//		ft_putendl(line);
 		ft_strdel(&line);
 	}
 	if (comment == 2)

@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/06 01:47:36 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 16:47:08 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,7 @@ int			add_link(char *last_line, t_room *room)
 		{
 			if (set_room(&from, &to, room, ft_strsplit(line, '-')) == 0)
 				return(-1);		/////// j'ai remplace le break
-			ft_putendl(line);
+//			ft_putendl(line);
 			from->link_count++;
 			insert_link(from, to);
 			to->link_count++;

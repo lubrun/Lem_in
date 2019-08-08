@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/07 04:45:08 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 17:47:48 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,32 +41,49 @@ t_room	*next_room(t_room *room, char *s_name)
 	
 	index = 0;
 	saved = NULL;
+//	printf("\n");
 	//printf("FOR ROOM [%s]\n", room->name);
-
-	
+//	ft_putendl("NextRoom Enter");
 	while (index < room->link_count)
 	{
 		test = room->link[index];
-		//printf("TEST ROOM [%s] | HEAT_MIN %d | HEAT_MAX %d | PERFUME %d | LOCK %d\n", test->name, test->heat_min, test->heat_max, test->perfum, test->lock);	
-		if (ft_strcmp(test->name, s_name) == 0)
+//		printf("TEST ROOM [%s] | HEAT_MIN %d | HEAT_MAX %d | PERFUME %d | LOCK %d\n", test->name, test->heat_min, test->heat_max, test->perfum, test->lock);	
+		/*
+		 * Ajout Du If pour skip les cul de sacs depuis Start
+		 */
+		if (test->heat_min < 0 || test->heat_max == -1)
+			index++;
+		else
 		{
-			//printf("BUTE\n");
-			return (test);
-		}
-		if (test->lock == 0 && !saved)
-		{
-			saved = test;
-		}
-		else if (test->lock == 0)
-		{
-//			printf("TEST2\n");
-			if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum == 0 && test->perfum != 0))
+			if (ft_strcmp(test->name, s_name) == 0)
+			{
+//				ft_putendl("NextRoom Sortie 1");
+				return (test);
+			}
+			if (test->lock == 0 && !saved)
+			{
+//				ft_putnbr(test->heat_min);
+//				ft_putendl("NextRoom Save 1");
+
 				saved = test;
-			else if (saved->perfum == test->perfum && test->heat_min < saved->heat_min && test->heat_min > 0) // MODIF saved->heat_min && test->heat_min > 0 pour ne pas passer par les cul de sacs
-				saved = test;
+			}
+			else if (test->lock == 0)
+			{
+	//			printf("TEST2\n");
+				if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum == 0 && test->perfum != 0))
+				{
+//					ft_putendl("NextRoom Save 2");
+					saved = test;
+				}
+				else if (saved->perfum == test->perfum && test->heat_min < saved->heat_min) 
+				{
+//					ft_putendl("NextRoom Save 3");
+					saved = test;
+				}
+			}
+	//		printf("TEST3\n");
+			index++;
 		}
-//		printf("TEST3\n");
-		index++;
 	}
 	return (saved);
 }
@@ -176,13 +193,13 @@ t_path	**ft_pathfind(t_info *info)
 
 //	while (set_heat(info->end, ++count) != 0)
 //		;
-	set_heat(info->end, 1, info->start->name, info->end->name);
+//	set_heat(info->end, 1, info->start->name, info->end->name);
 
 /////////// F heat max
 	int index;
 	index = 0;
 	info->end->lock = 1;
-	ft_putendl("PATH1");
+//	ft_putendl("PATH1");
 //	printf("BITE0\n");
 
 
@@ -191,20 +208,20 @@ t_path	**ft_pathfind(t_info *info)
 	{
 //		ft_putendl("PATH1.5");
 //		printf("SET HEAT MAX\n");
-		set_heat_max(info->end->link[index++], 0, info->start->name, info->end->name);
+		set_heat_max(info->end->link[index++], 0, info->start->name, info->end->name, 1);
 	}
 //	printf("BITE1\n");
-	ft_putendl("PATH2");
+//	ft_putendl("PATH2");
 	info->end->lock = 0;
 /////////
 	info->max_path_len = get_max_path_len(*info) * 2;
 	info->max_path_count = ft_get_min(info->start->link_count, info->end->link_count);
 	info->shortest_path = get_shortest_path(info->start, info->end->name);
 	
-	ft_putnbr(info->max_path_count);
+//	ft_putnbr(info->max_path_count);
 	if (!(paths = ft_memalloc(sizeof(t_path*) * (info->max_path_count + 1))))
 		return (NULL);
-	ft_putendl("PATH3");
+//	ft_putendl("PATH3");
 
 	count = 0;
 	while (info->end->link[count])
@@ -213,11 +230,11 @@ t_path	**ft_pathfind(t_info *info)
 		ft_perfum(info->end->link[count++], info->start->name, info->end->name);
 		//printf("ENDPARFUM\n");
 	}
-ft_putendl("PATH4");
+//ft_putendl("PATH4");
 
 	while ((path = get_path(info)) && path->id >= 0)
 		paths[info->path_count++] = path;
-	ft_putendl("PATH5");
+//	ft_putendl("PATH5");
 
 	if (!path)			//////////////
 		return (paths);
