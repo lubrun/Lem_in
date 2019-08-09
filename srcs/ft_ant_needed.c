@@ -6,19 +6,21 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/19 16:06:27 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/08 13:46:55 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/09 14:08:35 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	ft_ant_needed(int len_before, int nomber_path ,t_path **list)
+int		ft_ant_needed(int len_before, int nomber_path ,t_path **list, int min_ant)
 {
 	int min_len;
 	int swap_index;
 	int index;
+	int swap_min;
 
+	swap_min = 0;
 	index = 0;
 	swap_index = -1;
 	min_len = 2147483647;
@@ -39,9 +41,14 @@ void	ft_ant_needed(int len_before, int nomber_path ,t_path **list)
 		list[swap_index]->ant_needed =
 			((list[swap_index]->length) * nomber_path) - (len_before);	
 		//printf("tour name == %s ant_needed == %d LEN == %d\n", list[swap_index]->rooms[0]->name ,list[swap_index]->ant_needed, list[swap_index]->length);
-		ft_ant_needed(len_before + list[swap_index]->length,
-				nomber_path + 1, list);
+		if (min_ant == -1 || min_ant > list[swap_index]->ant_needed)
+			min_ant = list[swap_index]->ant_needed;
+		if (min_ant > (swap_min = ft_ant_needed(len_before + list[swap_index]->length,
+				nomber_path + 1, list, min_ant)))
+			min_ant = swap_min;
+
 	}
+	return (min_ant);
 	//printf("ERF\n");
 //	sort_list(list);
 }

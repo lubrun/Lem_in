@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/09 11:50:00 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/09 14:24:37 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		send_ant(t_info *info)
 			}
 			index++;
 		}
+
 		printf("\n");
 	//	printf("|info->ant %d|erf %d|\n", info->ant, erf);
 		erf++;
@@ -206,8 +207,24 @@ int		main(void)
 	info.shortest_path->ant_needed = 0;
 	ft_putendl("Shortedpath");
 
-	ft_ant_needed(info.shortest_path->length, 1, info.paths);
+	int min_ant;
+
+	min_ant = ft_ant_needed(info.shortest_path->length, 1, info.paths, -1);
 	ft_putendl("Antneeded end");
+
+	printf("\n------------MIN ANT == %d LEN FIRST == %d\n", min_ant, info.paths[0]->length);
+	if (min_ant > 1)
+	{
+		index = 0;
+		while (info.paths[index])
+		{
+			info.paths[index]->ant_needed = -1;
+			index++;
+		}
+		index--;
+		ft_ant_needed(info.paths[index]->length, 1, info.paths, -1);
+
+	}
 
 	sort_list(info.paths);
 	ft_display_paths(info.paths);
