@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/08 17:47:48 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/09 13:39:30 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,33 +51,34 @@ t_room	*next_room(t_room *room, char *s_name)
 		/*
 		 * Ajout Du If pour skip les cul de sacs depuis Start
 		 */
+//		printf("GP Room Name == %s LOCK ? %d perf == %d, H_min = %d\n", room->link[index]->name, room->link[index]->lock, room->link[index]->perfum, room->link[index]->heat_min);
 		if (test->heat_min < 0 || test->heat_max == -1)
 			index++;
 		else
 		{
 			if (ft_strcmp(test->name, s_name) == 0)
 			{
-//				ft_putendl("NextRoom Sortie 1");
+//				printf("NextRoom Sortie 1 NAME == %s\n\n", test->name);
 				return (test);
 			}
 			if (test->lock == 0 && !saved)
 			{
 //				ft_putnbr(test->heat_min);
 //				ft_putendl("NextRoom Save 1");
-
+//				printf("NextRoom Save 1 NAME == %s\n", test->name);
 				saved = test;
 			}
 			else if (test->lock == 0)
 			{
 	//			printf("TEST2\n");
-				if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum == 0 && test->perfum != 0))
+				if ((saved->perfum > test->perfum && test->perfum > 0) || (saved->perfum <= 0 && test->perfum > 0))
 				{
-//					ft_putendl("NextRoom Save 2");
+					printf("NextRoom Save 2 NAME == %s\n", test->name);
 					saved = test;
 				}
 				else if (saved->perfum == test->perfum && test->heat_min < saved->heat_min) 
 				{
-//					ft_putendl("NextRoom Save 3");
+//					printf("NextRoom Save 3 NAME == %s\n", test->name);
 					saved = test;
 				}
 			}
@@ -85,8 +86,14 @@ t_room	*next_room(t_room *room, char *s_name)
 			index++;
 		}
 	}
+//	if (test->lock == 2 && !saved)
+//		return (NULL);
+//		printf("testname = %s\n",test->name);
+//	printf("NextRoom Sortie 2 NAME == %s\n\n", saved->name);
+
 	return (saved);
 }
+
 
 int		edit_path(t_path *apath, t_room **aroom, t_info info)
 {
@@ -111,14 +118,15 @@ t_path		*get_path(t_info *info)
 	t_room	*room;
 	t_path	*path;
 	int		edit;
-
+	
+	printf("GP ENTER\n\n");
 	if (!(path = new_path(*info)))
 		return (NULL);
 	path->length = 0;
 	path->perfum = 0;
 	if (info->path_count == info->max_path_count)
 	{
-		//printf("Erf\n");
+		printf("Erf\n");
 		path->id = -2;
 		return (path);
 	}
@@ -129,54 +137,64 @@ t_path		*get_path(t_info *info)
 		edit = 0;
 		if (!(room = next_room(room, info->end->name)))
 		{
-			//printf("BITE\n");
+			printf("GetPath NUll 1\n");
 			return (NULL);
 		}
+//		printf("\n");
 		if ((edit = edit_path(path, &room, *info)) != 1)
 		{
 			path->id = edit;
 			return (path);
 		}
 		else if (edit == -1)
+		{	
+			printf("GetPath NUll 2\n");
 			return (NULL);
+		}
 		if (ft_strcmp(room->name, info->end->name) != 0)
 		{
-			room->lock = 1;
+			room->lock = 2;
 			path->perfum += room->perfum;
 		}
 		path->length++;
 	}
-	
-/*	room = info->end;
-	while (ft_strcmp(room->name, info->start->name) != 0)
-	{
-		edit = 0;
-		if (!(room = next_room(room, info->start->name)))
-		{
-			printf("BITE\n");
-			return (NULL);
-		}
-		if ((edit = edit_path(path, &room, *info)) != 1)
-		{
-			path->id = edit;
-			return (path);
-		}
-		else if (edit == -1)
-			return (NULL);
-		if (ft_strcmp(room->name, info->start->name) != 0)
-		{
-			room->lock = 1;
-			path->perfum += room->perfum;
-		}
-		path->length++;
-	}
-
-*/
-
-
 
 	return (path);
 }
+
+
+
+
+void	ft_test_lock(t_room *room, char *s_name, char *e_name)
+{
+	int index;
+
+	index = 0;
+	while (room->link[index])
+	{
+		if (room->link[index]->heat_max < 0 || room->link[index]->heat_min < 0 ||
+				ft_strcmp(room->link[index]->name, s_name) == 0 ||
+				ft_strcmp(room->link[index]->name, e_name) == 0)
+		{	
+			printf("TESTLOCK");
+
+			index++;
+		}
+		else
+		{
+			printf("TESTLOCK Roomname == %s, Hmin == %d, Hmax == %d, Perf = %d, Lock = %d\n", room->link[index]->name, room->link[index]->heat_min, room->link[index]->heat_max, room->link[index]->perfum, room->link[index]->lock);
+			if (room->link[index]->lock == 0)
+			{
+				room->link[index]->lock = 2;
+				ft_test_lock(room->link[index], s_name, e_name);
+			}
+			index++;
+		}
+	}
+
+}
+
+
 
 t_path	**ft_pathfind(t_info *info)
 {
@@ -231,9 +249,27 @@ t_path	**ft_pathfind(t_info *info)
 		//printf("ENDPARFUM\n");
 	}
 //ft_putendl("PATH4");
+/*
+	index = 0;
+	while (info->start->link[index])
+	{
+		printf("START ROOM LINKED NAME = %s, Hmin = %d, Hmax = %d, perfum = %d\n", info->start->link[index]->name, info->start->link[index]->heat_min, info->start->link[index]->heat_max, info->start->link[index]->perfum);
+		index++;
+	}
+*/
+//	ft_test_lock(info->start, info->start->name, info->end->name);
 
 	while ((path = get_path(info)) && path->id >= 0)
+	{
+		printf("ADD New Path\n");
+		if (!path)
+		{
+			ft_putendl("NO PATH");
+			break;
+
+		}
 		paths[info->path_count++] = path;
+	}
 //	ft_putendl("PATH5");
 
 	if (!path)			//////////////

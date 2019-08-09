@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/08 17:59:44 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/09 11:50:00 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,48 @@ int		send_ant(t_info *info)
 	return (1);
 }
 
+void ft_display_paths(t_path **paths)
+{
+	int index_path;
+	int index_room;
+
+	index_room = 0;
+	index_path = 0;
+	printf("Display PATHS\n");
+	while (paths[index_path])
+	{
+		printf("Path Id == %d, Path length = =%d Path perf == %d, Path Antneed == %d\n", paths[index_path]->id, paths[index_path]->length, paths[index_path]->perfum, paths[index_path]->ant_needed);
+		while (paths[index_path]->rooms[index_room])
+		{
+			index_room++;
+		}
+		index_room = 0;
+		index_path++;
+	}
+
+}
+
+void ft_display_Shorted_paths(t_path *paths)
+{
+	int index;
+
+	index = 0;
+	printf("Display SPATHS\n");
+
+		printf("SPath length = =%d SPath perf == %d, SPath Antneed == %d\n", paths->length, paths->perfum, paths->ant_needed);
+	while (index < paths->length)
+	{
+		printf("RoomName = %s, RoomHeat_min == %d, RoomHeatMax == %d, lock == %d\n",paths->rooms[index]->name, paths->rooms[index]->heat_min, paths->rooms[index]->heat_max, paths->rooms[index]->lock);
+		index++;
+	}
+	}
+
+
+
+
+
+
+
 int		main(void)
 {
 	t_info	info;
@@ -132,7 +174,23 @@ int		main(void)
 		return (0);
 	if (!info.end)
 		printf("BUG\n");
+//////////
 
+
+
+	int index;
+
+	index = 0;
+	while (info.start->link[index])
+	{
+		printf("START ROOM LINKED NAME = %s, Hmin = %d, Hmax = %d\n", info.start->link[index]->name, info.start->link[index]->heat_min, info.start->link[index]->heat_max);
+		index++;
+	}
+
+
+
+
+///////////
 //		printf("PARSE OK\n\n");
 	if (!(info.paths = ft_pathfind(&info)))
 	{
@@ -152,6 +210,9 @@ int		main(void)
 	ft_putendl("Antneeded end");
 
 	sort_list(info.paths);
+	ft_display_paths(info.paths);
+	ft_display_Shorted_paths(info.shortest_path);
+
 	send_ant(&info);
 	return (1);
 }
