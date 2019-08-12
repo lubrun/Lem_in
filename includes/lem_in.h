@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/09 14:06:47 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/12 10:51:50 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,8 @@ typedef struct			s_room
 	int					heat_max;
 	int					heat_min;
 	int					lock;
+	int					tour;
+	int					shortest;
 	int					perfum;
 }						t_room;
 

@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 15:12:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/09 09:50:59 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/12 10:54:00 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,7 @@ t_path	*get_shortest_path(t_room *start, char *end_str)
 
 			path->perfum += room->perfum;
 		}
+		room->shortest = 1;
 		path->rooms[path->length++] = room;
 //		printf("LOCK ? %d\n", path->rooms[path->length - 1]->lock);
 	}

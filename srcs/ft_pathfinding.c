@@ -6,7 +6,7 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/09 13:39:30 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/12 11:46:13 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,7 @@ t_room	*next_room(t_room *room, char *s_name)
 		/*
 		 * Ajout Du If pour skip les cul de sacs depuis Start
 		 */
-//		printf("GP Room Name == %s LOCK ? %d perf == %d, H_min = %d\n", room->link[index]->name, room->link[index]->lock, room->link[index]->perfum, room->link[index]->heat_min);
+		//printf("GP Room Name == %s LOCK ? %d perf == %d, H_min = %d shortestPath ? == %d, tourmin = %d\n", room->link[index]->name, room->link[index]->lock, room->link[index]->perfum, room->link[index]->heat_min, room->link[index]->shortest, room->link[index]->tour);
 		if (test->heat_min < 0 || test->heat_max == -1)
 			index++;
 		else
@@ -118,7 +118,9 @@ t_path		*get_path(t_info *info)
 	t_room	*room;
 	t_path	*path;
 	int		edit;
+	int		tour;
 	
+	tour = 0;
 	printf("GP ENTER\n\n");
 	if (!(path = new_path(*info)))
 		return (NULL);
@@ -140,6 +142,7 @@ t_path		*get_path(t_info *info)
 			printf("GetPath NUll 1\n");
 			return (NULL);
 		}
+		tour++;
 //		printf("\n");
 		if ((edit = edit_path(path, &room, *info)) != 1)
 		{
@@ -150,6 +153,12 @@ t_path		*get_path(t_info *info)
 		{	
 			printf("GetPath NUll 2\n");
 			return (NULL);
+		}
+		else if (room->shortest == 1)
+		{
+			if (room->tour == 0 || room->tour < tour)
+				room->tour = tour;
+
 		}
 		if (ft_strcmp(room->name, info->end->name) != 0)
 		{

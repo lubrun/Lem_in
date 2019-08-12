@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/09 14:24:37 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/12 11:55:48 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ant_remains(t_info *info)
 	return (0);
 }
 
-int		send_ant(t_info *info)
+int		send_ant(t_info *info, int min_ant, t_path *s_path)
 {
 	t_path	*path;
 	int		index;
@@ -116,6 +116,19 @@ int		send_ant(t_info *info)
 			}
 			index++;
 		}
+///////////////////////////////////////////////
+
+		if (min_ant > 1 && min_ant > (info->ant_count - info->ant))
+		{
+			printf("Shor LEN = %d, Ant restant? = %d\n", s_path->length, (info->ant_count - info->ant));
+			return (1);
+
+			/////////// AJOUTER FONCTION POUR ENVOYER LES ANT DEPUIS SHORTED ????
+			/////////  MAIS JE PENSE AUE LES FOURMIS VONT SE CHEVAUCHER
+		}
+
+
+//////////////////////////////////////////
 
 		printf("\n");
 	//	printf("|info->ant %d|erf %d|\n", info->ant, erf);
@@ -156,7 +169,7 @@ void ft_display_Shorted_paths(t_path *paths)
 		printf("SPath length = =%d SPath perf == %d, SPath Antneed == %d\n", paths->length, paths->perfum, paths->ant_needed);
 	while (index < paths->length)
 	{
-		printf("RoomName = %s, RoomHeat_min == %d, RoomHeatMax == %d, lock == %d\n",paths->rooms[index]->name, paths->rooms[index]->heat_min, paths->rooms[index]->heat_max, paths->rooms[index]->lock);
+		printf("RoomName = %s, RoomHeat_min == %d, RoomHeatMax == %d, lock == %d tour == %d\n",paths->rooms[index]->name, paths->rooms[index]->heat_min, paths->rooms[index]->heat_max, paths->rooms[index]->lock, paths->rooms[index]->tour);
 		index++;
 	}
 	}
@@ -164,6 +177,37 @@ void ft_display_Shorted_paths(t_path *paths)
 
 
 
+void	ft_parse_tour_shortest(t_info *info)
+{
+	int index;
+	int tour;
+
+	ft_putendl("TOUR PARSE");
+	tour = 0;
+	index = 0;
+	while ((ft_strcmp(info->shortest_path->rooms[index]->name, info->end->name)) != 0)
+	{
+		if (info->shortest_path->rooms[index]->tour != 0)
+		{
+			tour = info->shortest_path->rooms[index]->tour;
+		}
+		else
+			tour++;
+		index++;
+	}
+ft_putendl("TOUR PARSE MID");
+
+	while (--index >= 0)
+	{
+		if (info->shortest_path->rooms[index]->tour == 0)
+			info->shortest_path->rooms[index]->tour = tour;
+		else
+			tour = info->shortest_path->rooms[index]->tour;
+		tour--;
+	}
+ft_putendl("TOUR PARSE END");
+
+}
 
 
 
@@ -213,7 +257,7 @@ int		main(void)
 	ft_putendl("Antneeded end");
 
 	printf("\n------------MIN ANT == %d LEN FIRST == %d\n", min_ant, info.paths[0]->length);
-	if (min_ant > 1)
+/*	if (min_ant > 1)
 	{
 		index = 0;
 		while (info.paths[index])
@@ -225,11 +269,13 @@ int		main(void)
 		ft_ant_needed(info.paths[index]->length, 1, info.paths, -1);
 
 	}
-
+*/
 	sort_list(info.paths);
+	ft_parse_tour_shortest(&info);
+
 	ft_display_paths(info.paths);
 	ft_display_Shorted_paths(info.shortest_path);
 
-	send_ant(&info);
+	send_ant(&info, min_ant, info.shortest_path);
 	return (1);
 }
