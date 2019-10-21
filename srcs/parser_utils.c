@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parser_utils.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/08 16:47:08 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:04:02 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,18 +31,10 @@ char		**get_rooms_name(t_room *room)
 	return (tab);
 }
 
-t_room		*get_room_link_by_name(char *name, t_room *room)
+int			link_exist(int from, int to, t_info *info)
 {
-	int	index;
-
-	index = 0;
-	while (index < room->link_count)
-	{
-		if (ft_strcmp(room->link[index]->name, name) == 0)
-			return (room->link[index]);
-		index++;
-	}
-	return (NULL);
+	return (info->link_tab[from][to].state > NONE ||
+		info->link_tab[from][to].state > NONE ? 1 : 0);
 }
 
 t_room		*get_room_by_name(char *name, t_room *list)
@@ -59,29 +51,34 @@ t_room		*get_room_by_name(char *name, t_room *list)
 	return (NULL);
 }
 
-int			add_link(char *last_line, t_room *room)
+int			add_link(char *last_line, t_info *info)
 {
 	char	*line;
 	t_room	*from;
 	t_room	*to;
 
-	if (set_lastline_link(last_line, room) == 0)
+	if (!create_link_tab(info) ||
+		set_lastline_link(last_line, info) == 0)
 	{
 	//	ft_putendl("Retour -1 addlink");
+		printf("LA\n");
 		return (-1);// retour -1 au lieu de 0
 	}
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] != '#')//	passer les commentaires
 		{
-			if (set_room(&from, &to, room, ft_strsplit(line, '-')) == 0)
+			printf("{%s}\n", line);
+			if (set_room(&from, &to, ft_strsplit(line, '-'), info) == 0)
 				return(-1);		/////// j'ai remplace le break
 //			ft_putendl(line);
+			printf("FROM [%s] TO [%s]\n", from->name, to->name);
 			from->link_count++;
-			insert_link(from, to);
+			info->link_tab[from->index][to->index] = (t_link) {from, to, NOT_USED, -1, -1};
 			to->link_count++;
-			insert_link(to, from);
+			info->link_tab[to->index][from->index] = (t_link) {to, from, NOT_USED, -1, -1};
 			ft_strdel(&line);
+		//	printf("SET LINK %s - %s\n", from->name, to->name);
 		}
 	}
 	return (1);

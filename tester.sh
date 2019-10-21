@@ -13,12 +13,11 @@ echo "---------FLOW-THOUSAND---------"
 ./generator --flow-thousand > thousand
 ./Lem-in < thousand | grep "tour"
 cat thousand | grep "required" | tail -1
-#echo "---------BIG---------"
-#./generator --big > big
-#./Lem-in < big | grep "tour"
-#cat big | grep "required" | tail -1
-#echo "---------BIG-SUPERPOSITION---------"
-#./generator --big-superposition > big-sup
-#./Lem-in < big-sup | grep "tour"
-#cat big-sup | grep "required" | tail -1
-
+echo "---------BIG---------"
+./generator --big > big
+./Lem-in < big | grep "tour"
+cat big | grep "required" | tail -1
+echo "---------BIG-SUPERPOSITION---------"
+./generator --big-superposition > big-sup
+./Lem-in < big-sup | grep "tour"
+cat big-sup | grep "required" | tail -1

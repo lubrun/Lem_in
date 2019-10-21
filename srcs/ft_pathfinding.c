@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_pathfinding.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/12 11:46:13 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:15:57 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -203,9 +203,44 @@ void	ft_test_lock(t_room *room, char *s_name, char *e_name)
 
 }
 
+int			start_path(t_info *info, int room_index, int *path_id)
+{
+	t_link	link;
 
+	printf("START_PATH WITH %d\n", room_index);
+	link = info->link_tab[info->start->index][room_index];
+	if (link.state <= NONE)
+		return (0);
+	printf("LINK[%d][%d]{%d}\n", info->start->index, room_index, link.state);
+	printf("LINK BETWEN %s -> %s\n", link.from->name, link.to->name);
+	if (link.from == info->end)
+		return (1);
+	if (link.state <= NONE)
+		return (0);
+	if (count_link(info, link.to) == 1)
+		return (0);
+	printf("ROOM [%s] LINK {%d}\n", link.to->name, count_link(info, link.to));
+	link.state = USED;
+	link.id = (*path_id)++;
+	link.turn = 1;
+	return (/*get_next_room()*/1);
+}
 
-t_path	**ft_pathfind(t_info *info)
+t_path		**ft_pathfind(t_info *info)
+{
+	int		path_id;
+	int		index;
+
+	path_id = 0;
+	index = 0;
+
+	printf();
+	while (index < info->start->link_count)
+		start_path(info, index++, &path_id);
+	return (NULL);
+}
+
+/*t_path	**ft_pathfind(t_info *info)
 {
 //	ft_putendl("PATH0");
 //	printf("PATHFINDING enter");
@@ -258,14 +293,14 @@ t_path	**ft_pathfind(t_info *info)
 		//printf("ENDPARFUM\n");
 	}
 //ft_putendl("PATH4");
-/*
+
 	index = 0;
 	while (info->start->link[index])
 	{
 		printf("START ROOM LINKED NAME = %s, Hmin = %d, Hmax = %d, perfum = %d\n", info->start->link[index]->name, info->start->link[index]->heat_min, info->start->link[index]->heat_max, info->start->link[index]->perfum);
 		index++;
 	}
-*/
+
 //	ft_test_lock(info->start, info->start->name, info->end->name);
 
 	while ((path = get_path(info)) && path->id >= 0)
@@ -288,3 +323,4 @@ t_path	**ft_pathfind(t_info *info)
 
 	return (NULL);
 }
+*/

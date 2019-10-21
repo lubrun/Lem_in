@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   heat_utils.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:53:58 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/08 16:52:50 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:32:42 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ int ft_putheat_max(t_room *room, int heat, int h_min)
 			room->link[index]->lock == 0)
 			count++;
 		index++;
+		
 	}
 	if (count > 1 || heat == 0)
 		heat++;

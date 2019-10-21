@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_parsing.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/08 16:43:26 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 13:59:30 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ static int		get_ant_nb()
 	return (ant_nb);
 }
 
-static t_room	*get_room_list(char **last_line, t_info *info)
+static int		get_room_list(char **last_line, t_info *info)
 {
 	t_room	*room;
 	char	*line;
@@ -49,7 +49,7 @@ static t_room	*get_room_list(char **last_line, t_info *info)
 	while (get_next_line(0, &line) > 0 && ft_is_empty_line(line) == 0)
 	{
 		if ((comment = add_room(&room, line, &spec, info)) == -1)
-			return (NULL);
+			return (-1);
 		else if (comment == 0)
 			read_comment(line, &spec);
 		else if (comment == 2)
@@ -61,9 +61,10 @@ static t_room	*get_room_list(char **last_line, t_info *info)
 	{
 		*last_line = ft_strdup(line);
 		ft_strdel(&line);
-		return (room);
+		info->rooms = room;
+		return (1);
 	}
-	return (NULL);
+	return (0);
 }
 
 t_info		ft_pars()
@@ -74,23 +75,17 @@ t_info		ft_pars()
 
 	room = NULL;
 	info = (t_info){.rooms = NULL, .start = NULL, .end = NULL, .paths = NULL, .ant_count = 0,
-	.path_count = 0, .max_path_count = 0, .max_path_len = 0, .lock = 0, .ant = 0};
-
-
-
+	.path_count = 0, .max_path_count = 0, .max_path_len = 0, .lock = 0, .ant = 0, .room_count = 0};
 	if ((info.ant_count = get_ant_nb()) == -1 ||
-		!(room = get_room_list(&last_line, &info)) ||
+		get_room_list(&last_line, &info) < 0 ||
 		(!info.start || !info.end) ||
-		add_link(last_line, room) == -1 ||
-		info.end->link == NULL)
+		add_link(last_line, &info) < 0)
 	{
 		ft_putendl("ERROR");
 		free(room);
 		info.rooms = NULL;
 		return (info);
 	}
-	printf("\n");
-	info.rooms = room;
 	info.lock = 1;
 	return (info);
 }

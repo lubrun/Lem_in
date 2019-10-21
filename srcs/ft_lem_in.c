@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lem_in.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lubrun <lubrun@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 10:44:36 by lubrun            #+#    #+#             */
-/*   Updated: 2019/08/12 11:55:48 by qbarrier    ###    #+. /#+    ###.fr     */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_lem_in.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/21 14:12:09 by lubrun      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 
 #include "../includes/lem_in.h"
 
@@ -216,23 +216,13 @@ int		main(void)
 	t_info	info;
 
 	if (!(info = ft_pars()).rooms)
+	{
+		printf("ZOOB2\n");
 		return (0);
+	}
 	if (!info.end)
 		printf("BUG\n");
 //////////
-
-
-
-	int index;
-
-	index = 0;
-	while (info.start->link[index])
-	{
-		printf("START ROOM LINKED NAME = %s, Hmin = %d, Hmax = %d\n", info.start->link[index]->name, info.start->link[index]->heat_min, info.start->link[index]->heat_max);
-		index++;
-	}
-
-
 
 
 ///////////
