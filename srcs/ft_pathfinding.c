@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 14:03:43 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 19:17:16 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -205,18 +205,57 @@ int set_room_path(t_info *info, t_link link, int path_id, int turn)
 
 	index = 0;
 	child = 0;
+
 	printf("LINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, link.id, link.turn);
+
 	while (index < info->room_count)
 	{
 		new = info->link_tab[link.to->index][index];
 		if (new.state > NONE)
 		{
-			if (new.id)
-			new.turn = turn;
+			if ((turn < new.turn || new.turn == -1) && ft_strcmp(new.to->name, info->end->name) != 0)
+			{
+
+				info->link_tab[link.to->index][index].turn = turn;
+				info->link_tab[link.to->index][index].id = path_id;
+				info->link_tab[index][link.to->index].turn = turn - 1;
+				info->link_tab[index][link.to->index].id = path_id;
+
+				printf("\tLINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, link.id, link.turn);
+
+				if (ft_strcmp(new.to->name, info->start->name) != 0)
+					set_room_path(info, info->link_tab[link.to->index][index], path_id, turn + 1);
+			}
+			else
+				info->link_tab[index][link.to->index].turn = turn - 1;
 		}
 		index++;
 	}
 	return (child);
+}
+
+
+void	ft_display_info(t_info *info)
+{
+	int index = 0;
+	int index2 = 0;
+	t_link link;
+
+
+
+	while (index < info->room_count)
+	{
+		while(index2 < info->room_count)
+		{
+			link = info->link_tab[index][index2];
+			if (link.state > NONE)
+				printf("NAME->NAME=TURN :[%s]->[%s]=[%d]\n", link.from->name, link.to->name, link.turn);
+			index2++;
+		}
+		index2 = 0;
+		index++;
+	}
+
 }
 
  unsigned long long int	**ft_pathfind(t_info *info)
@@ -230,21 +269,25 @@ int set_room_path(t_info *info, t_link link, int path_id, int turn)
 	index = 0;
 	while (index < info->room_count)
 	{
-		link = info->link_tab[info->start->index][index];
+		link = info->link_tab[info->end->index][index];
 		if (link.state > NONE && count_link(info, link.to) > 1)
 		{
 			turn = 1;
 			printf("START PATH [%s]->[%s]\n", link.from->name, link.to->name);
-			if (link.from == info->end)
+			if (link.from == info->start)
 				return (NULL);
 			link.state = USED;
 			link.id = path_id++;
 			link.turn = turn++;
+			info->link_tab[index][info->end->index].turn = 0;
 			while (set_room_path(info, link, path_id - 1, turn) > 0)
 				turn++;
 		}
 		index++;
 	}
+	printf("\n\t\tend PAHT\n");
+
+	ft_display_info(info);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:33:24 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 15:33:18 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,9 +103,9 @@ int			set_lastline_link(char *last_line, t_info *info)
 		return (0);
 	ft_putendl(last_line);
 	from->link_count++;
-	info->link_tab[from->index][to->index] = (t_link) {from, to, NOT_USED, -1, -1};
+	info->link_tab[from->index][to->index] = (t_link) {NULL, from, to, NOT_USED, -1, -1};
 	to->link_count++;
-	info->link_tab[to->index][from->index] = (t_link) {to, from, NOT_USED, -1, -1};
+	info->link_tab[to->index][from->index] = (t_link) {NULL, to, from, NOT_USED, -1, -1};
 	ft_strdel(&last_line);
 	return (1);
 }
