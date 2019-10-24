@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:04:02 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:32:51 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,18 +61,15 @@ int			add_link(char *last_line, t_info *info)
 		set_lastline_link(last_line, info) == 0)
 	{
 	//	ft_putendl("Retour -1 addlink");
-		printf("LA\n");
 		return (-1);// retour -1 au lieu de 0
 	}
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] != '#')//	passer les commentaires
 		{
-			printf("{%s}\n", line);
 			if (set_room(&from, &to, ft_strsplit(line, '-'), info) == 0)
 				return(-1);		/////// j'ai remplace le break
 //			ft_putendl(line);
-			printf("FROM [%s] TO [%s]\n", from->name, to->name);
 			from->link_count++;
 			info->link_tab[from->index][to->index] = (t_link) {from, to, NOT_USED, -1, -1};
 			to->link_count++;

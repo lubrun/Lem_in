@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:05:09 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:33:24 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,6 @@ int			link_valid(t_room *from, t_room *to, t_info *info)
 	{
 		if (link_exist(from->index, to->index, info))
 		{
-			printf("NICE1\n");
 			return (0);
 		}
 	}
@@ -64,13 +63,11 @@ int			set_room(t_room **afrom, t_room **ato, char **str_info, t_info *info)
 	to = get_room_by_name(str_info[1], info->rooms);
 	if (!from || !to)
 	{
-		printf("1\n");
 		ft_2dstrdel(&str_info);
 		return (0);
 	}
 	if (!link_valid(from, to, info))
 	{
-		printf("p2\n");
 		ft_2dstrdel(&str_info);
 		return (0);
 	}

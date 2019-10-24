@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:23:33 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 11:53:07 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,13 @@ enum					e_linkstate
 {
 	NONE, NOT_USED, USED, TAB_END = -1
 };
+
+typedef struct			s_path_info
+{
+	int					index;
+	int					turn;
+}						t_path_info;
+
 
 typedef struct			s_room
 {
@@ -52,6 +59,7 @@ typedef struct			s_path
 
 typedef struct			s_link
 {
+	struct s_path_info	*list;
 	struct s_room		*from;
 	struct s_room		*to;
 	int					state;
@@ -99,11 +107,11 @@ int						set_heat(t_room *room, int heat,
 						char *s_name, char *e_name);
 int						add_room_into_path(t_path *apath, t_room **aroom);
 char					**get_rooms_name(t_room *room);
+unsigned long long int	**ft_pathfind(t_info *info);
 t_room					*get_room_by_name(char *name, t_room *list);
 t_room					*next_room(t_room *room, char *s_name);
 t_path					*new_path(t_info info);
 t_path					*get_shortest_path(t_room *start, char *end_str);
-t_path					**ft_pathfind(t_info *info);
 t_info					ft_pars();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:12:09 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 14:03:37 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -227,9 +227,9 @@ int		main(void)
 
 ///////////
 //		printf("PARSE OK\n\n");
-	if (!(info.paths = ft_pathfind(&info)))
+	if (!(ft_pathfind(&info)))
 	{
-		printf("BUG2\n");
+		printf("CHECK START NEIGHOUR\n");
 		return (0);
 	}
 
