@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 14:03:37 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 16:02:09 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,8 @@ int		ant_remains(t_info *info)
 	return (0);
 }
 
+/*
+
 int		send_ant(t_info *info, int min_ant, t_path *s_path)
 {
 	t_path	*path;
@@ -138,6 +140,8 @@ int		send_ant(t_info *info, int min_ant, t_path *s_path)
 	return (1);
 }
 
+*/
+
 void ft_display_paths(t_path **paths)
 {
 	int index_path;
@@ -148,7 +152,7 @@ void ft_display_paths(t_path **paths)
 	printf("Display PATHS\n");
 	while (paths[index_path])
 	{
-		printf("Path Id == %d, Path length = =%d Path perf == %d, Path Antneed == %d\n", paths[index_path]->id, paths[index_path]->length, paths[index_path]->perfum, paths[index_path]->ant_needed);
+//		printf("Path Id == %d, Path length = =%d Path perf == %d, Path Antneed == %d\n", paths[index_path]->id, paths[index_path]->length, paths[index_path]->perfum, paths[index_path]->ant_needed);
 		while (paths[index_path]->rooms[index_room])
 		{
 			index_room++;
@@ -166,7 +170,7 @@ void ft_display_Shorted_paths(t_path *paths)
 	index = 0;
 	printf("Display SPATHS\n");
 
-		printf("SPath length = =%d SPath perf == %d, SPath Antneed == %d\n", paths->length, paths->perfum, paths->ant_needed);
+//		printf("SPath length = =%d SPath perf == %d, SPath Antneed == %d\n", paths->length, paths->perfum, paths->ant_needed);
 	while (index < paths->length)
 	{
 		printf("RoomName = %s, RoomHeat_min == %d, RoomHeatMax == %d, lock == %d tour == %d\n",paths->rooms[index]->name, paths->rooms[index]->heat_min, paths->rooms[index]->heat_max, paths->rooms[index]->lock, paths->rooms[index]->tour);
@@ -176,7 +180,7 @@ void ft_display_Shorted_paths(t_path *paths)
 
 
 
-
+/*
 void	ft_parse_tour_shortest(t_info *info)
 {
 	int index;
@@ -208,7 +212,7 @@ ft_putendl("TOUR PARSE MID");
 ft_putendl("TOUR PARSE END");
 
 }
-
+*/
 
 
 int		main(void)
@@ -226,17 +230,19 @@ int		main(void)
 
 
 ///////////
-//		printf("PARSE OK\n\n");
+		printf("PARSE OK\n\n");
 	if (!(ft_pathfind(&info)))
 	{
 		printf("CHECK START NEIGHOUR\n");
-		return (0);
+//		return (0);
 	}
+	ft_algo(&info);
 
+	return (0);
 //ft_putendl("AllPath");
 
 
-
+/*
 		printf("PATHFINDING OK\n\n");
 	info.shortest_path->ant_needed = 0;
 	ft_putendl("Shortedpath");
@@ -247,7 +253,7 @@ int		main(void)
 	ft_putendl("Antneeded end");
 
 	printf("\n------------MIN ANT == %d LEN FIRST == %d\n", min_ant, info.paths[0]->length);
-/*	if (min_ant > 1)
+////////	if (min_ant > 1)
 	{
 		index = 0;
 		while (info.paths[index])
@@ -259,7 +265,7 @@ int		main(void)
 		ft_ant_needed(info.paths[index]->length, 1, info.paths, -1);
 
 	}
-*/
+///////////
 	sort_list(info.paths);
 	ft_parse_tour_shortest(&info);
 
@@ -267,5 +273,9 @@ int		main(void)
 	ft_display_Shorted_paths(info.shortest_path);
 
 	send_ant(&info, min_ant, info.shortest_path);
+
+
+*/
+
 	return (1);
 }

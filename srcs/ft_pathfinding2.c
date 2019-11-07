@@ -6,13 +6,13 @@
 /*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 15:12:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/12 10:54:00 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:17:05 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
+/*
 t_path	*get_shortest_path(t_room *start, char *end_str)
 {
 	t_path	*path;
@@ -60,4 +60,4 @@ t_path	*get_shortest_path(t_room *start, char *end_str)
 	}
 
 	return (path);
-}
+}*/

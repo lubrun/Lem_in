@@ -6,13 +6,13 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/19 16:06:27 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/09 14:08:35 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:16:50 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
+/*
 int		ft_ant_needed(int len_before, int nomber_path ,t_path **list, int min_ant)
 {
 	int min_len;
@@ -51,4 +51,4 @@ int		ft_ant_needed(int len_before, int nomber_path ,t_path **list, int min_ant)
 	return (min_ant);
 	//printf("ERF\n");
 //	sort_list(list);
-}
+}*/

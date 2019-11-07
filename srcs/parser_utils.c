@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 15:34:04 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 13:32:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,9 +71,9 @@ int			add_link(char *last_line, t_info *info)
 				return(-1);		/////// j'ai remplace le break
 //			ft_putendl(line);
 			from->link_count++;
-			info->link_tab[from->index][to->index] = (t_link) {NULL, from, to, NOT_USED, -1, -1};
+			info->link_tab[from->index][to->index] = (t_link) {NULL, from, to, NOT_USED, create_id(info), -1};
 			to->link_count++;
-			info->link_tab[to->index][from->index] = (t_link) {NULL, to, from, NOT_USED, -1, -1};
+			info->link_tab[to->index][from->index] = (t_link) {NULL, to, from, NOT_USED, create_id(info), -1};
 			ft_strdel(&line);
 		//	printf("SET LINK %s - %s\n", from->name, to->name);
 		}
