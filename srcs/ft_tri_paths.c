@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 16:52:15 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 18:08:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,5 +156,5 @@ void	ft_tri_paths(t_info *info)
 		index_path++;
 	}
 	ft_tri_by_id(info->paths);
-//	ft_display_path(info);
+	ft_display_path(info);
 }

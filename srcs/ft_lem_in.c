@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 15:47:15 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 17:15:26 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -236,7 +236,10 @@ int		main(void)
 		printf("CHECK START NEIGHOUR\n");
 //		return (0);
 	}
+	printf("TRI START\n");
 	ft_tri_paths(&info);
+	printf("ALGO START\n");
+
 	ft_algo(&info);
 
 	return (0);

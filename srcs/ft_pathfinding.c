@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 16:52:26 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 18:00:57 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ void	ft_display_info(t_info *info)
 		{
 			link = info->link_tab[index][index2];
 			if (link.state > NONE)
-				printf("NAME->NAME=TURN :[%s]->[%s]=[%d]\n", link.from->name, link.to->name, link.id[0]);
+//				printf("NAME->NAME=TURN :[%s]->[%s]=[%d]\n", link.from->name, link.to->name, link.id[0]);
 			index2++;
 		}
 		index2 = 0;
@@ -133,13 +133,16 @@ void					ft_prepare_path(t_info *info, int index, t_link link, t_path *path)
 	int			id_from_start;
 	static int	id_path;
 
+//	printf("PREPARE  PATH 1 \n");
 	id_from_start = path->id_from_start;
 	path->length = link.id[id_from_start] - 1;
 	path->id_path = id_path++;
 	path->rooms[0] = link.from;
 	path->rooms[1] = link.to;
+//	printf("PREPARE  PATH 2 \n");
 	if (ft_strcmp(link.to->name, info->start->name))
 		ft_build_path(info, index, path, link.id[path->id_from_start]);
+//	printf("PREPARE  PATH 3 \n");
 	path->rooms[link.id[id_from_start] +1] = NULL;
 }
 
@@ -169,15 +172,19 @@ int						ft_all_path(t_info *info, t_link link, int id_from_start, int index)
 	path = NULL;
 	while (id_from_start < MIN(SIZE_TAB, info->start->link_count))
 	{
+//		printf("ALLPATH1\n");
 		while(index < info->room_count)
 		{
+//			printf("ALLPATH2\n");
 			link = info->link_tab[info->end->index][index];
 			if (link.state > NONE && link.id[id_from_start] > -1 && count_link(info, link.to) > 1)
 			{
-				
+//				printf("ALLPATH3\n");
 //				printf("TO == [%s]Heat[%d]\n",link.to->name, link.id[id_from_start]);
 				path = ft_opti_new_path(info, path, id_from_start, link.id[id_from_start] + 2);
+//				printf("ALLPATH4\n");
 				ft_prepare_path(info, index, link, path);
+//				printf("ALLPATH5\n");
 			}
 			index++;
 		}
@@ -241,8 +248,9 @@ void	ft_display_pat(t_info *info)
 		}
 		index++;
 	}
-	printf("\n\t\tend PAHT\n");
+	printf("\n\t\tstart ALL PATH\n");
 	ft_all_path(info, link, 0, 0);
+	printf("\n\t\tend PAHT\n");
 //	ft_display_info(info);
 //	ft_display_pat(info);
 	return (NULL);

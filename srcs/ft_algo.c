@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 17:11:04 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 18:34:46 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,7 @@ void		ft_turn_min(t_info *info, t_group *group)
 		ant = (group->nb_paths * turn) - group->total_len;
 //		printf("ANT == [%d]\n",ant);
 	}
-	printf ("turn == %d\n", turn);
+//	printf ("turn == %d\n", turn);
 	group->turn_min = turn;
 }
 
@@ -122,22 +122,21 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 		while (path)
 		{
 //			printf("PATH ID ==[%d]\n", path->id_path);
-			if (path->length < tmp_turn || tmp_turn == 0)
+			if (!(path->length < tmp_turn || tmp_turn == 0))
+				break;
+			if (ft_test_path(path, group))
 			{
-				if (ft_test_path(path, group))
+				ft_add_path_to_group(path, group);
+				group = ft_best_group(info, id + 1, group, tmp);
+//				printf("BITE3\n");
+				if (tmp_turn == 0 || group->turn_min < tmp_turn)
 				{
-					ft_add_path_to_group(path, group);
-					group = ft_best_group(info, id + 1, group, tmp);
-	//				printf("BITE3\n");
-					if (tmp_turn == 0 || group->turn_min < tmp_turn)
-					{
-						printf("\tBEST is [%d]\n", group->turn_min);
-						tmp_turn = group->turn_min;
-						**tmp = *group;
-					}
-					ft_del_last_path(group);
+					printf("\tBEST is [%d]\n", group->turn_min);
+					tmp_turn = group->turn_min;
+					**tmp = *group;
 				}
-			}
+				ft_del_last_path(group);
+				}
 			path = path->next;
 		}
 		id++;
