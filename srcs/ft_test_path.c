@@ -6,13 +6,43 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/07 16:39:28 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 17:27:15 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 14:49:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
+int		ft_test_path(t_path *path, t_group *group)
+{
+	int	index_tab;
+	int	index_room;
+
+	index_tab = 0;
+	index_room = 1;
+//	printf("-------\n");
+	while (path->rooms[index_room + 1])
+	{
+//		printf("PATH TEST [%s]\n", path->rooms[index_room]->name);
+		if (group->tab[path->rooms[index_room]->index] == 0)
+			group->tab[path->rooms[index_room]->index] = 1;
+		else
+		{
+			while (index_room > 0)
+			{
+				index_room--;
+				group->tab[path->rooms[index_room]->index] = 0;
+			}
+//			printf("same\n");
+			return (0);
+		}
+		index_room++;
+	}
+//		printf("TEST OK\n");
+		return (1);
+}
+
+/*
 int		ft_test_path(t_path *path, t_group *group)
 {
 	int index_group;
@@ -41,19 +71,10 @@ int		ft_test_path(t_path *path, t_group *group)
 				}
 					index_path++;
 			}
-
-
-
-
-
-
-
-
-
 			index_gp_room++;
 		}
 		index_group++;
 	}
 //	printf("TEST OK\n");
 	return (1);
-}
+}*/
