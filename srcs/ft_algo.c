@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 18:34:46 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 15:34:56 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,20 +87,26 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 
 // GOOD OONE
 
-void		ft_turn_min(t_info *info, t_group *group)
+void		ft_turn_min(int ant, t_group *group)
 {
-	int ant;
 	int turn;
+//	int ant2;
 
-	ant = 0;
+//	ant2 = 0;
 	turn = 0;
 //	printf("group [len][nbpath] == [%d][%d] && anttotal = [%d]\n", group->total_len, group->nb_paths, info->ant_count);
-	while (ant < info->ant_count)
+//
+/*
+	while (ant2 < ant)
 	{
 		turn++;
-		ant = (group->nb_paths * turn) - group->total_len;
+		ant2 = (group->nb_paths * turn) - group->total_len;
 //		printf("ANT == [%d]\n",ant);
 	}
+*/
+
+	turn = (group->total_len + ant) / group->nb_paths;
+
 //	printf ("turn == %d\n", turn);
 	group->turn_min = turn;
 }
@@ -142,7 +148,7 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 		id++;
 	}
 	if (group->nb_paths > 0)
-		ft_turn_min(info, group);
+		ft_turn_min(info->ant_count, group);
 	return (group);
 }
 

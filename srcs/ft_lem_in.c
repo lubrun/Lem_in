@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 17:15:26 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 13:57:31 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -219,6 +219,8 @@ int		main(void)
 {
 	t_info	info;
 
+
+
 	if (!(info = ft_pars()).rooms)
 	{
 		printf("ZOOB2\n");
@@ -231,7 +233,7 @@ int		main(void)
 
 ///////////
 		printf("PARSE OK\n\n");
-	if (!(ft_pathfind(&info)))
+	if (!(ft_pathfind(&info, info.start->index, MIN(SIZE_TAB, info.start->link_count))))
 	{
 		printf("CHECK START NEIGHOUR\n");
 //		return (0);

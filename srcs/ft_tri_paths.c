@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 18:08:06 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 18:30:09 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -149,12 +149,23 @@ void	ft_tri_paths(t_info *info)
 {
 	int index_path;
 
+	printf("--TRI PATH--\n");
 	index_path = 0;
+/*
 	while (info->paths[index_path])
 	{
 		info->paths[index_path] = ft_tri_by_next(info->paths[index_path]);
 		index_path++;
 	}
+*/
+	while (index_path < MIN(SIZE_TAB, info->start->link_count))
+	{
+		info->paths[index_path] = ft_tri_by_next(info->paths[index_path]);
+		index_path++;
+	}
+
+
+
 	ft_tri_by_id(info->paths);
 	ft_display_path(info);
 }
