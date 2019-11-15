@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 15:34:56 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 18:50:27 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,30 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 	return (group);
 }
 */
+void	ft_display_tmp(t_group *group)
+{
+	int index;
+	int index_room;
+	t_path *path;
 
+	index_room = 0;
+	index = 0;
+	printf("\t\t---------BEST WAY------------\n\n");
+	printf("groupe len = [%d] nbpath[%d] turn_min [%d]\n", group->total_len, group->nb_paths, group->turn_min);
+	while (group->paths[index])
+	{
+		path = group->paths[index];
+		printf("\nPATH IDP[%d] IDS[%d] LEN [%d]\n-\n", path->id_path, path->id_from_start, path->length);
+		while(path->rooms[index_room])
+		{
+//			printf("ROOM NAME[%s]\n", path->rooms[index_room]->name);
+			index_room++;
+
+		}
+		index_room = 0;
+		index++;
+	}
+}
 
 // GOOD OONE
 
@@ -112,9 +135,8 @@ void		ft_turn_min(int ant, t_group *group)
 }
 
 
-
-//GOOD ONE
-
+/*
+// TEST 3
 t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 {
 	t_path	*path;
@@ -125,6 +147,8 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 	while (id < MIN(info->start->link_count, SIZE_TAB))
 	{
 		path = info->paths[id];
+		if (path && !(path->length < tmp_turn || tmp_turn == 0))
+				break;
 		while (path)
 		{
 //			printf("PATH ID ==[%d]\n", path->id_path);
@@ -140,6 +164,51 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 					printf("\tBEST is [%d]\n", group->turn_min);
 					tmp_turn = group->turn_min;
 					**tmp = *group;
+					ft_display_tmp(group);
+				}
+				return (group);
+				ft_del_last_path(group);
+				}
+			path = path->next;
+		}
+		id++;
+	}
+	if (group->nb_paths > 0)
+		ft_turn_min(info->ant_count, group);
+	return (group);
+}
+*/
+
+//GOOD ONE A GARDER MARCHE SUR LES BIG ET TOUT 
+
+t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
+{
+	t_path	*path;
+	static int		tmp_turn;
+
+//	printf("START BEST GROUP TMPTURN == [%d]\n", tmp_turn);
+
+	while (id < MIN(info->start->link_count, SIZE_TAB))
+	{
+		path = info->paths[id];
+		if (path && !(path->length < tmp_turn || tmp_turn == 0))
+				break;
+		while (path)
+		{
+//			printf("PATH ID ==[%d]\n", path->id_path);
+			if (!(path->length < tmp_turn || tmp_turn == 0))
+				break;
+			if (ft_test_path(path, group))
+			{
+				ft_add_path_to_group(path, group);
+				group = ft_best_group(info, id + 1, group, tmp);
+//				printf("BITE3\n");
+				if (tmp_turn == 0 || group->turn_min < tmp_turn)
+				{
+					printf("\tBEST is [%d]\n", group->turn_min);
+					tmp_turn = group->turn_min;
+					**tmp = *group;
+					ft_display_tmp(group);
 				}
 				ft_del_last_path(group);
 				}
@@ -243,30 +312,7 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 
 
 
-void	ft_display_tmp(t_group *group)
-{
-	int index;
-	int index_room;
-	t_path *path;
 
-	index_room = 0;
-	index = 0;
-	printf("\t\t---------BEST WAY------------\n\n");
-	printf("groupe len = [%d] nbpath[%d] turn_min [%d]\n", group->total_len, group->nb_paths, group->turn_min);
-	while (group->paths[index])
-	{
-		path = group->paths[index];
-		printf("\nPATH IDP[%d] IDS[%d] LEN [%d]\n-\n", path->id_path, path->id_from_start, path->length);
-		while(path->rooms[index_room])
-		{
-//			printf("ROOM NAME[%s]\n", path->rooms[index_room]->name);
-			index_room++;
-
-		}
-		index_room = 0;
-		index++;
-	}
-}
 
 void	ft_algo(t_info *info)
 {

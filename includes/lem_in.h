@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 13:56:57 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 18:49:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -134,6 +134,7 @@ int						add_room_into_path(t_path *apath, t_room **aroom);
 char					**get_rooms_name(t_room *room);
 unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size);
 t_room					*get_room_by_name(char *name, t_room *list);
+t_room					*get_room_by_index(int index, t_room *list);
 t_room					*next_room(t_room *room, char *s_name);
 t_path					*new_path(int id_from_start, int id_path, int size_room);
 t_group					*new_group(t_info *info);

@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 18:30:09 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 17:36:13 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,16 @@ void	ft_display_path(t_info *info)
 		}
 		index_path++;
 	}
+
+	index_path = 0;
+	while (index_path < MIN(SIZE_TAB, info->start->link_count))
+	{
+		path = info->paths[index_path];
+		if (path)
+			printf("----------TEST FOR ID [%d] LEN MIN == [%d]-----------\n-\n", index_path, path->length);
+		index_path++;
+	}
+	printf("\t\t-----LINK COUNT S[%d] E[%d]-------", info->start->link_count, info->end->link_count);
 }
 
 
@@ -115,7 +125,7 @@ void	ft_swap_tablist(t_path *lst1, t_path *lst2)
 
 
 
-void	ft_tri_by_id(t_path **path)
+void	ft_tri_by_id(t_path **path, t_info *info)
 {
 	int		id;
 	int		id2;
@@ -126,11 +136,11 @@ void	ft_tri_by_id(t_path **path)
 	id = 0;
 	tmp = path;
 	tmp2 = path;
-	while (tmp[id])
+	while (id < MIN(SIZE_TAB, info->start->link_count))
 	{
-		while(tmp2[id2])
+		while(id2 < MIN(SIZE_TAB, info->start->link_count))
 		{
-			if (tmp[id]->length > tmp2[id2]->length)
+			if (tmp[id] && tmp[id2] && tmp[id]->length > tmp2[id2]->length)
 			{
 //				printf("tmp LEN[%d] LEN2[%d]\n",tmp[id]->length , tmp2[id2]->length);
 				ft_swap_tablist(tmp[id], tmp2[id2]);
@@ -166,6 +176,6 @@ void	ft_tri_paths(t_info *info)
 
 
 
-	ft_tri_by_id(info->paths);
+	ft_tri_by_id(info->paths, info);
 	ft_display_path(info);
 }

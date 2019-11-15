@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 13:32:06 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 16:08:26 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,18 @@ t_room		*get_room_by_name(char *name, t_room *list)
 		list = list->next;
 	}
 	return (NULL);
+}
+
+t_room		*get_room_by_index(int index, t_room *list)
+{
+	while (list)
+	{
+		if (index == list->index)
+			return (list);
+		list = list->next;
+	}
+	return (NULL);
+
 }
 
 int			add_link(char *last_line, t_info *info)
