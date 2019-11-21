@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 15:26:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 03:24:52 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/27 10:23:48 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,11 +20,11 @@
 # include <string.h>
 # include <fcntl.h>
 
-typedef struct		s_coord
+typedef struct		s_point_2
 {
 	int				x;
 	int				y;
-}					t_coord;
+}					t_point_2;
 
 typedef struct		s_list
 {
@@ -124,6 +124,6 @@ void				*ft_memalloc(size_t size);
 void				**ft_2dinsert(void **tab, void *value, size_t size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f) (t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
-t_coord				ft_newcoord(int x, int y);
+t_point_2			ft_newpoint_2(int x, int y);
 
 #endif

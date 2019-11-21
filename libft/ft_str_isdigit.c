@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_str_isdigit.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 11:09:56 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/16 11:11:37 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/27 10:43:30 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,14 +15,11 @@
 
 int		ft_str_isdigit(char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
+	while (*str != '\0')
 	{
-		if (ft_isdigit(str[i]) == 0)
+		if (ft_isdigit(*str) == 0)
 			return (0);
-		i++;
+		str++;
 	 }
 	return (1);
 }

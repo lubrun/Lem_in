@@ -1,14 +1,23 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_pathfinding.c                                 .::    .:/ .      .::   */
+/*   ft_newpoint_2.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/21 14:32:20 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 14:32:21 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/10 03:17:47 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/10 03:17:49 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_lem_in.h"
+#include "libft.h"
+
+t_point_2		ft_newpoint_2(int x, int y)
+{
+	t_point_2	point;
+
+	point.x = x;
+	point.y = y;
+	return (point);
+}

@@ -6,7 +6,7 @@
 #    By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/02 15:44:31 by lubrun       #+#   ##    ##    #+#        #
-#    Updated: 2019/04/12 03:24:12 by lubrun      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/10 03:18:04 by lubrun      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -93,7 +93,7 @@ SRC = ft_putchar.c \
 	  ft_atoull.c \
 	  ft_fillnewstr.c \
 	  ft_newint_tab.c \
-	  ft_newcoord.c \
+	  ft_newpoint_2.c \
 	  ft_newint_2dtab.c \
 	  ft_str_isdigit.c \
 	  ft_2dcontains.c \
@@ -104,7 +104,11 @@ SRC = ft_putchar.c \
 
 OBJS = $(SRC:.c=.o)
 
+HEADER_FOLDER = includes/
+
 HEADER = libft.h
+
+INCLUDE = $(addprefix $(HEADER_FOLDER), $(HEADER))
 
 all: $(NAME)
 
@@ -112,8 +116,8 @@ $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-%.o : %.c
-	gcc -Wall -Wextra -Werror -g -c -I./ $^
+%.o : %.c $(HEADER)
+	gcc -Wall -Wextra -Werror -g -c $^
 
 clean:
 	rm -f $(OBJS)

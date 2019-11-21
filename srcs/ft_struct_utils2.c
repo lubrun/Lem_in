@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_newcoord.c                                    .::    .:/ .      .::   */
+/*   ft_struct_utils2.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lubrun <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/15 15:47:35 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 15:48:35 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/21 14:29:29 by lubrun       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/21 14:30:57 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-t_coord	ft_newcoord(int x, int y)
-{
-	t_coord	coord;
-
-	coord.x = x;
-	coord.y = y;
-	return (coord);
-}
+#include "ft_lem_in.h"
