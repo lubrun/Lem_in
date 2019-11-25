@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 13:57:31 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 15:49:44 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -240,6 +240,9 @@ int		main(void)
 	}
 	printf("TRI START\n");
 	ft_tri_paths(&info);
+	ft_paths_matrice(&info);
+	printf("MATRICE OK, NOW OPTI IT\n");
+//	ft_opti_matrice(&info);
 	printf("ALGO START\n");
 
 	ft_algo(&info);

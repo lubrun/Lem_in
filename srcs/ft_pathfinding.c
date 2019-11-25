@@ -6,34 +6,13 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 16:36:05 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/21 18:59:33 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-/*
-int get_max_path_len(t_info info)
-{
-	int index;
-	int max;
 
-	index = 0;
-	max = -1;
-	while (index < info.start->link_count)
-	{
-		//printf("MAX | TEST %s | HEAT_min %d | HEAT max %d\n", info.start->link[index]->name, info.start->link[index]->heat_min, info.start->link[index]->heat_max);
-		if (max == -1 || info.start->link[index]->heat_min > max)
-		{
-			max = info.start->link[index]->heat_min;
-			//printf("save {%d}\n", max);
-		}
-		index++;
-	}
-	return (max + 1);
-}
-
-*/
 void	ft_display_info(t_info *info)
 {
 	int index = 0;
@@ -54,102 +33,7 @@ void	ft_display_info(t_info *info)
 	}
 
 
-/*
-	int id = 0;
-	while (id < info->start->link_count)
-	{
-		printf("id = [%d] val = [%d]\n",id, link.id[id]);
-		id++;
-	}
-*/
 }
-
-
-
-/*
-int set_id_room(t_info *info, int prev_index, int turn, int id)
-{
-	t_link	new;
-	int 	index;
-
-	index = 0;
-
-//	printf("LINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, id, link.id[id]);
-
-	while (index < info->room_count)
-	{
-		new = info->link_tab[prev_index][index];
-		if (new.state > NONE)
-		{
-//			printf("--NEW ID == NAME == [%s] ID{%d} - TURN{%d}\n",new.to->name, id, new.id[id]);
-			if ((new.id[id] == -1) && ft_strcmp(new.to->name, info->start->name))
-			{
-				info->link_tab[index][prev_index].id[id] = turn;
-				new.id[id] = turn;
-//				printf("\tLINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, id, link.id[id]);
-				if (ft_strcmp(new.to->name, info->end->name) != 0)
-					set_id_room(info, info->link_tab[prev_index][index].to->index, turn + 1, id);
-			}
-			else if (new.id[id] == -1)
-			{
-				info->link_tab[index][prev_index].id[id] = turn;
-				new.id[id] = turn;
-			}
-		}
-		index++;
-	}
-	return (0);
-}
-*/
-
-
-
-
-
-/*
- //////// LUI IL MARCHE SUR TOUT MAIS C'EST LENT !!!
-int set_id_room(t_info *info, int prev_index, int turn, int id)
-{
-	t_link	new;
-	int 	index;
-
-	index = 0;
-
-//	printf("LINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, id, link.id[id]);
-
-	while (index < info->room_count)
-	{
-		new = info->link_tab[prev_index][index];
-		if (new.state > NONE)
-		{
-//			printf("--NEW ID == NAME == [%s] ID{%d} - TURN{%d}\n",new.to->name, id, new.id[id]);
-			if ((new.id[id] == -1) && ft_strcmp(new.to->name, info->start->name))
-			{
-				info->link_tab[index][prev_index].id[id] = turn;
-				new.id[id] = turn;
-//				printf("\tLINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, id, link.id[id]);
-				if (ft_strcmp(new.to->name, info->end->name) != 0)
-					set_id_room(info, info->link_tab[prev_index][index].to->index, turn + 1, id);
-			}
-			else if (new.id[id] == -1)
-			{
-				info->link_tab[index][prev_index].id[id] = turn;
-				new.id[id] = turn;
-			}
-			else if (new.id[id] > turn && new.id[id] != -1)
-			{
-				info->link_tab[index][prev_index].id[id] = turn;
-				new.id[id] = turn;
-				if (ft_strcmp(new.to->name, info->end->name))
-					set_id_room(info, info->link_tab[prev_index][index].to->index, new.id[id] + 1, id);
-			}
-		}
-		index++;
-	}
-	return (0);
-}
-*/
-
 
 // TEST LARGEUR
 int		*ft_malloc_next_tab(t_info *info, int *next_tab, int *tab)
@@ -213,20 +97,8 @@ int set_id_room(t_info *info, int *tab, int turn, int id)
 //						printf("new tab == [%d]\n", next_tab[index_next_tab - 1]);
 					}
 				}
-/*				else if (new.id[id] == -1)
-				{
-					info->link_tab[index][tab[index_tab]].id[id] = turn;
-					new.id[id] = turn;
-					next_tab[index_next_tab++] = new.to->index;
-				}
-				else if (new.id[id] > turn && new.id[id] != -1)
-				{
-					info->link_tab[index][tab[index_tab]].id[id] = turn;
-					new.id[id] = turn;
-					if (ft_strcmp(new.to->name, info->end->name))
-						set_id_room(info, tab, new.id[id] + 1, id);
-				}
-*/			}
+
+			}
 			index++;
 
 
@@ -241,62 +113,6 @@ int set_id_room(t_info *info, int *tab, int turn, int id)
 	free(next_tab);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
-{
-	int		index2;
-	t_link	link;
-	int		i_rooms;
-
-	i_rooms = 0;
-	index2 = 0;
-//	printf("BUILD ON \n");
-	while(index2 < info->room_count)
-	{
-		link = info->link_tab[index_start][index2];
-		if (link.state > NONE && link.id[path->id_from_start] > -1 && link.id[path->id_from_start] < heat)
-		{
-//			printf("PATH FROM[%s]=> TO[%s] IDP[%d]\n", link.from->name, link.to->name, path->id_path);
-			while (path->rooms[i_rooms])
-				i_rooms++;
-//			printf("\tROOM3 == [%s]\n", path->rooms[i_rooms - 1]->name);
-			path->rooms[i_rooms] = link.to;
-			ft_build_path(info, index2, path, link.id[path->id_from_start]);
-		}
-		index2++;
-	}
-	return (1);
-}
-
-void					ft_prepare_path(t_info *info, int index, t_link link, t_path *path)
-{
-	int			id_from_start;
-	static int	id_path;
-
-//	printf("PREPARE  PATH 1 \n");
-	id_from_start = path->id_from_start;
-	path->length = link.id[id_from_start] - 1;
-	path->id_path = id_path++;
-	path->rooms[0] = link.from;
-	path->rooms[1] = link.to;
-//	printf("PREPARE  PATH 2 \n");
-	if (ft_strcmp(link.to->name, info->start->name))
-		ft_build_path(info, index, path, link.id[path->id_from_start]);
-//	printf("PREPARE  PATH 3 \n");
-	path->rooms[link.id[id_from_start] +1] = NULL;
-}
-*/
 
 
 int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
@@ -319,6 +135,13 @@ int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
 			ft_build_path(info, index2, path, link.id[path->id_from_start]);
 //			printf("TEST2 == [%d] name == [%s]\n", test, link.to->name);
 			path->rooms[test] = link.to;
+			if (link.to != info->start)
+			{
+				path->tab_bin_room[link.to->index] = 1;
+				path->tab_index_room[heat - 2] = link.to->index;
+//				printf("PATH FROM[%s]=> TO[%s] IDP[%d] NAMETO [%s][%d] index_room[%d][%d]\n", link.from->name, link.to->name, path->id_path,link.to->name,  link.to->index, heat - 2, path->tab_index_room[heat - 2]);
+			}
+
 			break;
 //			printf("\tROOM3 == [%s]\n", path->rooms[i_rooms - 1]->name);
 		}
@@ -327,8 +150,6 @@ int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
 	test--;
 	return (1);
 }
-
-
 
 void					ft_prepare_path(t_info *info, int index, t_link link, t_path *path)
 {
@@ -344,10 +165,14 @@ void					ft_prepare_path(t_info *info, int index, t_link link, t_path *path)
 	path->length = heat - 1;
 	path->id_path = id_path++;
 	path->rooms[0] = link.to;
+	path->tab_index_room[0] = link.to->index;
+	path->tab_bin_room[link.to->index] = 1;
 	if (ft_strcmp(link.to->name, info->start->name))
 		ft_build_path(info, index, path, heat);
 //	printf("PREPARE  PATH 3 \n");
+	path->tab_index_room[heat - 1] = 0;
 	path->rooms[heat] = NULL;
+	info->max_path_count = id_path;
 }
 
 t_path					*ft_opti_new_path(t_info *info, t_path *path, int id_from_start, int heat)
@@ -357,12 +182,12 @@ t_path					*ft_opti_new_path(t_info *info, t_path *path, int id_from_start, int 
 	if (!path || id_from_start != id)
 	{
 		id = id_from_start;
-		path = new_path(id_from_start, 0, heat);
+		path = new_path(info, id_from_start, 0, heat);
 		info->paths[id] = path;
 	}
 	else
 	{
-		path->next = new_path(id_from_start, 0, heat);
+		path->next = new_path(info, id_from_start, 0, heat);
 		path = path->next;
 	}
 	return (path);
@@ -399,8 +224,6 @@ int						ft_all_path(t_info *info, int end_index, int id_from_start, int index)
 
 	return (1);
 }
-
-
 
 void	ft_display_pat(t_info *info)
 {
@@ -469,43 +292,3 @@ void	ft_display_pat(t_info *info)
 //	ft_display_pat(info);
 	return (NULL);
 }
-
-/*
-//	BON POUR BIG MAIS LONG 
- unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
-{
-	t_link	link;
-	int		index;
-	int		turn;
-	int		id;
-
-	id = 0;
-	index = 0;
-	printf("PATHFINDING (SET ID)\n");
-	while (index < info->room_count && id < max_id_size)
-	{
-		link = info->link_tab[start][index];
-		if (link.state > NONE && count_link(info, link.to) > 1)
-		{
-			turn = 1;
-//			printf("START PATH [%s]->[%s]\n", link.from->name, link.to->name);
-			if (link.from == info->end)
-				return (NULL);
-			link.state = USED;
-			info->link_tab[index][start].id[id] = turn;
-			link.id[id] = turn;
-//			printf("SET IN ROOM\n");
-			set_id_room(info, link.to->index, ++turn, id);
-//			printf("END SIROOM\n");
-			++id;
-		}
-		index++;
-	}
-	printf("\n\t\tstart ALL PATH\n");
-	ft_all_path(info, info->end->index, 0, 0);
-	printf("\n\t\tend PAHT\n");
-//	ft_display_info(info);
-//	ft_display_pat(info);
-	return (NULL);
-}
-*/

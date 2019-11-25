@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 17:45:20 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 12:41:48 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,13 +84,21 @@ void	sort_list(t_path **list)
 	}
 }
 
-t_path	*new_path(int id_from_start, int id_path, int size_room)
+t_path	*new_path(t_info *info, int id_from_start, int id_path, int size_room)
 {
 	t_path	*path;
+	int index;
 
+	index = 0;
 	if (!(path = ft_memalloc(sizeof(t_path))))
 		return (NULL);
-	if (!(path->rooms = ft_memalloc(sizeof(t_room) * (size_room + 1))))
+	if (!(path->rooms = ft_memalloc(sizeof(t_room) * (size_room - 1))))
+		return (NULL);
+	if (!(path->tab_bin_room = ft_memalloc(sizeof(int) * info->room_count)))
+		return (NULL);
+	if (!(path->tab_index_room = ft_memalloc(sizeof(int) * (size_room - 1))))
+		return (NULL);
+	if (!(path->tab_path_index = ft_memalloc(sizeof(int*) * (info->start->link_count + 1))))
 		return (NULL);
 	path->id_from_start = id_from_start;
 	path->id_path = id_path;

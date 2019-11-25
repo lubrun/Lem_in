@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 17:36:13 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 15:56:27 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,15 @@ void	ft_display_path(t_info *info)
 				index++;
 			}
 			index = 0;
+//			printf("\tINDEX SAVED\n");
+//			while (path->tab_index_room[index])
+//			{
+//				printf("-[%d]-",path->tab_index_room[index]);
+//				index++;
+//			}
+//			printf("NB = [%d]", index - 1);
+//			printf("\n");
+			index = 0;
 			printf("-\n");
 			path = path->next;
 		}
@@ -50,9 +59,23 @@ void	ft_display_path(t_info *info)
 
 void	ft_swap_list(t_path *lst1, t_path *lst2)
 {
+
 	int		len;
 	t_room	**rooms;
+	int		*tab_index_room;
+	int		*tab_bin_room;
 
+
+
+
+	tab_index_room = lst1->tab_index_room;
+	tab_bin_room = lst1->tab_bin_room;
+
+	lst1->tab_index_room = lst2->tab_index_room;
+	lst1->tab_bin_room = lst2->tab_bin_room;
+
+	lst2->tab_index_room = tab_index_room;
+	lst2->tab_bin_room = tab_bin_room;
 	len = lst1->length;
 	rooms = lst1->rooms;
 	lst1->length = lst2->length;
@@ -89,6 +112,21 @@ void	ft_swap_tablist(t_path *lst1, t_path *lst2)
 	t_path	*next;
 	int		id;
 	int		id_path;
+	int		*tab_index_room;
+	int		*tab_bin_room;
+
+
+
+
+	tab_index_room = lst1->tab_index_room;
+	tab_bin_room = lst1->tab_bin_room;
+
+	lst1->tab_index_room = lst2->tab_index_room;
+	lst1->tab_bin_room = lst2->tab_bin_room;
+
+	lst2->tab_index_room = tab_index_room;
+	lst2->tab_bin_room = tab_bin_room;
+
 
 //	id_path = lst1->id_path;
 	len = lst1->length;

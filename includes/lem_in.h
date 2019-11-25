@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 18:49:06 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 15:30:37 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,6 +75,9 @@ typedef struct			s_path
 	int					length;
 	int					id_path;
 	int					id_from_start;
+	int					*tab_index_room;
+	int					*tab_bin_room;
+	int					**tab_path_index;
 	struct s_path		*next;
 }						t_path;
 
@@ -96,6 +99,8 @@ typedef struct			s_info
 	struct s_path		*paths[SIZE_TAB];
 	struct s_path		*shortest_path;
 	struct s_link		**link_tab;
+	int					**matrice;
+	int					*best_matrice;
 	int					ant_count;
 	int					ant;
 	int					path_count;
@@ -105,8 +110,11 @@ typedef struct			s_info
 	int					room_count;
 }						t_info;
 
+void					ft_opti_matrice(t_info *info);
+t_path					*get_path_by_id(t_info *info, int id_path);
+void					ft_paths_matrice(t_info *info);
 void					ft_tri_paths(t_info *info);
-int						ft_test_path(t_path *path, t_group *group);
+int						ft_test_path(t_path *path, t_group *group, t_info *info);
 int						*create_id(t_info *info);
 void					ft_algo(t_info *info);
 void					sort_list(t_path **list);
@@ -136,7 +144,7 @@ unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size);
 t_room					*get_room_by_name(char *name, t_room *list);
 t_room					*get_room_by_index(int index, t_room *list);
 t_room					*next_room(t_room *room, char *s_name);
-t_path					*new_path(int id_from_start, int id_path, int size_room);
+t_path					*new_path(t_info *info, int id_from_start, int id_path, int size_room);
 t_group					*new_group(t_info *info);
 t_path					*get_shortest_path(t_room *start, char *end_str);
 t_info					ft_pars();
