@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:21:25 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 14:31:48 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 12:44:29 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,6 @@ int     main(void)
     info = parse_info();
     if (info.error)
         return (info.error);
-    find_path();
+    find_path(&info);
     return (1);
 }

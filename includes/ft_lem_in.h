@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/20 16:52:37 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/22 15:35:54 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,11 +34,9 @@ typedef struct			s_path_info
 typedef struct          s_room
 {
     struct s_room       *next;
-	int					*turn;
     char                *name;
     struct s_point_2    coord;
     int                 index;
-    int                 lock;
     int                 link_count;
 	int					spec;
 }                       t_room;
@@ -54,7 +52,7 @@ typedef struct			s_group
 
 typedef struct          s_info
 {
-	int			       	**link_tab;
+	unsigned char		***link_tab;
 	struct s_room		**room_tab;
     struct s_room       *rooms;
     struct s_room       *start;
@@ -68,14 +66,17 @@ typedef struct          s_info
 //INPUT
 t_info		            parse_info();
 
+//ALGO
+void					find_path(t_info *info);
+
 //STRUCT
-int						*create_turn_tab(t_info *info);
+unsigned char			*create_turn_tab(t_info *info);
+t_room					*new_room(char **room_info, int *spec, t_info *info);
 int						create_link_tab(t_info *info);
 int     				create_room_tab(t_info *info);
 int						set_lastline_link(char *last_list, t_info *info);
 int						set_room(t_room **afrom, t_room **ato,
 						char **str_info, t_info *info);
-int						add_link(char *last_line, t_info *info);
 int						add_room(t_room **aroom, char *line,
 						int *spec, t_info *info);
 
