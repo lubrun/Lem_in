@@ -6,20 +6,29 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:21:25 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 12:44:29 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 13:17:56 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_lem_in.h"
 
-int     main(void)
+static void	send_ant(t_info info)
 {
-    t_info  info;
+	if (!info.rooms)
+		return ;
+}
 
-    info = parse_info();
-    if (info.error)
-        return (info.error);
-    find_path(&info);
-    return (1);
+int			main(void)
+{
+	t_info info;
+
+	info = parse_info();
+	if (info.error)
+		return (info.error);
+	find_path(&info);
+	if (info.error)
+		return (info.error);
+	send_ant(info);
+	return (1);
 }

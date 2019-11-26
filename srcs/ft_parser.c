@@ -6,21 +6,21 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:28:24 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 13:10:00 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 10:29:52 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_lem_in.h"
 
-static int		get_ant_nb()
+static int		get_ant_nb(void)
 {
 	char	*line;
 	int		ant_nb;
 
 	if (get_next_line(0, &line) <= 0 ||
-		ft_str_isdigit(line) == 0 ||
-		ft_is_empty_line(line) == 1)
+			ft_str_isdigit(line) == 0 ||
+			ft_is_empty_line(line) == 1)
 		return (0);
 	ant_nb = ft_atoi(line);
 	ft_strdel(&line);
@@ -53,7 +53,7 @@ static int		get_room_list(char **last_line, t_info *info)
 		else if (comment == 0)
 			read_comment(line, &spec);
 		else if (comment == 2)
-			break;
+			break ;
 		ft_putendl(line);
 		ft_strdel(&line);
 	}
@@ -62,55 +62,53 @@ static int		get_room_list(char **last_line, t_info *info)
 		*last_line = ft_strdup(line);
 		ft_strdel(&line);
 		info->rooms = room;
-		return (1);
 	}
 	return (1);
 }
 
-static int	    add_link(char *last_line, t_info *info)
+static int		add_link(char *last_line, t_info *info)
 {
 	char	*line;
 	t_room	*from;
 	t_room	*to;
 
 	if (!create_link_tab(info) ||
-		set_lastline_link(last_line, info) == 0)
-	{
-	//	ft_putendl("Retour -1 addlink");
-		return (-1);// retour -1 au lieu de 0
-	}
+			set_lastline_link(last_line, info) == 0)
+		return (-1);
 	while (get_next_line(0, &line) > 0)
 	{
-		if (line[0] != '#')//	passer les commentaires
+		if (line[0] != '#')
 		{
 			if (set_room(&from, &to, ft_strsplit(line, '-'), info) == 0)
-				return(-1);		/////// j'ai remplace le break
-//			ft_putendl(line);
-			if (!(info->link_tab[from->index][to->index] = create_turn_tab(info)) || 
-            !(info->link_tab[to->index][from->index] = create_turn_tab(info)))
-                return (-1);
+				return (-1);
+			if (!(info->link_tab[from->index][to->index] =
+			create_turn_tab()) || !(info->link_tab[to->index][from->index] =
+			create_turn_tab()))
+				return (-1);
 			from->link_count++;
 			to->link_count++;
+			ft_putendl(line);
 			ft_strdel(&line);
-		//	printf("SET LINK %s - %s\n", from->name, to->name);
 		}
 	}
 	return (1);
 }
 
-t_info		    parse_info()
+t_info			parse_info(void)
 {
 	t_room	*room;
 	t_info	info;
 	char	*last_line;
 
 	room = NULL;
-	info = (t_info){.link_tab= NULL, .room_tab = NULL, .rooms = NULL, .start = NULL, .end = NULL, .ant_count = 0,
-	.room_count = 0, .path_count = 0, .error = 0};
+	info = (t_info){.link_tab= NULL, .room_tab = NULL, .room_name_tab = NULL,
+	.rooms = NULL, .start = NULL, .end = NULL, .ant_count = 0,
+		.room_count = 0, .path_count = 0, .error = 0};
 	if (!(info.ant_count = get_ant_nb()) ||
-		!get_room_list(&last_line, &info)||
-		(!info.start || !info.end) ||
-		!add_link(last_line, &info))
+			!get_room_list(&last_line, &info) ||
+			(!info.start || !info.end) ||
+			!create_room_tab(&info) ||
+			!add_link(last_line, &info))
 	{
 		ft_putendl("ERROR");
 		free(room);

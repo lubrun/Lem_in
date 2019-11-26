@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:31:40 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/22 15:58:20 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 11:59:04 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,23 +15,26 @@
 
 static int	link_valid(t_room *from, t_room *to, t_info *info)
 {
-    int i;
+	int i;
 
+	if (from->index == to->index)
+		return (0);
 	if (from->link_count > 0)
 	{
-        i = 0;
-        while (i < info->room_count)
-        {
-            if (info)
-            i++;
-        }
+		i = 0;
+		while (i < info->room_count)
+		{
+			if (info->link_tab[from->index][to->index] ||
+			info->link_tab[to->index][from->index])
+				return (0);
+			i++;
+		}
 	}
-	if (!ft_strcmp(from->name, to->name))
-		return (0);
 	return (1);
 }
 
-int			set_room(t_room **afrom, t_room **ato, char **str_info, t_info *info)
+int			set_room(t_room **afrom, t_room **ato,
+	char **str_info, t_info *info)
 {
 	t_room	*from;
 	t_room	*to;
@@ -43,7 +46,7 @@ int			set_room(t_room **afrom, t_room **ato, char **str_info, t_info *info)
 		ft_2dstrdel(&str_info);
 		return (0);
 	}
-	if (!link_valid(from->index, to->index, info))
+	if (!link_valid(from, to, info))
 	{
 		ft_2dstrdel(&str_info);
 		return (0);
@@ -56,11 +59,8 @@ int			set_room(t_room **afrom, t_room **ato, char **str_info, t_info *info)
 
 t_room		*get_room_by_name(char *name, t_room *list)
 {
-//	ft_putendl("GetRoomByName Enter");
 	while (list)
 	{
-//		ft_putendl("GRBN while");
-//		printf("name == |%s| listname == |%s|\n", name, list->name);
 		if (ft_strcmp(name, list->name) == 0)
 			return (list);
 		list = list->next;
@@ -68,51 +68,39 @@ t_room		*get_room_by_name(char *name, t_room *list)
 	return (NULL);
 }
 
-t_room		*get_room_by_index(int index, t_room *list)
+int			create_link_tab(t_info *info)
 {
-	while (list)
+	int i;
+	int j;
+
+	if (!(info->link_tab = ft_memalloc(sizeof(unsigned char **) *
+					(info->room_count + 1))))
+		return (-1);
+	i = 0;
+	while (i < info->room_count)
 	{
-		if (index == list->index)
-			return (list);
-		list = list->next;
+		if (!(info->link_tab[i] = ft_memalloc(sizeof(unsigned char *) *
+						(info->room_count + 1))))
+			return (-1);
+		j = 0;
+		while (j < info->room_count)
+		{
+			info->link_tab[i][j] = NULL;
+			j++;
+		}
+		info->link_tab[i][j] = NULL;
+		i++;
 	}
-	return (NULL);
-
+	info->link_tab[i] = NULL;
+	return (1);
 }
 
-int     create_link_tab(t_info *info)
-{
-    int i;
-    int j;
-
-    if (!(info->link_tab = ft_memalloc(sizeof(unsigned char **) *
-    (info->room_count + 1))))
-        return (-1);
-    i = 0;
-    while (i < info->room_count)
-    {
-        if (!(info->link_tab[i] = ft_memalloc(sizeof(unsigned char *) *
-        (info->room_count + 1))))
-            return (-1);
-        j = 0;
-        while (j < info->room_count)
-        {
-            info->link_tab[i][j] = NULL;
-            j++;
-        }
-        info->link_tab[i][j] = NULL;
-        i++;
-    }
-    info->link_tab[i] = NULL;
-    return (1);
-}
-
-t_room	*new_room(char **room_info, int *spec, t_info *info)
+t_room		*new_room(char **room_info, int *spec, t_info *info)
 {
 	t_room	*new;
 
 	if (!(new = ft_memalloc(sizeof(t_room))) || !room_info ||
-		!room_info[0] || !room_info[1] || !room_info[2])
+			!room_info[0] || !room_info[1] || !room_info[2])
 		return (NULL);
 	new->next = NULL;
 	new->name = ft_strdup(room_info[0]);
