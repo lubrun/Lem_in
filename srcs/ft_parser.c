@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:28:24 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 10:29:52 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 13:32:37 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ static int		get_ant_nb(void)
 			ft_is_empty_line(line) == 1)
 		return (0);
 	ant_nb = ft_atoi(line);
+	ft_putendl(line);
 	ft_strdel(&line);
 	return (ant_nb);
 }
@@ -101,9 +102,9 @@ t_info			parse_info(void)
 	char	*last_line;
 
 	room = NULL;
-	info = (t_info){.link_tab= NULL, .room_tab = NULL, .room_name_tab = NULL,
-	.rooms = NULL, .start = NULL, .end = NULL, .ant_count = 0,
-		.room_count = 0, .path_count = 0, .error = 0};
+	info = (t_info){.link_tab= NULL, .room_tab = NULL, .rooms = NULL,
+	.start = NULL, .end = NULL, .ant_count = 0, .max_path = 0, 
+	.room_count = 0, .path_count = 0, .error = 0};
 	if (!(info.ant_count = get_ant_nb()) ||
 			!get_room_list(&last_line, &info) ||
 			(!info.start || !info.end) ||
@@ -115,5 +116,6 @@ t_info			parse_info(void)
 		info.rooms = NULL;
 		return (info);
 	}
+	info.max_path = ft_get_min(SIZE_TAB, info.start->link_count);
 	return (info);
 }

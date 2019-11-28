@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 10:27:25 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 14:05:44 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,6 @@
 
 # include "../libft/libft.h"
 # include <stdio.h>
-# define MIN(x, y) ((x < y ? x : y))
 # define SIZE_TAB  255
 
 enum					e_linkstate
@@ -29,6 +28,7 @@ typedef struct          s_room
 {
     struct s_room       *next;
     char                *name;
+	u_int64_t			path_id;
     struct s_point_2    coord;
     int                 index;
     int                 link_count;
@@ -46,13 +46,13 @@ typedef struct			s_group
 
 typedef struct          s_info
 {
-	unsigned char		***link_tab;
+	int					***link_tab;
 	struct s_room		**room_tab;
-	char				**room_name_tab;
     struct s_room       *rooms;
     struct s_room       *start;
     struct s_room       *end;
     int                 ant_count;
+    int          		max_path;
     int                 room_count;
     int                 path_count;
     int                 error;
@@ -66,7 +66,7 @@ void					find_path(t_info *info);
 
 //STRUCT
 t_room					*new_room(char **room_info, int *spec, t_info *info);
-unsigned char			*create_turn_tab(void);
+int						*create_turn_tab(void);
 int						create_link_tab(t_info *info);
 int     				create_room_tab(t_info *info);
 int						set_lastline_link(char *last_list, t_info *info);

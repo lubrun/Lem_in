@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/21 14:31:40 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/26 11:59:04 by lubrun      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/26 14:06:06 by lubrun      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,6 +103,7 @@ t_room		*new_room(char **room_info, int *spec, t_info *info)
 			!room_info[0] || !room_info[1] || !room_info[2])
 		return (NULL);
 	new->next = NULL;
+	new->path_id = 0;
 	new->name = ft_strdup(room_info[0]);
 	new->coord = ft_newpoint_2(ft_atoi(room_info[1]), ft_atoi(room_info[2]));
 	new->index = info->room_count;
