@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/21 18:59:33 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/30 03:53:22 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ int set_id_room(t_info *info, int *tab, int turn, int id)
 	index_tab = 0;
 	index = 0;
 
-//	printf("LINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", link.from->name, link.to->name, link.state, id, link.id[id]);
+//	printf("LINK FROM[%s] TO[%s] - STATE{%d} - ID{%d} - TURN{%d}\n", new.from->name, new.to->name, new.state, id, new.id[id]);
 
 	while (tab[index_tab] > -1)
 	{
@@ -114,14 +114,13 @@ int set_id_room(t_info *info, int *tab, int turn, int id)
 	return (0);
 }
 
-
 int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
 {
 	int		index2;
 	t_link	link;
-	static int test;
+	static int index_rooms;
 
-	test++;
+	index_rooms++;
 	index2 = 0;
 //	printf("BUILD ON \n");
 	while(index2 < info->room_count)
@@ -129,12 +128,12 @@ int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
 		link = info->link_tab[index_start][index2];
 		if (link.state > NONE && link.id[path->id_from_start] > -1 && link.id[path->id_from_start] < heat)
 		{
-//			printf("TEST == [%d] name == [%s]\n", test, link.to->name);
+//			printf("TEST == [%d] name == [%s]\n", index_rooms, link.to->name);
 //			printf("PATH FROM[%s]=> TO[%s] IDP[%d]\n", link.from->name, link.to->name, path->id_path);
 //			printf("\tROOM3 == [%s]\n", path->rooms[i_rooms - 1]->name);
 			ft_build_path(info, index2, path, link.id[path->id_from_start]);
-//			printf("TEST2 == [%d] name == [%s]\n", test, link.to->name);
-			path->rooms[test] = link.to;
+//			printf("TEST2 == [%d] name == [%s]\n", index_rooms, link.to->name);
+			path->rooms[index_rooms] = link.to;
 			if (link.to != info->start)
 			{
 				path->tab_bin_room[link.to->index] = 1;
@@ -147,7 +146,7 @@ int					ft_build_path(t_info *info, int index_start, t_path *path, int heat)
 		}
 		index2++;
 	}
-	test--;
+	index_rooms--;
 	return (1);
 }
 

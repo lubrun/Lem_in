@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/20 18:20:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/25 15:36:52 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 17:36:08 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,7 @@ int			**ft_parcour_path(t_info *info, t_path *path_a, t_path *path_o, int **matr
 		info->lock = path_a->id_from_start;
 		if (!path_a->tab_path_index[info->lock])
 			path_a->tab_path_index[info->lock] = ft_malloc_tab_path_index(info, path_a, path_a->id_from_start);
-		//		printf("PAR 0\n");
+//				printf("PAR 0\n");
 		while (path_o)
 		{
 			info->lock = path_o->id_from_start;		
@@ -201,18 +201,15 @@ void		ft_paths_matrice(t_info *info)
 	{
 
 
-//		printf("MAT 1\n");
 		index_ord = index_abs + 1;
 		path_o = info->paths[index_ord];
 		while (index_ord < info->start->link_count)
 		{	
-//			printf("MAT 2\n");
 			matrice = ft_parcour_path(info, path_a, path_o, matrice);
 			path_o = info->paths[++index_ord];
 		}
 		path_a = info->paths[++index_abs];
 	}
-//	printf("MAT 3\n");
 //	info->lock = 0;
 	info->matrice = matrice;
 	printf("\t-------MATRICE OK\n");

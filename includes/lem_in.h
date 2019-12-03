@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/25 15:30:37 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/03 14:02:51 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,7 @@ typedef struct			s_path
 	int					*tab_index_room;
 	int					*tab_bin_room;
 	int					**tab_path_index;
+	int					perfum;
 	struct s_path		*next;
 }						t_path;
 
@@ -98,6 +99,7 @@ typedef struct			s_info
 	struct s_room		*end;
 	struct s_path		*paths[SIZE_TAB];
 	struct s_path		*shortest_path;
+	int					*perf_max;
 	struct s_link		**link_tab;
 	int					**matrice;
 	int					*best_matrice;

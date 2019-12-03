@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/25 15:56:27 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/25 18:13:17 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -193,6 +193,53 @@ void	ft_tri_by_id(t_path **path, t_info *info)
 
 }
 
+void		ft_delete_paths(t_info *info, int max)
+{
+	int	count;
+	int	id;
+	t_path *path;
+
+	id = 0;
+	count = 0;
+	while (id < MIN(SIZE_TAB, info->start->link_count))
+	{
+		path = info->paths[id];
+
+		while (path && count < max)
+		{
+			path = path->next;
+			
+			count++;
+		}
+		if (count >= max)
+			path->next = NULL;
+		count = 0;
+		id++;
+	}
+}
+
+void	ft_new_id_path(t_path **path, t_info *info)
+{
+	int		id;
+	int		id_path;
+	t_path	*new_path;
+
+	id = 0 ;
+	id_path = 0;
+	while (id < MIN(SIZE_TAB, info->start->link_count))
+	{
+		new_path = path[id];
+		while (new_path)
+		{
+			new_path->id_path = id_path;
+			id_path++;
+			new_path = new_path->next;
+		}
+		id++;
+	}
+}
+
+
 void	ft_tri_paths(t_info *info)
 {
 	int index_path;
@@ -215,5 +262,17 @@ void	ft_tri_paths(t_info *info)
 
 
 	ft_tri_by_id(info->paths, info);
+
+
+	int max_path;
+	max_path = 7;
+
+	ft_delete_paths( info, max_path);
 	ft_display_path(info);
+	printf("\n\t\tMAX [%d]\n", info->max_path_count);
+	info->max_path_count = MIN((info->start->link_count * (max_path + 1)), info->max_path_count);
+	ft_new_id_path(info->paths, info);
+	printf("\t\tMAX [%d]\n", info->max_path_count);
+
+
 }
