@@ -6,13 +6,13 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/25 15:49:44 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/04 13:47:54 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
+/*
 void	send_all(t_info *info)
 {
 	int	count;
@@ -78,7 +78,7 @@ int		ant_remains(t_info *info)
 	}
 	return (0);
 }
-
+*/
 /*
 
 int		send_ant(t_info *info, int min_ant, t_path *s_path)
@@ -141,7 +141,7 @@ int		send_ant(t_info *info, int min_ant, t_path *s_path)
 }
 
 */
-
+/*
 void ft_display_paths(t_path **paths)
 {
 	int index_path;
@@ -177,7 +177,7 @@ void ft_display_Shorted_paths(t_path *paths)
 		index++;
 	}
 	}
-
+*/
 
 
 /*
@@ -239,13 +239,13 @@ int		main(void)
 //		return (0);
 	}
 	printf("TRI START\n");
-	ft_tri_paths(&info);
-	ft_paths_matrice(&info);
-	printf("MATRICE OK, NOW OPTI IT\n");
+	////ft_tri_paths(&info);
+	////ft_paths_matrice(&info);
+	////printf("MATRICE OK, NOW OPTI IT\n");
 //	ft_opti_matrice(&info);
-	printf("ALGO START\n");
+	////printf("ALGO START\n");
 
-	ft_algo(&info);
+	////ft_algo(&info);
 
 	return (0);
 //ft_putendl("AllPath");

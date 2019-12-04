@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/03 14:02:51 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/04 14:45:41 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,10 @@ typedef struct			s_room
 	int					link_count;
 	int					heat_max;
 	int					heat_min;
+	int					heat_end_min;
+	int					heat_end_max;
+	int					heuristique_max;
+	int					heuristique_min;
 	int					lock;
 	int					tour;
 	int					shortest;
@@ -112,6 +116,7 @@ typedef struct			s_info
 	int					room_count;
 }						t_info;
 
+int						set_id_room(t_info *info, int *tab, int turn);
 void					ft_opti_matrice(t_info *info);
 t_path					*get_path_by_id(t_info *info, int id_path);
 void					ft_paths_matrice(t_info *info);

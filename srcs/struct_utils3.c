@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/03 14:02:58 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/04 14:46:17 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,8 @@ int		*create_id(t_info *info)
 {
 	int *id;
 	int index;
-	int a_virer;
 
-	a_virer= info->ant;
+	index = info->ant;
 	if (!(id = malloc(sizeof(int) * (SIZE_TAB))))
 			return (NULL);
 	index = 0;
