@@ -1,0 +1,34 @@
+150
+##start
+start 0 0
+A 1 1
+B 2 2
+C 3 3
+D 4 4 
+e 5 5
+f 6 6
+g 7 7
+h 8 8
+x 9 9
+1 10 10
+2 11 11
+3 12 12
+##end
+end 13 13
+start-A
+start-1
+start-e
+A-B
+B-C
+C-D
+D-end
+1-x
+x-2
+2-D
+2-3
+3-end
+e-2
+e-f
+f-g
+g-h
+h-end
