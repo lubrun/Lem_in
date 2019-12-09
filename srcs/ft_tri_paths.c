@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 13:55:43 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/09 16:50:33 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ void	ft_display_path(t_info *info)
 	{
 		path = info->paths[index_path];
 		if (path)
-			printf("----------TEST FOR IDS/P[%d]/[%d] LEN MIN == [%d] PERF-PATH [%d]-----------\n-\n", index_path, path->id_path, path->length, path->perfum);
+			printf("----------TEST FOR IDS/P[%d]/[%d] LEN MIN == [%d]-----------\n-\n", index_path, path->id_path, path->length);
 		index_path++;
 	}
 	printf("\t\t-----LINK COUNT S[%d] E[%d]-------", info->start->link_count, info->end->link_count);
