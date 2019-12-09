@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 10:56:53 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/09 16:57:26 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -180,40 +180,6 @@ void ft_display_Shorted_paths(t_path *paths)
 
 
 
-/*
-void	ft_parse_tour_shortest(t_info *info)
-{
-	int index;
-	int tour;
-
-	ft_putendl("TOUR PARSE");
-	tour = 0;
-	index = 0;
-	while ((ft_strcmp(info->shortest_path->rooms[index]->name, info->end->name)) != 0)
-	{
-		if (info->shortest_path->rooms[index]->tour != 0)
-		{
-			tour = info->shortest_path->rooms[index]->tour;
-		}
-		else
-			tour++;
-		index++;
-	}
-ft_putendl("TOUR PARSE MID");
-
-	while (--index >= 0)
-	{
-		if (info->shortest_path->rooms[index]->tour == 0)
-			info->shortest_path->rooms[index]->tour = tour;
-		else
-			tour = info->shortest_path->rooms[index]->tour;
-		tour--;
-	}
-ft_putendl("TOUR PARSE END");
-
-}
-*/
-
 
 int		main(void)
 {
@@ -248,6 +214,8 @@ int		main(void)
 	printf("ALGO START\n");
 
 	ft_algo(&info);
+
+	ft_free_all(&info);
 
 	return (0);
 //ft_putendl("AllPath");

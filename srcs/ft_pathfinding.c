@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 16:01:44 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/09 18:58:08 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,9 +67,7 @@ void					ft_prepare_path(t_info *info, int index,
 	int			id_from_start;
 	static int	id_path;
 	int			heat;
-	int			index_room;
 
-	index_room = 0;
 	id_from_start = path->id_from_start;
 	heat = link.id[id_from_start];
 	path->length = heat - 1;
@@ -92,12 +90,14 @@ t_path					*ft_opti_new_path(t_info *info, t_path *path,
 
 	if (!path || id_from_start != id)
 	{
+		printf("\tcreate path id++-heat [%d][%d]\n", id, heat);
 		id = id_from_start;
 		path = new_path(info, id_from_start, 0, heat);
 		info->paths[id] = path;
 	}
 	else
 	{
+		printf("create path id-heat [%d][%d]\n", id, heat);
 		path->next = new_path(info, id_from_start, 0, heat);
 		path = path->next;
 	}

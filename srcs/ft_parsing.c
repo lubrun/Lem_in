@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 15:41:21 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/09 17:07:24 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ t_info		ft_pars()
 	char	*last_line;
 
 	room = NULL;
-	info = (t_info){.rooms = NULL, .start = NULL, .end = NULL, .shortest_path = NULL, .ant_count = 0,
+	info = (t_info){.rooms = NULL, .start = NULL, .end = NULL, .group = NULL, .ant_count = 0,
 	.path_count = 0, .max_path_count = 0, .max_path_len = 0, .lock = 0, .ant = 0, .room_count = 0};
 	if ((info.ant_count = get_ant_nb()) == -1 ||
 		get_room_list(&last_line, &info) < 0 ||
