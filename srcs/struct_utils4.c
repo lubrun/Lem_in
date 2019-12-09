@@ -45,3 +45,28 @@ t_path		*get_path_by_id(t_info *info, int id_path)
 //	printf("ID SEEK [%d] RES [%d]\n", id_path, path->id_path);
 	return (path);
 }
+
+int			**ft_malloc_matrice(t_info *info, int **matrice)
+{
+	int count;
+	int index;
+
+	index = 0;
+	count = 0;
+	if (!(matrice = ft_memalloc(sizeof(int*) * (info->max_path_count + 1))))
+		return (NULL);
+	while (info->max_path_count > count)
+	{
+		if (!(matrice[count] = ft_memalloc(sizeof(int) * (info->max_path_count + 1))))
+			return (NULL);
+		while (index <= info->max_path_count)
+		{
+			matrice[count][index] = 0;
+			index++;
+		}
+		index = 0;
+		count++;
+	}
+	matrice[count] = NULL;
+	return (matrice);
+}

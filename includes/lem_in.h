@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 13:01:48 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/09 16:48:40 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,16 +49,6 @@ typedef struct			s_room
 	int					shortest;
 	int					*perfum;
 }						t_room;
-/*
-typedef struct			s_path
-{
-	struct s_room		**rooms;
-	int					length;
-	int					perfum;
-	int					id;
-	int					ant_needed;
-}						t_path;
-*/
 
 typedef struct			s_group
 {
@@ -78,8 +68,8 @@ typedef struct			s_path
 	int					*tab_index_room;
 	int					*tab_bin_room;
 	int					**tab_path_index;
-	int					perfum;
-	int					perfum2;
+//	int					perfum;
+//	int					perfum2;
 	struct s_path		*next;
 }						t_path;
 
@@ -100,7 +90,7 @@ typedef struct			s_info
 	struct s_room		*end;
 	struct s_path		*paths[SIZE_TAB];
 	struct s_path		*shortest_path;
-	int					*perf_max;
+//	int					*perf_max;
 	struct s_link		**link_tab;
 	int					**matrice;
 	int					*best_matrice;
@@ -113,7 +103,8 @@ typedef struct			s_info
 	int					room_count;
 }						t_info;
 
-
+void					ft_prepare_set_id(t_info *info, t_link link, int *tab, int id);
+int						**ft_malloc_matrice(t_info *info, int **matrice);
 t_group					*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp);
 void					ft_turn_min(int ant, t_group *group);
 void					ft_del_path(t_info *info);
