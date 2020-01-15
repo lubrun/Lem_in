@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 18:19:16 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 15:13:03 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,10 +47,10 @@ int		create_link_tab(t_info *info)
 		index1 = 0;
 		while (index1 < info->room_count)
 		{
-			info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, NONE, create_id(info), -1, -1};
+			info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, NONE, NULL, -1, -1};
 			index1++;
 		}
-		info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, TAB_END, create_id(info), -1, -1};
+		info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, TAB_END, NULL, -1, -1};
 		index++;
 	}
 	info->link_tab[index] = NULL;

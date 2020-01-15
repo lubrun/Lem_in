@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 18:13:04 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 15:25:29 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,37 +76,21 @@ t_group	*ft_next(t_info *info, t_path *new_path, t_group *group, t_group **tmp)
 	return (group);
 }
 
-/*
-t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
+void	ft_groupcpy(t_group **tmp, t_group *group)
 {
-	static int		tmp_turn;
-	int				index;
-	t_path			*new_path;
+	int index;
 
-	if (tmp_turn == 0 || group->turn_min < tmp_turn ||
-			(group->turn_min == tmp_turn &&
-		group->nb_paths < (*tmp)->nb_paths))
+	index = 0;
+	(*tmp)->turn_min = group->turn_min;
+	(*tmp)->total_len = group->total_len;
+	(*tmp)->nb_paths = group->nb_paths;
+	while (group->paths[index])
 	{
-		printf("\t BEST is [%d]\n", group->turn_min);
-		tmp_turn = group->turn_min;
-		**tmp = *group;
+		(*tmp)->paths[index] = group->paths[index];
+		index++;
 	}
-	while (group->paths[0]->tab_path_index[++id])
-	{
-		index = -1;
-		while (id < info->start->link_count && ++index < info->max_path_count)
-		{
-			new_path = get_path_by_id(info,
-					group->paths[0]->tab_path_index[id][index]);
-			if (!new_path || (new_path->length > tmp_turn && tmp_turn > 0))
-				break ;
-			if (ft_test_path(new_path, group, info))
-				group = ft_next(info, new_path, group, tmp);
-		}
-	}
-	return (group);
+
 }
-*/
 
 t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 {
@@ -120,7 +104,8 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 	{
 		printf("\t BEST is [%d]\n", group->turn_min);
 		tmp_turn = group->turn_min;
-		**tmp = *group;
+		ft_groupcpy(tmp, group);
+	//	**tmp = *group;
 	}
 	while (group->paths[0]->tab_path_index[++id])
 	{
@@ -163,6 +148,7 @@ void	ft_algo(t_info *info)
 		index++;
 	}
 	info->group = tmp;
-	ft_display_tmp(info->group);
+	ft_free_group(group);
+	ft_display_tmp(tmp);
 	printf("END ALGO\n");
 }
