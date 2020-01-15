@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 18:22:48 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:43:37 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,20 +15,19 @@
 
 void					ft_display_info(t_info *info)
 {
-	int index = 0;
-	int index2 = 0;
-	t_link link;
+	int		index;
+	int		index2;
+	t_link	link;
 
+	index = 0;
 	while (index < info->room_count)
 	{
-		while(index2 < info->room_count)
+		index2 = 0;
+		while (index2 < info->room_count)
 		{
 			link = info->link_tab[index][index2];
-			if (link.state > NONE)
-//				printf("NAME->NAME=TURN :[%s]->[%s]=[%d]\n", link.from->name, link.to->name, link.id[0]);
 			index2++;
 		}
-		index2 = 0;
 		index++;
 	}
 }
@@ -78,7 +77,6 @@ void					ft_prepare_path(t_info *info, int index,
 	path->tab_bin_room[link.to->index] = 1;
 	if (ft_strcmp(link.to->name, info->start->name))
 		ft_build_path(info, index, path, heat);
-
 	path->id_end = path->rooms[path->length]->index;
 	path->tab_index_room[heat - 1] = 0;
 	path->rooms[heat] = NULL;
@@ -92,14 +90,12 @@ t_path					*ft_opti_new_path(t_info *info, t_path *path,
 
 	if (!path || id_from_start != id)
 	{
-//		printf("\tcreate path id++-heat [%d][%d]\n", id, heat);
 		id = id_from_start;
 		path = new_path(info, id_from_start, 0, heat);
 		info->paths[id] = path;
 	}
 	else
 	{
-//		printf("create path id-heat [%d][%d]\n", id, heat);
 		path->next = new_path(info, id_from_start, 0, heat);
 		path = path->next;
 	}
@@ -135,9 +131,9 @@ int						ft_all_path(t_info *info, int end_index,
 
 void					ft_display_pat(t_info *info)
 {
-	int	index_path;
-	t_path *path;
-	int index;
+	int		index_path;
+	t_path	*path;
+	int		index;
 
 	index_path = 0;
 	index = 0;

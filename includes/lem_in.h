@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 17:39:06 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:11:38 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,6 @@ typedef struct			s_path_info
 	int					turn;
 }						t_path_info;
 
-
 typedef struct			s_room
 {
 	struct s_room		**link;
@@ -40,14 +39,9 @@ typedef struct			s_room
 	t_coord				coord;
 	int					index;
 	int					ant_id;
-	int					spec;
 	int					link_count;
-	int					heat_max;
-	int					heat_min;
 	int					heuristique;
 	int					lock;
-	int					tour;
-	int					shortest;
 }						t_room;
 
 typedef struct			s_group
@@ -70,8 +64,6 @@ typedef struct			s_path
 	int					**tab_path_index;
 	int					save;
 	int					id_end;
-//	int					perfum;
-//	int					perfum2;
 	struct s_path		*next;
 }						t_path;
 
@@ -83,7 +75,6 @@ typedef struct			s_link
 	int					state;
 	int					*id;
 	int					turn;
-	int					heuristique;
 }						t_link;
 
 typedef struct			s_info
@@ -105,32 +96,72 @@ typedef struct			s_info
 	int					room_count;
 }						t_info;
 
-t_path					*ft_free_paths(t_path *path, t_info *info);
-void					ft_save_path(t_path **path, t_info *info);
-int						ft_heuristique(t_info *info, int start, int max_id_size);
-t_group					*ft_free_group(t_group *group);
-void					ft_free_info(t_info *info);
-void					ft_free_all(t_info *info);
-void					ft_prepare_set_id(t_info *info, t_link link, int *tab, int id);
-int						**ft_malloc_matrice(t_info *info, int **matrice);
-t_group					*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp);
-void					ft_turn_min(int ant, t_group *group);
-t_path					*get_path_by_id(t_info *info, int id_path);
-void					ft_paths_matrice(t_info *info);
+/*
+ ** PARSING
+*/
+
+t_info					ft_pars(void);
+
+/*
+ ** CHALEUR
+*/
+
+void					ft_prepare_set_id(t_info *info, t_link link,
+		int *tab, int id);
+
+/*
+ ** PATHFINDING
+*/
+
+unsigned long long int	**ft_pathfind(t_info *info,
+		int start, int max_id_size);
+
+/*
+ ** TRI PATH
+*/
+
+void					ft_swap_list_end(t_path *lst1, t_path *lst2,
+		t_info *info);
 void					ft_tri_paths(t_info *info);
-int						ft_test_path(t_path *path, t_group *group, t_info *info);
-int						*create_id(t_info *info);
+void					ft_save_path(t_path **path, t_info *info);
+
+/*
+ ** MATRICE
+*/
+
+void					ft_paths_matrice(t_info *info);
+int						**ft_malloc_matrice(t_info *info, int **matrice);
+
+/*
+ ** ALGO
+*/
+
+t_group					*ft_best_group(t_info *info, int id, t_group *group,
+		t_group **tmp);
+void					ft_groupcpy(t_group **tmp, t_group *group);
 void					ft_algo(t_info *info);
+int						ft_test_path(t_path *path, t_group *group,
+		t_info *info);
+void					ft_turn_min(int ant, t_group *group);
+
+/*
+ ** UTILITAIRES
+*/
+
+t_path					*get_path_by_id(t_info *info, int id_path);
+t_room					*get_room_by_name(char *name, t_room *list);
+t_room					*get_room_by_index(int index, t_room *list);
+t_room					*next_room(t_room *room, char *s_name);
+t_path					*new_path(t_info *info, int id_from_start,
+		int id_path, int size_room);
+t_group					*new_group(t_info *info);
+char					**get_rooms_name(t_room *room);
+int						create_link_tab(t_info *info);
+int						count_link(t_info *info, t_room *room);
+int						*create_id(void);
 void					sort_list(t_path **list);
 void					insert_link(t_room *room1, t_room *room2);
-int						count_link(t_info *info, t_room *room);
 int						link_exist(int from, int to, t_info *info);
-int						create_link_tab(t_info *info);
-int						ft_ant_needed(int len_before, int nomber_path,
-						t_path **list, int min_ant);
-int						set_heat_max(t_room *room, int heat,
-						char *s_name, char *e_name, int h_min);
-int						ft_perfum(t_room *room, char *s_name, char *e_name);
 int						add_link(char *last_line, t_info *info);
 int						set_lastline_link(char *last_list, t_info *info);
 int						set_room(t_room **afrom, t_room **ato,
@@ -140,17 +171,15 @@ int						set_info(t_room *room,
 int						add_room(t_room **aroom, char *line,
 						int *spec, t_info *info);
 int						get_room_count(t_room *room);
-int						set_heat(t_room *room, int heat,
-						char *s_name, char *e_name);
 int						add_room_into_path(t_path *apath, t_room **aroom);
-char					**get_rooms_name(t_room *room);
-unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size);
-t_room					*get_room_by_name(char *name, t_room *list);
-t_room					*get_room_by_index(int index, t_room *list);
-t_room					*next_room(t_room *room, char *s_name);
-t_path					*new_path(t_info *info, int id_from_start, int id_path, int size_room);
-t_group					*new_group(t_info *info);
-t_path					*get_shortest_path(t_room *start, char *end_str);
-t_info					ft_pars();
+
+/*
+ ** FREE
+*/
+
+t_path					*ft_free_paths(t_path *path, t_info *info);
+t_group					*ft_free_group(t_group *group);
+void					ft_free_info(t_info *info);
+void					ft_free_all(t_info *info);
 
 #endif

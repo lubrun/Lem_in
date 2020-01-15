@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 15:25:29 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:55:00 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,9 +31,9 @@ void		ft_del_last_path(t_group *group)
 	group->nb_paths--;
 }
 
-void	ft_add_path_to_group(t_path *path, t_group *group)
+void		ft_add_path_to_group(t_path *path, t_group *group)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (group->paths[index])
@@ -43,7 +43,7 @@ void	ft_add_path_to_group(t_path *path, t_group *group)
 	group->total_len += path->length;
 }
 
-void	ft_display_tmp(t_group *group)
+void		ft_display_tmp(t_group *group)
 {
 	int		index;
 	int		index_room;
@@ -64,9 +64,10 @@ void	ft_display_tmp(t_group *group)
 	}
 }
 
-t_group	*ft_next(t_info *info, t_path *new_path, t_group *group, t_group **tmp)
+t_group		*ft_next(t_info *info, t_path *new_path, t_group *group,
+		t_group **tmp)
 {
-	int id;
+	int	id;
 
 	id = new_path->id_from_start;
 	ft_add_path_to_group(new_path, group);
@@ -76,36 +77,18 @@ t_group	*ft_next(t_info *info, t_path *new_path, t_group *group, t_group **tmp)
 	return (group);
 }
 
-void	ft_groupcpy(t_group **tmp, t_group *group)
+t_group		*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 {
-	int index;
-
-	index = 0;
-	(*tmp)->turn_min = group->turn_min;
-	(*tmp)->total_len = group->total_len;
-	(*tmp)->nb_paths = group->nb_paths;
-	while (group->paths[index])
-	{
-		(*tmp)->paths[index] = group->paths[index];
-		index++;
-	}
-
-}
-
-t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
-{
-	static int		tmp_turn;
-	int				index;
-	t_path			*new_path;
+	static int	tmp_turn;
+	int			index;
+	t_path		*new_path;
 
 	if (tmp_turn == 0 || group->turn_min < tmp_turn ||
 			(group->turn_min == tmp_turn &&
 		group->nb_paths < (*tmp)->nb_paths))
 	{
-		printf("\t BEST is [%d]\n", group->turn_min);
 		tmp_turn = group->turn_min;
 		ft_groupcpy(tmp, group);
-	//	**tmp = *group;
 	}
 	while (group->paths[0]->tab_path_index[++id])
 	{
@@ -123,7 +106,7 @@ t_group	*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 	return (group);
 }
 
-void	ft_algo(t_info *info)
+void		ft_algo(t_info *info)
 {
 	t_group	*group;
 	t_group	*tmp;
@@ -150,5 +133,4 @@ void	ft_algo(t_info *info)
 	info->group = tmp;
 	ft_free_group(group);
 	ft_display_tmp(tmp);
-	printf("END ALGO\n");
 }

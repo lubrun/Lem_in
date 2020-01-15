@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_test_path.c                                   .::    .:/ .      .::   */
+/*   struct_utils5.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/07 16:39:28 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:18:51 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/15 18:53:59 by qbarrier     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/15 18:54:27 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_test_path(t_path *path, t_group *group, t_info *info)
+void		ft_groupcpy(t_group **tmp, t_group *group)
 {
 	int	index;
 
+	printf("\t BEST is [%d]\n", group->turn_min);
 	index = 0;
-	while (group->tab[index] > -1)
+	(*tmp)->turn_min = group->turn_min;
+	(*tmp)->total_len = group->total_len;
+	(*tmp)->nb_paths = group->nb_paths;
+	while (group->paths[index])
 	{
-		if (info->matrice[path->id_path][group->tab[index]] == 0)
-		{
-			return (0);
-		}
+		(*tmp)->paths[index] = group->paths[index];
 		index++;
 	}
-	group->tab[index] = path->id_path;
-	return (1);
-}
-
-void	ft_turn_min(int ant, t_group *group)
-{
-	int	turn;
-
-	turn = 0;
-	turn = (((group->total_len + ant) / group->nb_paths) + 0.99);
-	group->turn_min = turn;
 }

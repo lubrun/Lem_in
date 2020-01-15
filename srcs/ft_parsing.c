@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 17:07:24 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:45:27 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ static void		read_comment(char *line, int *spec)
 		*spec = 0;
 }
 
-static int		get_ant_nb()
+static int		get_ant_nb(void)
 {
 	char	*line;
 	int		ant_nb;
@@ -53,8 +53,7 @@ static int		get_room_list(char **last_line, t_info *info)
 		else if (comment == 0)
 			read_comment(line, &spec);
 		else if (comment == 2)
-			break;
-//		ft_putendl(line);
+			break ;
 		ft_strdel(&line);
 	}
 	if (comment == 2)
@@ -67,15 +66,16 @@ static int		get_room_list(char **last_line, t_info *info)
 	return (0);
 }
 
-t_info		ft_pars()
+t_info			ft_pars(void)
 {
 	t_room	*room;
 	t_info	info;
 	char	*last_line;
 
 	room = NULL;
-	info = (t_info){.rooms = NULL, .start = NULL, .end = NULL, .group = NULL, .ant_count = 0,
-	.path_count = 0, .max_path_count = 0, .max_path_len = 0, .lock = 0, .ant = 0, .room_count = 0};
+	info = (t_info){.rooms = NULL, .start = NULL, .end = NULL, .group = NULL,
+		.ant_count = 0, .path_count = 0, .max_path_count = 0,
+		.max_path_len = 0, .lock = 0, .ant = 0, .room_count = 0};
 	if ((info.ant_count = get_ant_nb()) == -1 ||
 		get_room_list(&last_line, &info) < 0 ||
 		(!info.start || !info.end) ||

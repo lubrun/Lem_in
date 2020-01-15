@@ -6,24 +6,21 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 15:13:03 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:07:53 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		*create_id(t_info *info)
+int		*create_id(void)
 {
-	int *id;
-	int index;
-	int a_virer;
+	int	*id;
+	int	index;
 
-	a_virer= info->ant;
 	if (!(id = malloc(sizeof(int) * (SIZE_TAB + 1))))
-			return (NULL);
+		return (NULL);
 	index = 0;
-//	printf("LINK START == %d\n", info->start->link_count);
 	while (index < SIZE_TAB)
 		id[index++] = -1;
 	id[index] = 0;
@@ -47,10 +44,12 @@ int		create_link_tab(t_info *info)
 		index1 = 0;
 		while (index1 < info->room_count)
 		{
-			info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, NONE, NULL, -1, -1};
+			info->link_tab[index][index1] =
+				(t_link) {NULL, NULL, NULL, NONE, NULL, -1};
 			index1++;
 		}
-		info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, TAB_END, NULL, -1, -1};
+		info->link_tab[index][index1] =
+			(t_link) {NULL, NULL, NULL, TAB_END, NULL, -1};
 		index++;
 	}
 	info->link_tab[index] = NULL;
@@ -96,7 +95,8 @@ t_path	*new_path(t_info *info, int id_from_start, int id_path, int size_room)
 		return (NULL);
 	if (!(path->tab_index_room = ft_memalloc(sizeof(int) * (size_room - 1))))
 		return (NULL);
-	if (!(path->tab_path_index = ft_memalloc(sizeof(int*) * (info->start->link_count + 1))))
+	if (!(path->tab_path_index = ft_memalloc(sizeof(int*)
+					* (info->start->link_count + 1))))
 		return (NULL);
 	path->id_from_start = id_from_start;
 	path->id_end = 0;
@@ -125,22 +125,4 @@ int		add_room_into_path(t_path *apath, t_room **aroom)
 	free(apath->rooms);
 	apath->rooms = rooms;
 	return (1);
-}
-
-int		count_link(t_info *info, t_room *room)
-{
-	t_link	link;
-	int		count;
-	int		index;
-
-	count = 0;
-	index = -1;
-	link = info->link_tab[room->index][0];
-	while (link.state > TAB_END)
-	{
-		if (link.state != NONE)
-			count++;
-		link = info->link_tab[room->index][++index];
-	}
-	return (count);
 }

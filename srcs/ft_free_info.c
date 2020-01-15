@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/14 17:21:41 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 15:07:05 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:49:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ void		ft_free_links(t_info *info)
 		}
 		free(info->link_tab[index_from]);
 		info->link_tab[index_from] = NULL;
-//		info->link_tab[index_from][index_to] = NULL;
 		index_from++;
 	}
 	free(info->link_tab);
@@ -60,7 +59,6 @@ void		ft_free_rooms(t_room *rooms)
 
 void		ft_free_info(t_info *info)
 {
-
 	ft_free_links(info);
 	ft_free_rooms(info->rooms);
 	free(info->tab_id_end);

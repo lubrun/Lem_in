@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/09 15:38:43 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/06 18:36:25 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:19:19 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,9 +89,9 @@ int		set_id_room(t_info *info, int *tab, int turn, int id)
 
 void	ft_prepare_set_id(t_info *info, t_link link, int *tab, int id)
 {
-			link.state = USED;
-			link.id[id] = 1;
-			tab[0] = link.to->index;
-			tab[1] = -1;
-			set_id_room(info, tab, 2, id);
+	link.state = USED;
+	link.id[id] = 1;
+	tab[0] = link.to->index;
+	tab[1] = -1;
+	set_id_room(info, tab, 2, id);
 }

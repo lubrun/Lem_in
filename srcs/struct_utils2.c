@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/27 18:34:45 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:07:44 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ int			set_info(t_room *room, int *spec, t_info *info)
 
 int			link_valid(t_room *from, t_room *to, t_info *info)
 {
-//	ft_putendl("linkValid");
 	if (from->link_count > 0)
 	{
 		if (link_exist(from->index, to->index, info))
@@ -54,7 +53,8 @@ int			link_valid(t_room *from, t_room *to, t_info *info)
 	return (1);
 }
 
-int			set_room(t_room **afrom, t_room **ato, char **str_info, t_info *info)
+int			set_room(t_room **afrom, t_room **ato,
+		char **str_info, t_info *info)
 {
 	t_room	*from;
 	t_room	*to;
@@ -103,9 +103,11 @@ int			set_lastline_link(char *last_line, t_info *info)
 		return (0);
 	ft_putendl(last_line);
 	from->link_count++;
-	info->link_tab[from->index][to->index] = (t_link) {NULL, from, to, NOT_USED, create_id(info), -1, -1};
+	info->link_tab[from->index][to->index] =
+		(t_link) {NULL, from, to, NOT_USED, create_id(), -1};
 	to->link_count++;
-	info->link_tab[to->index][from->index] = (t_link) {NULL, to, from, NOT_USED, create_id(info), -1, -1};
+	info->link_tab[to->index][from->index] =
+		(t_link) {NULL, to, from, NOT_USED, create_id(), -1};
 	ft_strdel(&last_line);
 	return (1);
 }

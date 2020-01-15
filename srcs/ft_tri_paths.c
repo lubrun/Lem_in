@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 16:07:42 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:14:54 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ void	ft_swap_list(t_path *lst1, t_path *lst2, t_info *info)
 	int		len;
 	t_room	**rooms;
 	int		*tab_index_room;
-	int		*tab_bin_room;	
+	int		*tab_bin_room;
 
 	tab_index_room = lst1->tab_index_room;
 	tab_bin_room = lst1->tab_bin_room;
@@ -76,14 +76,7 @@ void	ft_swap_list(t_path *lst1, t_path *lst2, t_info *info)
 	lst2->rooms = rooms;
 	lst2->id_end = lst2->rooms[lst2->length]->index;
 	lst1->id_end = lst1->rooms[lst1->length]->index;
-	if (info->tab_id_end[lst1->id_end] == -1 || info->tab_id_end[lst1->id_end] > lst1->length)
-		info->tab_id_end[lst1->id_end] = lst1->length;
-	if (info->tab_id_end[lst2->id_end] == -1 || info->tab_id_end[lst2->id_end] > lst2->length)
-		info->tab_id_end[lst2->id_end] = lst2->length;
-	if (lst1->length > info->max_path_len)
-		info->max_path_len = lst1->length;
-	if (lst2->length > info->max_path_len)
-		info->max_path_len = lst2->length;
+	ft_swap_list_end(lst1, lst2, info);
 }
 
 t_path	*ft_tri_by_next(t_path *path, t_info *info)
@@ -112,7 +105,6 @@ void	ft_swap_tablist(t_path *lst1, t_path *lst2, t_info *info)
 	int		id_path;
 	int		id;
 	t_path	*next;
-
 
 	ft_swap_list(lst1, lst2, info);
 	next = lst1->next;
@@ -171,9 +163,7 @@ void	ft_display_tab_id_end(int *tab, t_info *info)
 		if (tab[index] > -1)
 			printf("\t[%d] == [%d]\n", index, tab[index]);
 		index++;
-
 	}
-
 }
 
 void	ft_tri_paths(t_info *info)

@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/20 18:20:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 15:02:58 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 18:41:55 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,10 +88,11 @@ int			**ft_parcour_path(t_info *info, t_path *path_a, t_path *path_o,
 	return (matrice);
 }
 
+/*
 void		ft_display_matrice(t_info *info, int **matrice)
 {
-	int index_abs;
-	int index_ord;
+	int	index_abs;
+	int	index_ord;
 
 	index_abs = 0;
 	index_ord = 0;
@@ -110,10 +111,10 @@ void		ft_display_matrice(t_info *info, int **matrice)
 
 void		ft_display_index_paths(t_info *info)
 {
-	int index;
-	int id;
-	int index_path;
-	t_path *path;
+	int		index;
+	int		id;
+	int		index_path;
+	t_path	*path;
 
 	id = 0;
 	index = 0;
@@ -128,7 +129,8 @@ void		ft_display_index_paths(t_info *info)
 			{
 				while (path->tab_path_index[id][index_path])
 				{
-					printf("ID index pathID [%d][%d][%d]\n",id, index_path, path->tab_path_index[id][index_path]);
+					printf("ID index pathID [%d][%d][%d]\n",id,
+					index_path, path->tab_path_index[id][index_path]);
 					index_path++;
 				}
 				index_path = 0;
@@ -142,6 +144,7 @@ void		ft_display_index_paths(t_info *info)
 		index++;
 	}
 }
+*/
 
 void		ft_paths_matrice(t_info *info)
 {
@@ -154,7 +157,6 @@ void		ft_paths_matrice(t_info *info)
 	index_abs = 0;
 	index_ord = 0;
 	matrice = NULL;
-	printf("\t-------MATRICE START\n");
 	matrice = ft_malloc_matrice(info, matrice);
 	path_a = info->paths[index_abs];
 	while (index_abs < info->start->link_count)
@@ -169,6 +171,4 @@ void		ft_paths_matrice(t_info *info)
 		path_a = info->paths[++index_abs];
 	}
 	info->matrice = matrice;
-//	ft_display_index_paths(info);
-//	ft_display_matrice(info, matrice);
 }
