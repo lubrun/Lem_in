@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:47:05 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 20:09:15 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,7 +121,6 @@ int			main(void)
 	printf("MATRICE OK, NOW OPTI IT\n");
 	printf("ALGO START\n");
 	ft_algo(&info);
-	printf("info->maxPathlen{%d]\n", info.max_path_len);
 	ft_free_all(&info);
 	return (0);
 }

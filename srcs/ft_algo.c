@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:55:00 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 20:11:15 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,27 +43,6 @@ void		ft_add_path_to_group(t_path *path, t_group *group)
 	group->total_len += path->length;
 }
 
-void		ft_display_tmp(t_group *group)
-{
-	int		index;
-	int		index_room;
-	t_path	*path;
-
-	index_room = 0;
-	index = 0;
-	printf("\t\t---------BEST WAY------------\n\n");
-	printf("groupe len = [%d] nbpath[%d] turn_min [%d]\n",
-			group->total_len, group->nb_paths, group->turn_min);
-	while (index < group->nb_paths)
-	{
-		path = group->paths[index];
-		printf("\nPATH IDP[%d] IDS[%d] LEN [%d]\n-\n",
-				path->id_path, path->id_from_start, path->length);
-		index_room = 0;
-		index++;
-	}
-}
-
 t_group		*ft_next(t_info *info, t_path *new_path, t_group *group,
 		t_group **tmp)
 {
@@ -83,13 +62,9 @@ t_group		*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 	int			index;
 	t_path		*new_path;
 
-	if (tmp_turn == 0 || group->turn_min < tmp_turn ||
-			(group->turn_min == tmp_turn &&
-		group->nb_paths < (*tmp)->nb_paths))
-	{
-		tmp_turn = group->turn_min;
-		ft_groupcpy(tmp, group);
-	}
+	if (tmp_turn == 0 || group->turn_min < tmp_turn || (group->turn_min ==
+				tmp_turn && group->nb_paths < (*tmp)->nb_paths))
+		tmp_turn = ft_groupcpy(tmp, group);
 	while (group->paths[0]->tab_path_index[++id])
 	{
 		index = -1;
@@ -100,7 +75,11 @@ t_group		*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 			if (!new_path || (new_path->length > tmp_turn && tmp_turn > 0))
 				break ;
 			if (ft_test_path(new_path, group, info))
+			{
 				group = ft_next(info, new_path, group, tmp);
+				if (info->res && tmp_turn == info->res)
+					return (group);
+			}
 		}
 	}
 	return (group);
@@ -118,7 +97,6 @@ void		ft_algo(t_info *info)
 	tmp = new_group(info);
 	while (info->matrice[index])
 	{
-		info->lock = 0;
 		path = get_path_by_id(info, index);
 		if (path)
 		{
@@ -127,10 +105,12 @@ void		ft_algo(t_info *info)
 			group->tab[0] = path->id_path;
 			group = ft_best_group(info, path->id_from_start, group, &tmp);
 			ft_del_last_path(group);
+			if (info->res && tmp->turn_min == info->res)
+				break ;
 		}
 		index++;
 	}
 	info->group = tmp;
 	ft_free_group(group);
-	ft_display_tmp(tmp);
+//	ft_display_tmp(tmp);//
 }

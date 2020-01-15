@@ -6,31 +6,12 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:43:37 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 21:41:46 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
-void					ft_display_info(t_info *info)
-{
-	int		index;
-	int		index2;
-	t_link	link;
-
-	index = 0;
-	while (index < info->room_count)
-	{
-		index2 = 0;
-		while (index2 < info->room_count)
-		{
-			link = info->link_tab[index][index2];
-			index2++;
-		}
-		index++;
-	}
-}
 
 int						ft_build_path(t_info *info, int index_start,
 		t_path *path, int heat)
@@ -129,33 +110,6 @@ int						ft_all_path(t_info *info, int end_index,
 	return (1);
 }
 
-void					ft_display_pat(t_info *info)
-{
-	int		index_path;
-	t_path	*path;
-	int		index;
-
-	index_path = 0;
-	index = 0;
-	while (index_path < MIN(SIZE_TAB, info->start->link_count))
-	{
-		path = info->paths[index_path];
-		printf("----------FOR ID [%d]-----------\n-\n", index_path);
-		while (path)
-		{
-			while (path->rooms[index])
-			{
-				printf("PATH == IDP[%d] IDS[%d] NAME[%s] LEN{%d}\n", path->id_path, path->id_from_start, path->rooms[index]->name, path->length);
-				index++;
-			}
-			index = 0;
-			printf("-\n");
-			path = path->next;
-		}
-		index_path++;
-	}
-}
-
 unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
 {
 	t_link	link;
@@ -175,11 +129,13 @@ unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
 			if (link.from == info->end)
 				return (NULL);
 			info->link_tab[index][start].id[id] = 1;
+			printf("SET ID START\n");
 			ft_prepare_set_id(info, link, tab, id);
 			++id;
 		}
 		index++;
 	}
+	printf("SET ID END\n");
 	free(tab);
 	ft_all_path(info, info->end->index, 0, 0);
 //	ft_display_info(info);

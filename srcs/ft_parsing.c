@@ -6,21 +6,26 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:45:27 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 19:19:45 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-static void		read_comment(char *line, int *spec)
+static void		read_comment(char *line, int *spec, t_info *info)
 {
 	if (ft_strcmp(line, "##start") == 0)
 		*spec = 1;
 	else if (ft_strcmp(line, "##end") == 0)
 		*spec = 2;
+	else if (ft_strncmp(line, "#Here is the number of lines required:", 38) == 0)
+		info->res = ft_atoi(&line[38]);
 	else
+	{
 		*spec = 0;
+		info->res = 0;
+	}
 }
 
 static int		get_ant_nb(void)
@@ -51,7 +56,7 @@ static int		get_room_list(char **last_line, t_info *info)
 		if ((comment = add_room(&room, line, &spec, info)) == -1)
 			return (-1);
 		else if (comment == 0)
-			read_comment(line, &spec);
+			read_comment(line, &spec, info);
 		else if (comment == 2)
 			break ;
 		ft_strdel(&line);

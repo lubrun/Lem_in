@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:11:38 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/15 20:11:02 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,6 +85,7 @@ typedef struct			s_info
 	struct s_room		*end;
 	struct s_path		*paths[SIZE_TAB];
 	struct s_link		**link_tab;
+	int					res;
 	int					*tab_id_end;
 	int					**matrice;
 	int					ant_count;
@@ -138,7 +139,7 @@ int						**ft_malloc_matrice(t_info *info, int **matrice);
 
 t_group					*ft_best_group(t_info *info, int id, t_group *group,
 		t_group **tmp);
-void					ft_groupcpy(t_group **tmp, t_group *group);
+int						ft_groupcpy(t_group **tmp, t_group *group);
 void					ft_algo(t_info *info);
 int						ft_test_path(t_path *path, t_group *group,
 		t_info *info);
@@ -181,5 +182,15 @@ t_path					*ft_free_paths(t_path *path, t_info *info);
 t_group					*ft_free_group(t_group *group);
 void					ft_free_info(t_info *info);
 void					ft_free_all(t_info *info);
+
+/*
+ ** FREE
+*/
+
+void					ft_display_tmp(t_group *group);
+void					ft_display_path(t_info *info);
+void					ft_display_info(t_info *info);
+void					ft_display_pat(t_info *info);
+void					ft_display_tab_end(int *tab, t_info *info);
 
 #endif
