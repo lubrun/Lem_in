@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 18:54:57 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 18:19:16 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ int		*create_id(t_info *info)
 	int a_virer;
 
 	a_virer= info->ant;
-	if (!(id = malloc(sizeof(int) * (SIZE_TAB))))
+	if (!(id = malloc(sizeof(int) * (SIZE_TAB + 1))))
 			return (NULL);
 	index = 0;
 //	printf("LINK START == %d\n", info->start->link_count);
@@ -47,10 +47,10 @@ int		create_link_tab(t_info *info)
 		index1 = 0;
 		while (index1 < info->room_count)
 		{
-			info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, NONE, create_id(info), -1};
+			info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, NONE, create_id(info), -1, -1};
 			index1++;
 		}
-		info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, TAB_END, create_id(info), -1};
+		info->link_tab[index][index1] = (t_link) {NULL, NULL, NULL, TAB_END, create_id(info), -1, -1};
 		index++;
 	}
 	info->link_tab[index] = NULL;
@@ -87,9 +87,7 @@ void	sort_list(t_path **list)
 t_path	*new_path(t_info *info, int id_from_start, int id_path, int size_room)
 {
 	t_path	*path;
-	int index;
 
-	index = 0;
 	if (!(path = ft_memalloc(sizeof(t_path))))
 		return (NULL);
 	if (!(path->rooms = ft_memalloc(sizeof(t_room) * (size_room - 1))))
@@ -101,6 +99,8 @@ t_path	*new_path(t_info *info, int id_from_start, int id_path, int size_room)
 	if (!(path->tab_path_index = ft_memalloc(sizeof(int*) * (info->start->link_count + 1))))
 		return (NULL);
 	path->id_from_start = id_from_start;
+	path->id_end = 0;
+	path->save = 0;
 	path->id_path = id_path;
 	path->length = 0;
 	path->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 18:58:08 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 18:22:48 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,8 @@ void					ft_prepare_path(t_info *info, int index,
 	path->tab_bin_room[link.to->index] = 1;
 	if (ft_strcmp(link.to->name, info->start->name))
 		ft_build_path(info, index, path, heat);
+
+	path->id_end = path->rooms[path->length]->index;
 	path->tab_index_room[heat - 1] = 0;
 	path->rooms[heat] = NULL;
 	info->max_path_count = id_path;
@@ -90,14 +92,14 @@ t_path					*ft_opti_new_path(t_info *info, t_path *path,
 
 	if (!path || id_from_start != id)
 	{
-		printf("\tcreate path id++-heat [%d][%d]\n", id, heat);
+//		printf("\tcreate path id++-heat [%d][%d]\n", id, heat);
 		id = id_from_start;
 		path = new_path(info, id_from_start, 0, heat);
 		info->paths[id] = path;
 	}
 	else
 	{
-		printf("create path id-heat [%d][%d]\n", id, heat);
+//		printf("create path id-heat [%d][%d]\n", id, heat);
 		path->next = new_path(info, id_from_start, 0, heat);
 		path = path->next;
 	}

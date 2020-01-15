@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/03 14:12:52 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 17:38:22 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,10 +66,10 @@ t_room	*new_room(char **room_info, int *spec, t_info *info)
 	if (!(new = ft_memalloc(sizeof(t_room))) || !room_info ||
 		!room_info[0] || !room_info[1] || !room_info[2])
 		return (NULL);
-	if (!(new->perfum = ft_memalloc(sizeof(int) * SIZE_TAB)))
-		return (0);
-	while (index < SIZE_TAB)
-		new->perfum[index++] = 0;
+//	if (!(new->perfum = ft_memalloc(sizeof(int) * SIZE_TAB)))
+//		return (0);
+//	while (index < SIZE_TAB)
+//		new->perfum[index++] = 0;
 	new->next = NULL;
 	new->link = NULL;
 	new->link_count = 0;
@@ -83,6 +83,7 @@ t_room	*new_room(char **room_info, int *spec, t_info *info)
 	new->tour = 0;	////////
 	new->shortest = 0;	/////////////
 	ft_2dstrdel(&room_info);
+	new->heuristique = -1;
 	if (set_info(new, spec, info) == -1)
 		return (NULL);
 	return (new);

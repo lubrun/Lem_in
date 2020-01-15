@@ -10,9 +10,9 @@ t_group		*new_group(t_info *info)
 		return (NULL);
 	group->nb_paths = 0;
 	group->total_len = 0;
-	if (!(group->tab = ft_memalloc(sizeof(int) * info->start->link_count + 1)))
+	if (!(group->tab = ft_memalloc(sizeof(int) * (info->start->link_count + 1))))
 		return (NULL);
-	while (index <= info->start->link_count + 1)
+	while (index <= info->start->link_count)
 		group->tab[index++] = -1;
 	return (group);
 }

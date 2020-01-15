@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:48:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/09 12:12:43 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 17:38:44 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ int				ft_perfum(t_room *room, char *s_name, char *e_name)
 	int index;
 
 	index = 0;
-	room->perfum++;
+//	room->perfum++;
 	room->lock = 1;
 	// on commence a Start
 	// toutes les salles sont a parfum == 0

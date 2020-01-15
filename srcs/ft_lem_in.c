@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 16:57:26 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 16:59:08 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -204,8 +204,9 @@ int		main(void)
 		printf("CHECK START NEIGHOUR\n");
 //		return (0);
 	}
-	printf("DEL PATH\n");
+//	printf("DEL PATH\n");
 //	ft_del_path(&info);
+//	ft_heuristique(&info, info.end->index, MIN(SIZE_TAB, info.start->link_count));
 	printf("TRI START\n");
 	ft_tri_paths(&info);
 	ft_paths_matrice(&info);
@@ -214,7 +215,7 @@ int		main(void)
 	printf("ALGO START\n");
 
 	ft_algo(&info);
-
+	printf("info->maxPathlen{%d]\n", info.max_path_len);
 	ft_free_all(&info);
 
 	return (0);
@@ -252,8 +253,6 @@ int		main(void)
 	ft_display_Shorted_paths(info.shortest_path);
 
 	send_ant(&info, min_ant, info.shortest_path);
-
-
 */
 
 	return (1);

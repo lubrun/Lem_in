@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/09 16:56:10 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 18:57:28 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 18:09:36 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,6 @@
 
 t_group		*ft_free_group(t_group *group)
 {
-	printf("FREE GROUP\n");
 	if (group)
 	{
 		if (group->tab)
@@ -24,6 +23,7 @@ t_group		*ft_free_group(t_group *group)
 			group->tab = NULL;
 		}
 		free(group);
+		group = NULL;
 	}
 	return (NULL);
 }
@@ -32,33 +32,37 @@ t_path		*ft_free_paths(t_path *path, t_info *info)
 {
 	int index;
 
-	printf("path IDS-P[%d][%d]\n", path->id_from_start, path->id_path);
-	printf("FREE PATH\n");
 	index = 0;
-	printf("B0\n");
 	if (!path)
 		return (NULL);
-	printf("B1\n");
 	if (path->tab_index_room)
+	{
 		free(path->tab_index_room);
-	printf("B2\n");
+		path->tab_index_room = NULL;
+	}
 	if (path->tab_bin_room)
+	{
 		free(path->tab_bin_room);
-	printf("B3\n");
+		path->tab_bin_room = NULL;
+	}
 	if (path->rooms)
+	{
 		free(path->rooms);
-	printf("B4\n");
+		path->rooms = NULL;
+	}
 	if (path->tab_path_index)
 	{
 		while (index < info->start->link_count)
 		{
 			free(path->tab_path_index[index]);
+			path->tab_path_index[index] = NULL;
 				index++;
 		}
 			free(path->tab_path_index);
+			path->tab_path_index = NULL;
 	}
-	printf("B6\n");
 	free(path);
+	path = NULL;
 	return (NULL);
 }
 
@@ -66,36 +70,51 @@ void		ft_parcour_paths(t_info *info, t_path *path, int id)
 {
 	if (path->next)
 	{
+//		printf("FREE NEXT\n");
 		ft_parcour_paths(info, path->next, id);
 		ft_free_paths(path, info);
 	}
 	else if (info->paths[id + 1])
 	{
+//		printf("FREE ID\n");
 		ft_parcour_paths(info, info->paths[id + 1], id + 1);
 		ft_free_paths(path, info);
 	}
+
 }
 
 void		ft_free_matrice(t_info *info)
 {
 	int index;
 
-	printf("FREE MATRICE\n");
 	index = 0;
 	while (info->matrice[index])
 	{
 		free(info->matrice[index]);
+		info->matrice[index] = NULL;
 		index++;
 	}
 	free(info->matrice);
+	info->matrice = NULL;
 }
+
+
 
 void		ft_free_all(t_info *info)
 {
-	printf("FREE ALL\n");
-	ft_free_group(info->group);
-	ft_parcour_paths(info, info->paths[0], 0);
-	ft_free_matrice(info);
+	int index;
 
+	index = 0;
+	printf("ENTER FREE\n");
+	ft_free_group(info->group);
+		while (!info->paths[index] && index < info->start->link_count)
+		{
+			free(info->paths[index]);
+			index++;
+		}
+	if (info->paths[index])
+		ft_parcour_paths(info, info->paths[index], index);
+	ft_free_matrice(info);
+	ft_free_info(info);
 
 }

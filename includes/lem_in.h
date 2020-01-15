@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/09 16:48:40 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 17:39:06 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,10 +44,10 @@ typedef struct			s_room
 	int					link_count;
 	int					heat_max;
 	int					heat_min;
+	int					heuristique;
 	int					lock;
 	int					tour;
 	int					shortest;
-	int					*perfum;
 }						t_room;
 
 typedef struct			s_group
@@ -68,6 +68,8 @@ typedef struct			s_path
 	int					*tab_index_room;
 	int					*tab_bin_room;
 	int					**tab_path_index;
+	int					save;
+	int					id_end;
 //	int					perfum;
 //	int					perfum2;
 	struct s_path		*next;
@@ -81,19 +83,19 @@ typedef struct			s_link
 	int					state;
 	int					*id;
 	int					turn;
+	int					heuristique;
 }						t_link;
 
 typedef struct			s_info
 {
+	struct s_group		*group;
 	struct s_room		*rooms;
 	struct s_room		*start;
 	struct s_room		*end;
 	struct s_path		*paths[SIZE_TAB];
-	struct s_path		*shortest_path;
-//	int					*perf_max;
 	struct s_link		**link_tab;
+	int					*tab_id_end;
 	int					**matrice;
-	int					*best_matrice;
 	int					ant_count;
 	int					ant;
 	int					path_count;
@@ -103,12 +105,16 @@ typedef struct			s_info
 	int					room_count;
 }						t_info;
 
+t_path					*ft_free_paths(t_path *path, t_info *info);
+void					ft_save_path(t_path **path, t_info *info);
+int						ft_heuristique(t_info *info, int start, int max_id_size);
+t_group					*ft_free_group(t_group *group);
+void					ft_free_info(t_info *info);
+void					ft_free_all(t_info *info);
 void					ft_prepare_set_id(t_info *info, t_link link, int *tab, int id);
 int						**ft_malloc_matrice(t_info *info, int **matrice);
 t_group					*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp);
 void					ft_turn_min(int ant, t_group *group);
-void					ft_del_path(t_info *info);
-void					ft_opti_matrice(t_info *info);
 t_path					*get_path_by_id(t_info *info, int id_path);
 void					ft_paths_matrice(t_info *info);
 void					ft_tri_paths(t_info *info);
