@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/09 15:38:43 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:19:19 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 16:24:38 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,14 +32,11 @@ int		*ft_malloc_next_tab(t_info *info, int *next_tab, int *tab)
 
 int		ft_test_new_room(t_info *info, int turn, int id, t_link new)
 {
-	if (new.state > NONE)
+	if ((new.id[id] == -1) && new.to != info->start)
 	{
-		if ((new.id[id] == -1) && new.to != info->start)
-		{
-			info->link_tab[new.to->index][new.from->index].id[id] = turn;
-			new.id[id] = turn;
-			return (1);
-		}
+		info->link_tab[new.to->index][new.from->index].id[id] = turn;
+		new.id[id] = turn;
+		return (1);
 	}
 	return (0);
 }
@@ -61,7 +58,8 @@ int		ft_parcour_s_i_r(t_info *info, int *tab, int turn, int *next_tab)
 		while (index < info->room_count)
 		{
 			new = info->link_tab[tab[index_tab]][index];
-			if (ft_test_new_room(info, turn, id, new) && new.to != info->end)
+			if (new.state > NONE && ft_test_new_room(info, turn, id, new)
+					&& new.to != info->end)
 				next_tab[index_next_tab++] = new.to->index;
 			index++;
 		}

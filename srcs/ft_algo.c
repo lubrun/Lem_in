@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:09:15 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 20:11:15 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 16:06:53 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ t_group		*ft_best_group(t_info *info, int id, t_group *group, t_group **tmp)
 			if (ft_test_path(new_path, group, info))
 			{
 				group = ft_next(info, new_path, group, tmp);
-				if (info->res && tmp_turn == info->res)
+				if (info->res && tmp_turn <= info->res)
 					return (group);
 			}
 		}
@@ -105,12 +105,12 @@ void		ft_algo(t_info *info)
 			group->tab[0] = path->id_path;
 			group = ft_best_group(info, path->id_from_start, group, &tmp);
 			ft_del_last_path(group);
-			if (info->res && tmp->turn_min == info->res)
+			if (info->res && tmp->turn_min <= info->res)
 				break ;
 		}
 		index++;
 	}
 	info->group = tmp;
 	ft_free_group(group);
-//	ft_display_tmp(tmp);//
+	ft_display_tmp(tmp);//
 }

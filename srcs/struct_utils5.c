@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 18:53:59 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 20:09:05 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 16:25:52 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ int			ft_groupcpy(t_group **tmp, t_group *group)
 	(*tmp)->nb_paths = group->nb_paths;
 	while (group->paths[index])
 	{
+//		printf("Best way [%d]\n", group->turn_min);
 		(*tmp)->paths[index] = group->paths[index];
 		index++;
 	}
