@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/20 18:20:23 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:41:55 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 17:20:20 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,64 +87,6 @@ int			**ft_parcour_path(t_info *info, t_path *path_a, t_path *path_o,
 	}
 	return (matrice);
 }
-
-/*
-void		ft_display_matrice(t_info *info, int **matrice)
-{
-	int	index_abs;
-	int	index_ord;
-
-	index_abs = 0;
-	index_ord = 0;
-	while (index_abs < info->max_path_count)
-	{
-		while (index_ord < info->max_path_count)
-		{
-			printf("[%d]", matrice[index_abs][index_ord]);
-			index_ord++;
-		}
-		index_ord = 0;
-		printf("\n");
-		index_abs++;
-	}
-}
-
-void		ft_display_index_paths(t_info *info)
-{
-	int		index;
-	int		id;
-	int		index_path;
-	t_path	*path;
-
-	id = 0;
-	index = 0;
-	while (index < info->max_path_count)
-	{
-		index_path = 0;
-		path = get_path_by_id(info, index);
-		if (path)
-		{
-//			printf("index = [%d]\n", index);
-			while (path->tab_path_index[id])
-			{
-				while (path->tab_path_index[id][index_path])
-				{
-					printf("ID index pathID [%d][%d][%d]\n",id,
-					index_path, path->tab_path_index[id][index_path]);
-					index_path++;
-				}
-				index_path = 0;
-				id++;
-			}
-			printf("\n");
-			id = 0;
-		}
-		else
-			printf("WTF\n");
-		index++;
-	}
-}
-*/
 
 void		ft_paths_matrice(t_info *info)
 {

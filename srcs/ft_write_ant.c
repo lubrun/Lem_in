@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_test_path.c                                   .::    .:/ .      .::   */
+/*   ft_write_ant.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/07 16:39:28 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 17:29:17 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/16 18:04:48 by qbarrier     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/16 18:15:20 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_test_path(t_path *path, t_group *group, t_info *info)
+void		ft_write_ant(t_info *info)
 {
-	int	index;
+	int index;
 
-	index = 0;
-	while (group->tab[index] > -1)
+	info->lock = info->group->paths[info->group->nb_paths - 1]->length;
+	while (info->ant_count > 0 && info->ant_count > info->lock)
 	{
-		if (info->matrice[path->id_path][group->tab[index]] == 0)
+		index = 0;
+		while (info->group->paths[index] && index < info->group->nb_paths)
 		{
-			return (0);
+			printf("ANT == [%d]\n", info->ant_count);
+			if (info->group->paths[index]->length < info->ant_count)
+			{
+		//		ft_printf_ant(info, info->group->paths[index]);
+				info->ant_count--;
+			}
+			index++;
 		}
-		index++;
+
 	}
-	group->tab[index] = path->id_path;
-	return (1);
-}
-
-void	ft_turn_min(int ant, t_group *group)
-{
-	int	turn;
-
-	turn = 0;
-	turn = (((group->total_len + ant) / (float)group->nb_paths) + 0.99);
-	group->turn_min = turn;
+			printf("\tANT == [%d]\n", info->ant_count);
 }

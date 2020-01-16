@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 20:11:02 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 18:06:54 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,7 @@ typedef struct			s_path
 	int					*tab_bin_room;
 	int					**tab_path_index;
 	int					save;
+	int					ant;
 	int					id_end;
 	struct s_path		*next;
 }						t_path;
@@ -144,6 +145,9 @@ void					ft_algo(t_info *info);
 int						ft_test_path(t_path *path, t_group *group,
 		t_info *info);
 void					ft_turn_min(int ant, t_group *group);
+void					ft_tri_group(t_info *info);
+void					ft_write_ant(t_info *info);
+
 
 /*
  ** UTILITAIRES

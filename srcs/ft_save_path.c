@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/14 16:03:48 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 16:12:52 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 17:29:55 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,7 +98,7 @@ void	ft_save_path(t_path **path, t_info *info)
 	ft_del_path(path, info);
 	if (info->res && info->max_path_count > 50)
 	{
-		marge = (info->max_path_count / 50) - 1;
+		marge = (info->max_path_count / 50);
 		info->res += (marge > 5) ? 5 : marge;
 	}
 }

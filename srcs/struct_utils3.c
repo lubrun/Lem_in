@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 01:12:02 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:07:53 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 18:07:30 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,7 @@ t_path	*new_path(t_info *info, int id_from_start, int id_path, int size_room)
 		return (NULL);
 	path->id_from_start = id_from_start;
 	path->id_end = 0;
+	path->ant = 0;
 	path->save = 0;
 	path->id_path = id_path;
 	path->length = 0;
