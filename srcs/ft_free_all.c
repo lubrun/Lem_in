@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/09 16:56:10 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 18:50:33 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:01:11 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,14 +93,19 @@ void		ft_free_all(t_info *info)
 	int	index;
 
 	index = 0;
-	ft_free_group(info->group);
-	while (!info->paths[index] && index < info->start->link_count)
+	if (info->group)
+		ft_free_group(info->group);
+	if (info->path_count > 0)
 	{
-		free(info->paths[index]);
-		index++;
+		while (!info->paths[index] && index < info->start->link_count)
+		{
+			free(info->paths[index]);
+			index++;
+		}
+		if (info->paths[index])
+			ft_parcour_paths(info, info->paths[index], index);
 	}
-	if (info->paths[index])
-		ft_parcour_paths(info, info->paths[index], index);
-	ft_free_matrice(info);
+	if (info->matrice)
+		ft_free_matrice(info);
 	ft_free_info(info);
 }

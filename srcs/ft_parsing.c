@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:59:41 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 17:05:42 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:59:00 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@ static void		read_comment(char *line, int *spec, t_info *info)
 		*spec = 0;
 		info->res = 0;
 	}
+//	ft_putendl(line);
 }
 
 static int		get_ant_nb(void)
@@ -33,10 +34,21 @@ static int		get_ant_nb(void)
 	char	*line;
 	int		ant_nb;
 
+	line = NULL;
 	if (get_next_line(0, &line) <= 0 ||
 		ft_str_isdigit(line) == 0 ||
 		ft_is_empty_line(line) == 1)
+	{	
+		if (line)
+			free(line);
+		while (get_next_line(0, &line))
+		{
+			if (line)
+				free(line);
+		}
 		return (-1);
+	}
+//	ft_putendl(line);
 	ant_nb = ft_atoi(line);
 	ft_strdel(&line);
 	return (ant_nb);
@@ -86,11 +98,11 @@ t_info			ft_pars(void)
 		(!info.start || !info.end) ||
 		add_link(last_line, &info) < 0)
 	{
-		ft_putendl("ERROR");
 		free(room);
 		info.rooms = NULL;
 		return (info);
 	}
+//	ft_putchar('\n');
 	info.lock = 1;
 	return (info);
 }

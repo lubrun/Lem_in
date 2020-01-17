@@ -3,10 +3,23 @@
 /*                                                              /             */
 /*   parser_utils.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/01/17 18:54:51 by qbarrier     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/17 18:58:27 by qbarrier    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   parser_utils.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 17:11:50 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:54:45 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,8 +93,11 @@ int			add_link(char *last_line, t_info *info)
 			to->link_count++;
 			info->link_tab[to->index][from->index] =
 				(t_link) {NULL, to, from, NOT_USED, create_id(), -1};
+//			ft_putendl(line);
 			ft_strdel(&line);
 		}
+		else if (line)
+			ft_strdel(&line);
 	}
 	return (1);
 }

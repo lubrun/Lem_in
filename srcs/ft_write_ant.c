@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 18:04:48 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 16:22:24 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:50:43 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ void		ft_dispatch(t_info *info, t_group *group)
 			index++;
 		}
 		count++;
-		printf("\n");
+		ft_putchar('\n');
 	}
 	info->lock = count;
 }
@@ -101,7 +101,6 @@ void		ft_write_ant(t_info *info, t_group *group)
 	diff = total - info->ant_count;
 	group->paths[0]->ant -= diff;
 	ft_dispatch(info, group);
-	printf("TURN == [%d]\n", info->lock);
 }
 
 void		ft_oneshot(t_info *info)
@@ -119,5 +118,6 @@ void		ft_oneshot(t_info *info)
 		id_ant++;
 		info->ant_count--;
 	}
-		ft_putstr("\n");
+		ft_putchar('\n');
+		ft_free_all(info);
 }

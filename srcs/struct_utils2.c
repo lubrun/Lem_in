@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:53:19 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 17:09:18 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:59:07 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,23 +59,18 @@ int			set_room(t_room **afrom, t_room **ato,
 	t_room	*from;
 	t_room	*to;
 
-	printf("SET ROOM 1\n");
 	from = get_room_by_name(str_info[0], info->rooms);
 	to = get_room_by_name(str_info[1], info->rooms);
-	printf("SET ROOM 1\n");
 	if (!from || !to)
 	{
-	printf("SET ROOM 2\n");
 		ft_2dstrdel(&str_info);
 		return (0);
 	}
 	if (!link_valid(from, to, info))
 	{
-	printf("SET ROOM 3\n");
 		ft_2dstrdel(&str_info);
 		return (0);
 	}
-	printf("SET ROOM 4\n");
 	ft_2dstrdel(&str_info);
 	*afrom = from;
 	*ato = to;
@@ -102,24 +97,17 @@ int			set_lastline_link(char *last_line, t_info *info)
 	t_room	*from;
 	t_room	*to;
 
-	printf("SET LAST LINE 1\n");
 	from = NULL;
 	to = NULL;
 	if (set_room(&from, &to, ft_strsplit(last_line, '-'), info) == 0)
-	{
-		printf("SET LAST LINE 2\n");
 		return (0);
-	}
-	ft_putendl(last_line);
+//	ft_putendl(last_line);
 	from->link_count++;
-		printf("SET LAST LINE 3\n");
 	info->link_tab[from->index][to->index] =
 		(t_link) {NULL, from, to, NOT_USED, create_id(), -1};
 	to->link_count++;
 	info->link_tab[to->index][from->index] =
 		(t_link) {NULL, to, from, NOT_USED, create_id(), -1};
-		printf("SET LAST LINE 4\n");
 	ft_strdel(&last_line);
-	printf("SET LAST LINE 5\n");
 	return (1);
 }

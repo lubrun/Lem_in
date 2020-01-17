@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 16:25:35 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 18:48:56 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -130,16 +130,13 @@ unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
 			if (link.from == info->end)
 				return (NULL);
 			info->link_tab[index][start].id[id] = 1;
-			printf("SET ID START\n");
 			ft_prepare_set_id(info, link, tab, id);
 			++id;
 		}
 		index++;
 	}
-	printf("SET ID END\n");
 	free(tab);
 	ft_all_path(info, info->end->index, 0, 0);
-//	ft_display_info(info);
-//	ft_display_pat(info);
+	ft_tri_paths(info);
 	return (NULL);
 }
