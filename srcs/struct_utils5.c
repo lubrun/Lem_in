@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 18:53:59 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 18:26:34 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 19:03:04 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,4 +27,9 @@ int			ft_groupcpy(t_group **tmp, t_group *group)
 		index++;
 	}
 	return (group->turn_min);
+}
+
+int			ft_min(int a, int b)
+{
+	return (a < b ? a : b);
 }

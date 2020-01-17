@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 16:10:10 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 19:37:38 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,6 @@
 
 # include "../libft/libft.h"
 # include <stdio.h>
-# define MIN(x, y) ((x < y ? x : y))
 # define SIZE_TAB  64
 
 enum					e_linkstate
@@ -86,6 +85,8 @@ typedef struct			s_info
 	struct s_room		*end;
 	struct s_path		*paths[SIZE_TAB];
 	struct s_link		**link_tab;
+	char				*file;
+	int					min_link;
 	int					res;
 	int					*tab_id_end;
 	int					**matrice;
@@ -154,6 +155,7 @@ void					ft_oneshot(t_info *info);
  ** UTILITAIRES
 */
 
+int						ft_min(int a, int b);
 t_path					*get_path_by_id(t_info *info, int id_path);
 t_room					*get_room_by_name(char *name, t_room *list);
 t_room					*get_room_by_index(int index, t_room *list);

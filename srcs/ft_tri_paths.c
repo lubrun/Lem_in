@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 18:49:18 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 21:43:50 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@ void	ft_swap_list(t_path *lst1, t_path *lst2, t_info *info)
 	lst1->tab_bin_room = lst2->tab_bin_room;
 	lst2->tab_index_room = tab_index_room;
 	lst2->tab_bin_room = tab_bin_room;
+	len = info->lock;
 	len = lst1->length;
 	rooms = lst1->rooms;
 	lst1->length = lst2->length;
@@ -97,9 +98,9 @@ void	ft_tri_by_id(t_path **path, t_info *info)
 	id = 0;
 	tmp = path;
 	tmp2 = path;
-	while (id < MIN(SIZE_TAB, info->start->link_count))
+	while (id < info->min_link)
 	{
-		while (id2 < MIN(SIZE_TAB, info->start->link_count))
+		while (id2 < info->min_link)
 		{
 			if (tmp[id] && tmp[id2] && tmp[id]->length > tmp2[id2]->length)
 				ft_swap_tablist(tmp[id], tmp2[id2], info);
@@ -122,7 +123,7 @@ void	ft_tri_paths(t_info *info)
 		index_path++;
 	}
 	index_path = 0;
-	while (index_path < MIN(SIZE_TAB, info->start->link_count))
+	while (index_path < info->min_link)
 	{
 		info->paths[index_path] = ft_tri_by_next(info->paths[index_path], info);
 		index_path++;

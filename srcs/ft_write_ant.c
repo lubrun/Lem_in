@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 18:04:48 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 18:50:43 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 20:52:26 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,8 @@
 
 void		ft_print_ant(t_info *info, t_room *room)
 {
-	int a_virer;
+	int	a_virer;
+
 	a_virer = info->lock;
 	if (room->ant_id > 0)
 	{
@@ -50,7 +51,7 @@ void		ft_parcour_res(t_info *info, t_path *path, int id_ant)
 			ft_print_ant(info, path->rooms[index + 1]);
 		}
 		index--;
-	}		
+	}
 	path->rooms[1]->ant_id = id_ant;
 	ft_print_ant(info, path->rooms[1]);
 }
@@ -90,17 +91,26 @@ void		ft_write_ant(t_info *info, t_group *group)
 	int	diff;
 
 	total = 0;
-	index = 0;
-	while (group->paths[index] && index < group->nb_paths)
+	index = -1;
+	while (group->paths[++index] && index < group->nb_paths)
 	{
 		group->paths[index]->ant = group->turn_min -
 			group->paths[index]->length;
 		total += group->paths[index]->ant;
-		index++;
 	}
 	diff = total - info->ant_count;
 	group->paths[0]->ant -= diff;
 	ft_dispatch(info, group);
+	ft_putstr("\nTour attendu : ");
+	ft_putnbr(info->res);
+	ft_putstr("\nTour total : ");
+	ft_putnbr(info->lock);
+	if (info->res > 0)
+		ft_putstr("\nDiff : + ");
+	if (info->res > 0)
+		ft_putnbr(info->res - info->lock);
+	ft_putchar('\n');
+	ft_free_all(info);
 }
 
 void		ft_oneshot(t_info *info)
@@ -118,6 +128,6 @@ void		ft_oneshot(t_info *info)
 		id_ant++;
 		info->ant_count--;
 	}
-		ft_putchar('\n');
-		ft_free_all(info);
+	ft_putchar('\n');
+	ft_free_all(info);
 }

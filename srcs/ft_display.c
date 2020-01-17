@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 20:03:40 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 12:44:44 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 21:35:22 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ void		ft_display_pat(t_info *info)
 
 	index_path = 0;
 	index = 0;
-	while (index_path < MIN(SIZE_TAB, info->start->link_count))
+	while (index_path < ft_min(SIZE_TAB, info->start->link_count))
 	{
 		path = info->paths[index_path];
 		printf("----------FOR ID [%d]-----------\n-\n", index_path);
@@ -78,7 +78,7 @@ void		ft_display_path(t_info *info)
 	int	index_path = 0;
 	t_path *path;
 	int index = 0;
-	while(index_path < MIN(SIZE_TAB, info->start->link_count))
+	while(index_path < ft_min(SIZE_TAB, info->start->link_count))
 	{
 		path = info->paths[index_path];
 		printf("----------TEST FOR ID [%d]-----------\n-\n", index_path);
@@ -89,7 +89,7 @@ void		ft_display_path(t_info *info)
 				printf("PATH == IDP[%d]IDE[%d] IDS[%d] NAME[%s] LEN{%d} SAVED[%d]\n", path->id_path, path->id_end,  path->id_from_start, path->rooms[index]->name, path->length, path->save);
 				index++;
 			}
-			printf("TEST LastRoom[%s][%d]\n", path->rooms[path->length]->name, path->rooms[path->length]->index);
+			printf("TEST LastRoom[%s][%d]\n", path->rooms[path->length]->name, info->tab_id_end[path->rooms[path->length]->index]);
 
 			index = 0;
 			printf("-\n");
@@ -98,7 +98,7 @@ void		ft_display_path(t_info *info)
 		index_path++;
 	}
 	index_path = 0;
-	while (index_path < MIN(SIZE_TAB, info->start->link_count))
+	while (index_path < ft_min(SIZE_TAB, info->start->link_count))
 	{
 		path = info->paths[index_path];
 		if (path)

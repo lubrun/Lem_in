@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/01 18:21:52 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 18:59:12 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 20:27:29 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,7 +108,7 @@ int		add_room(t_room **aroom, char *line, int *spec, t_info *info)
 	{
 		if (!(*aroom = new_room(ft_strsplit(line, ' '), spec, info)))
 			return (-1);
-		(*aroom)->index = info->room_count;
+		(*aroom)->index = info->room_count++;
 	}
 	else
 	{
@@ -116,9 +116,8 @@ int		add_room(t_room **aroom, char *line, int *spec, t_info *info)
 			return (-1);
 		else
 			add_room_back(aroom, room);
-		room->index = info->room_count;
+		room->index = info->room_count++;
 	}
-//	ft_putendl(line);
-	info->room_count++;
+	info->file = ft_strjoin(info->file, line, 1);
 	return (1);
 }

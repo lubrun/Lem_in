@@ -6,14 +6,14 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 17:35:20 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 18:03:40 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 20:25:19 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void		ft_swap_group(t_path *lst1, t_path *lst2, t_info	 *info)
+void		ft_swap_group(t_path *lst1, t_path *lst2, t_info *info)
 {
 	int		len;
 	t_room	**rooms;
@@ -77,8 +77,10 @@ void		ft_tri_group(t_info *info)
 		while (info->group->paths[index2] && index2 < info->group->nb_paths)
 		{
 			if (info->group->paths[index] && info->group->paths[index2] &&
-					info->group->paths[index]->length > info->group->paths[index2]->length)
-				ft_swap_tabgroup(info->group->paths[index], info->group->paths[index2], info);
+					info->group->paths[index]->length >
+					info->group->paths[index2]->length)
+				ft_swap_tabgroup(info->group->paths[index],
+						info->group->paths[index2], info);
 			index2++;
 		}
 		index++;

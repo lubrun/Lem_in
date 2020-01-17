@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 18:48:56 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 20:24:16 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ int						ft_all_path(t_info *info, int end_index,
 	t_link	link;
 
 	path = NULL;
-	while (id_from_start < MIN(SIZE_TAB, info->start->link_count))
+	while (id_from_start < info->min_link)
 	{
 		while (index < info->room_count)
 		{
@@ -130,8 +130,7 @@ unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
 			if (link.from == info->end)
 				return (NULL);
 			info->link_tab[index][start].id[id] = 1;
-			ft_prepare_set_id(info, link, tab, id);
-			++id;
+			ft_prepare_set_id(info, link, tab, id++);
 		}
 		index++;
 	}
