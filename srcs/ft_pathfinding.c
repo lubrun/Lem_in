@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 17:21:17 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 16:25:35 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,7 @@ int						ft_all_path(t_info *info, int end_index,
 			{
 				path = ft_opti_new_path(info, path, id_from_start,
 						link.id[id_from_start] + 2);
+				info->path_count++;
 				ft_prepare_path(info, index, link, path);
 			}
 			index++;

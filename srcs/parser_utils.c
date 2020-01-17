@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/12 16:18:12 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 19:07:31 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 17:11:50 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,8 +65,8 @@ int			add_link(char *last_line, t_info *info)
 	t_room	*from;
 	t_room	*to;
 
-	if (!create_link_tab(info) ||
-		set_lastline_link(last_line, info) == 0)
+	if (!info->rooms || !create_link_tab(info) ||
+			set_lastline_link(last_line, info) == 0)
 		return (-1);
 	while (get_next_line(0, &line) > 0)
 	{

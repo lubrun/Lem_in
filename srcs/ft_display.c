@@ -6,14 +6,14 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 20:03:40 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/15 20:10:03 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 12:44:44 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	ft_display_tab_id_end(int *tab, t_info *info)
+void		ft_display_tab_id_end(int *tab, t_info *info)
 {
 	int index;
 
@@ -27,7 +27,7 @@ void	ft_display_tab_id_end(int *tab, t_info *info)
 	}
 }
 
-void					ft_display_info(t_info *info)
+void		ft_display_info(t_info *info)
 {
 	int		index;
 	int		index2;
@@ -46,7 +46,7 @@ void					ft_display_info(t_info *info)
 	}
 }
 
-void					ft_display_pat(t_info *info)
+void		ft_display_pat(t_info *info)
 {
 	int		index_path;
 	t_path	*path;
@@ -73,7 +73,7 @@ void					ft_display_pat(t_info *info)
 	}
 }
 
-void	ft_display_path(t_info *info)
+void		ft_display_path(t_info *info)
 {
 	int	index_path = 0;
 	t_path *path;

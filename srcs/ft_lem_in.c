@@ -6,12 +6,79 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 19:07:22 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 16:25:54 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+/*
+void		send_all(t_info *info)
+{
+	int	count;
+
+	count = 0;
+	//printf("SEND ALL %d\n", info->ant_count);
+	while (info->ant < info->ant_count)
+		printf("L%d-%s ", ++info->ant, info->end->name);
+}
+
+void		move_ant(t_info *info)
+{
+	t_room	*room;
+	t_path	*path;
+	int		room_i;
+	int		path_i;
+
+	path_i = 0;
+//	printf("MOVE START\n");
+	while (info->paths[path_i])
+	{
+		path = info->paths[path_i];
+		room_i = path->length - 2;
+		while (room_i >= 0)
+		{
+			room = path->rooms[room_i];
+//			printf(" ROOM TESTED [%s] (%d) ", room->name, room->ant_id);
+			if (room->ant_id != -1)
+			{
+				if (room_i == path->length - 2)
+					printf("L%d-%s ", room->ant_id, info->end->name);
+				else
+					printf("L%d-%s ", room->ant_id, path->rooms[room_i + 1]->name);
+				path->rooms[room_i + 1]->ant_id = room->ant_id;
+				room->ant_id = -1;
+			}
+			room_i--;
+		}
+		path_i++;
+	}
+}
+
+int			ant_remains(t_info *info)
+{
+	t_room	*room;
+	t_path	*path;
+	int		room_i;
+	int		path_i;
+
+	path_i = 0;
+	while (path_i < info->path_count)
+	{
+		path = info->paths[path_i];
+		room_i = path->length - 2;
+		while (path->rooms[room_i] && room_i >= 0)
+		{
+			room = path->rooms[room_i];
+			if (room->ant_id != -1)
+				return (1);
+			room_i--;
+		}
+		path_i++;
+	}
+	return (0);
+}
+*/
 
 void		send_all(t_info *info)
 {
@@ -110,11 +177,22 @@ int			main(void)
 	if (!info.end)
 		printf("BUG\n");
 	printf("PARSE OK\n\n");
+	if (info.link_tab[info.start->index][info.end->index].state > NONE)
+	{
+		ft_oneshot(&info);
+		return (0);
+	}
 	if (!(ft_pathfind(&info, info.start->index,
 					MIN(SIZE_TAB, info.start->link_count))))
 	{
 		printf("CHECK START NEIGHOUR\n");
 	}
+	if (info.path_count <= 0)
+	{
+		printf("NO PATH\n");
+		return (0);
+	}
+
 	printf("TRI START\n");
 	ft_tri_paths(&info);
 	printf("MATRICE\n");
@@ -123,7 +201,7 @@ int			main(void)
 	printf("ALGO START\n");
 	ft_algo(&info);
 	ft_tri_group(&info);
-	ft_write_ant(&info);
+	ft_write_ant(&info, info.group);
 	ft_free_all(&info);
 	return (0);
 }

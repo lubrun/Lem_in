@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 18:06:54 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/17 16:10:10 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -146,7 +146,8 @@ int						ft_test_path(t_path *path, t_group *group,
 		t_info *info);
 void					ft_turn_min(int ant, t_group *group);
 void					ft_tri_group(t_info *info);
-void					ft_write_ant(t_info *info);
+void					ft_write_ant(t_info *info, t_group *group);
+void					ft_oneshot(t_info *info);
 
 
 /*
