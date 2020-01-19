@@ -6,12 +6,26 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 18:53:59 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 19:03:04 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 16:16:09 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+
+int			ft_malloc_pathfind(t_info *info, int **tab)
+{
+	int index;
+
+	index = 0;
+	if (!(info->tab_id_end = (malloc(sizeof(int) * (info->room_count + 1)))))
+		return (0);
+	if (!(*tab = (malloc(sizeof(int) * 2))))
+		return (0);
+	while (index++ < info->room_count)
+		info->tab_id_end[index] = -1;
+	return (1);
+}
 
 int			ft_groupcpy(t_group **tmp, t_group *group)
 {

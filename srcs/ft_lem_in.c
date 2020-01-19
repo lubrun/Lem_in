@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/07 09:59:49 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 20:20:15 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 17:03:02 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,8 +29,8 @@ int			main(void)
 		ft_oneshot(&info);
 		return (0);
 	}
-	ft_pathfind(&info, info.start->index, info.min_link);
-	if (info.path_count <= 0)
+	if (!ft_pathfind(&info, info.start->index, info.min_link) ||
+			info.path_count <= 0)
 	{
 		ft_free_all(&info);
 		ft_putendl("NO PATH");

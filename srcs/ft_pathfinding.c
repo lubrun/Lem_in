@@ -6,14 +6,14 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 11:47:17 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 20:24:16 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 17:03:20 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int						ft_build_path(t_info *info, int index_start,
+int			ft_build_path(t_info *info, int index_start,
 		t_path *path, int heat)
 {
 	int		index2;
@@ -41,7 +41,7 @@ int						ft_build_path(t_info *info, int index_start,
 	return (1);
 }
 
-void					ft_prepare_path(t_info *info, int index,
+void		ft_prepare_path(t_info *info, int index,
 		t_link link, t_path *path)
 {
 	int			id_from_start;
@@ -62,9 +62,13 @@ void					ft_prepare_path(t_info *info, int index,
 	path->tab_index_room[heat - 1] = 0;
 	path->rooms[heat] = NULL;
 	info->max_path_count = id_path;
+	if (info->tab_id_end[path->rooms[path->length]->index] == -1
+			|| info->tab_id_end[path->rooms[path->length]->index] >
+			path->length)
+		info->tab_id_end[path->rooms[path->length]->index] = path->length;
 }
 
-t_path					*ft_opti_new_path(t_info *info, t_path *path,
+t_path		*ft_opti_new_path(t_info *info, t_path *path,
 		int id_from_start, int heat)
 {
 	static int	id;
@@ -83,7 +87,7 @@ t_path					*ft_opti_new_path(t_info *info, t_path *path,
 	return (path);
 }
 
-int						ft_all_path(t_info *info, int end_index,
+int			ft_all_path(t_info *info, int end_index,
 		int id_from_start, int index)
 {
 	t_path	*path;
@@ -111,31 +115,31 @@ int						ft_all_path(t_info *info, int end_index,
 	return (1);
 }
 
-unsigned long long int	**ft_pathfind(t_info *info, int start, int max_id_size)
+int			ft_pathfind(t_info *info, int start, int max_id_size)
 {
 	t_link	link;
 	int		index;
 	int		id;
 	int		*tab;
 
-	if (!(tab = ft_memalloc(sizeof(int) * 2)))
+	tab = NULL;
+	if (!ft_malloc_pathfind(info, &tab))
 		return (0);
 	id = 0;
 	index = 0;
-	while (index < info->room_count && id < max_id_size)
+	while (index++ < info->room_count && id < max_id_size)
 	{
 		link = info->link_tab[start][index];
 		if (link.state > NONE && count_link(info, link.to) > 1)
 		{
 			if (link.from == info->end)
-				return (NULL);
+				return (0);
 			info->link_tab[index][start].id[id] = 1;
 			ft_prepare_set_id(info, link, tab, id++);
 		}
-		index++;
 	}
 	free(tab);
 	ft_all_path(info, info->end->index, 0, 0);
 	ft_tri_paths(info);
-	return (NULL);
+	return (1);
 }

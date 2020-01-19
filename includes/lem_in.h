@@ -6,7 +6,7 @@
 /*   By: lubrun <lubrun@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/16 10:51:08 by lubrun       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 19:37:38 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 17:05:11 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,6 @@
 # define LEM_IN_H
 
 # include "../libft/libft.h"
-# include <stdio.h>
 # define SIZE_TAB  64
 
 enum					e_linkstate
@@ -116,8 +115,8 @@ void					ft_prepare_set_id(t_info *info, t_link link,
  ** PATHFINDING
 */
 
-unsigned long long int	**ft_pathfind(t_info *info,
-		int start, int max_id_size);
+int						ft_pathfind(t_info *info, int start,
+		int max_id_size);
 
 /*
  ** TRI PATH
@@ -150,7 +149,6 @@ void					ft_tri_group(t_info *info);
 void					ft_write_ant(t_info *info, t_group *group);
 void					ft_oneshot(t_info *info);
 
-
 /*
  ** UTILITAIRES
 */
@@ -180,6 +178,7 @@ int						add_room(t_room **aroom, char *line,
 						int *spec, t_info *info);
 int						get_room_count(t_room *room);
 int						add_room_into_path(t_path *apath, t_room **aroom);
+int						ft_malloc_pathfind(t_info *info, int **tab);
 
 /*
  ** FREE
@@ -191,7 +190,7 @@ void					ft_free_info(t_info *info);
 void					ft_free_all(t_info *info);
 
 /*
- ** FREE
+ ** DISPLAY
 */
 
 void					ft_display_tmp(t_group *group);

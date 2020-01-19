@@ -6,7 +6,7 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 15:47:37 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 21:43:50 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 16:05:30 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -115,13 +115,6 @@ void	ft_tri_paths(t_info *info)
 {
 	int index_path;
 
-	index_path = 0;
-	info->tab_id_end = (malloc(sizeof(int) * (info->room_count + 1)));
-	while (index_path < info->room_count)
-	{
-		info->tab_id_end[index_path] = -1;
-		index_path++;
-	}
 	index_path = 0;
 	while (index_path < info->min_link)
 	{

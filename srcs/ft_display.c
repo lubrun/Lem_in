@@ -6,12 +6,13 @@
 /*   By: qbarrier <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/15 20:03:40 by qbarrier     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/17 21:35:22 by qbarrier    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 16:55:41 by qbarrier    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+#include <stdio.h>
 
 void		ft_display_tab_id_end(int *tab, t_info *info)
 {
